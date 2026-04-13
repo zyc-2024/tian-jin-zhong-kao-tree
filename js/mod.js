@@ -1,14 +1,14 @@
 let modInfo = {
 	name: "天津中考树",
 	id: "Ignotus",
-	author: "??? as a student from Tianjin Zili High School,Class3,Grade9",
+	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 0,  // In hours
+	initialStartPoints: new OmegaNum (10), // Used for hard resets and new players
+	offlineLimit: 1.7e308,  // In hours
 }
 
 // Set your version in num and name
@@ -17,20 +17,46 @@ let VERSION = {
 	name: "新年特辑",
 }
 
-let changelog = `54m55q6K5oiQ5bCxMTLojrflvpfmlrnms5XvvJrlsIbkvaDnmoTmuLjmiI/lhoXlkI3lrZfmlLnmiJDkvZzogIXnmoTlkI3lrZfvvIzlubbkuJTlrozmiJDkuIDmrKHogIPor5XvvIHkuI7mraTlkIzml7bvvIznpZ7lpYfnmoTkuovmg4XlsIbkvJrlj5HnlJ/lk6Y=
- 
- 
-5Lit6ICD5qCRdjAuMC41LjIwMjMwMTAxCj0tPS095L2c6ICF5Zui6ZifPS09LT0K5L2c6ICFIzEKSWdub3R1c++8iOebruWJjeacrHFx6LSm5Y+35Y+35Li777yJCuWIq+WQje+8mkZhZGluZyBIdWFubWFv44CBVEdsNGFXRnZhR0Z144CB5oCA54m56L275piT55qE5Y675LiW5LqGLi4uLi4uCui6q+mrmO+8mjEwMTAxMDAwY20K5L2T6YeN77yaMTAxMDExa2cK5bm06b6E77yaMTExMeWygQrmgKfliKvvvJrkuI5IaWthcmnnm7jlj43vvIjkuI3opoHlho3otKjnlpHkuobvvIHvvIHvvIEK6Lqr5Lu977ya5aSp5rSl5biC6Ieq56uL5Lit5a2mOeW5tOe6pzEuOGUzMDjnj63lrabnlJ/vvIznj63lhoXljoblj7LmnIDpq5jmjpLlkI0xLzUw77yM5pyA5paw5o6S5ZCNMzgvNTDvvIzlubTnuqfljoblj7LmnIDpq5jmjpLlkI02Lzc2Me+8jOacgOaWsOaOkuWQjTU3NC83NjEK6L+Y5piv54mp55CG44CB5YyW5a2m6K++5Luj6KGo77yM5Ymv5a2m5Lmg5aeU5ZGY5LiA5p6afgrmmK/kuK3ogIPmoJHnmoTpobnnm67kuLvlgqwK5L2c6ICFIzIKYmlsaWJpbGlf6JCM5a2Q5Y+277yI6Z2e5Y+35Li7CuWIq+WQje+8muS4jeefpemBk+WRoi4uLi4K6Lqr6auY77yaMTAxMDEwMTFjbQrkvZPph43vvJoxMTAxMTFrZwrlubTpvoTvvJoxMDAwMOWygQrmgKfliKvvvJrkuI5UYWlyaXRzdeebuOWQjCjnnJ/nmoTlk6bvvIzop4bpopHph4zpnaLpnLLov4flo7Dpn7MpCui6q+S7ve+8mua1meaxn+S6uu+8jDnlubTnuqflrabnlJ/vvIzliankuIvnmoTkuI3nn6XpgZPkuoYuLi4K5Lyw6K6h5oiQ57up5LiN6ZSZ5ZGifgrkuK3ogIPmoJHpobnnm67lkIjkvZzkurrvvIxtY+W/oOivmueOqeWutiYm55qu6IKk44CB5Zyw5Zu+6K6+6K6h77yB5Li65Lit6ICD5qCR5o+Q5L6b6L+H5b6I5aSa5ri45oiP5py65Yi25oSP6KeB77yI5YyF5ous5a6e6KOF55qE5ZKM5bCG6KaB5a6e6KOF55qECj0tPS09RW5kPS09LT0K56Wd5aSn5a625paw5bm05b+r5LmQ5ZOm77yM5Y+m5aSW5pyf5b6F5Lit6ICD5qCR5LiD5Liq6ZqQ6JeP5oiQ5bCx5YWo6YOo6KKr56C06Kej55qE6YKj5LiA5Yi777yBCgoK`
+let changelog = `
+特殊成就12获得方法：将你的游戏内名字改成作者的名字，并且完成一次考试！与此同时，神奇的事情将会发生哦
+<br><br>
+中考树v0.0.5.20230101<br>
+=-=-=作者团队=-=-=<br>
+作者#1<br>
+Ignotus（目前本qq账号号主）<br>
+别名：Fading Huanmao、TGl4aWFvaGFu、怀特轻易的去世了......<br>
+身高：10101000cm<br>
+体重：101011kg<br>
+年龄：1111岁<br>
+性别：与Hikari相反（不要再质疑了！！！<br>
+身份：天津市自立中学9年级1.8e308班学生，班内历史最高排名1/50，最新排名38/50，年级历史最高排名6/761，最新排名574/761<br>
+还是物理、化学课代表，副学习委员一枚~<br>
+是中考树的项目主催<br><br>
+作者#2<br>
+bilibili_萌子叶（非号主<br>
+别名：不知道呢....<br>
+身高：10101011cm<br>
+体重：110111kg<br>
+年龄：10000岁<br>
+性别：与Tairitsu相同(真的哦，视频里面露过声音)<br>
+身份：浙江人，9年级学生，剩下的不知道了...<br>
+估计成绩不错呢~<br>
+中考树项目合作人，mc忠诚玩家&&皮肤、地图设计！为中考树提供过很多游戏机制意见（包括实装的和将要实装的<br><br>
+=-=-=End=-=-=<br>
+祝大家新年快乐哦，另外期待中考树七个隐藏成就全部被破解的那一刻！
+
+
+`
 		
 
-let winText = `恭喜你！你取得了该版本的毕业成绩！新年快乐！<br>作者到达该版本毕业成绩的时间为2222年，你的成绩超越作者了吗？<br>作者：??? From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你取得了该版本的毕业成绩！新年快乐！<br>作者到达该版本毕业成绩的时间为2222年，你的成绩超越作者了吗？<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
 var doNotCallTheseFunctionsEveryTick = ["blowUpEverything"]
 
 function getStartPoints(){
-    return new Decimal(modInfo.initialStartPoints)
+    return new OmegaNum(modInfo.initialStartPoints)
 }
 
 // Determines if it should show points/sec
@@ -41,9 +67,9 @@ function canGenPoints(){
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
-		return new Decimal(0)
+		return new OmegaNum(0)
 
-	let gain = new Decimal(10)
+	let gain = new OmegaNum(10)
 	if(hasUpgrade("C",12)) gain = gain.mul(upgradeEffect("C",12))
 	if(hasUpgrade("C",13)) gain = gain.mul(upgradeEffect("C",13))
 	if(hasUpgrade("C",15)) gain = gain.mul(upgradeEffect("C",15))
@@ -54,7 +80,7 @@ function getPointGen() {
 	if(player.Eng.totalpp.gte(1)) gain = gain.mul(tmp.Eng.ppEffect)
 	if(player.C.total3.gte(1)) gain = gain.mul(tmp.C.effect3)
 	if(player.C.total4.gte(1)) gain = gain.mul(tmp.C.effect4)
-	if(player.Eng.points.gte(1)) gain = gain.mul(new Decimal(10).pow(player.Eng.points).min(1e10))
+	if(player.Eng.points.gte(1)) gain = gain.mul(new OmegaNum(10).pow(player.Eng.points).min(1e10))
 if(hasUpgrade("Eng",17)) gain = gain.mul(upgradeEffect("Eng",17))
 if(hasUpgrade("Eng",27)) gain = gain.mul(upgradeEffect("Eng",27))
 if(hasUpgrade("Eng",37)) gain = gain.mul(upgradeEffect("Eng",37))
@@ -75,7 +101,7 @@ function addedPlayerData() { return {
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.E.bestPoints.gte(200)&&player.Eng.power.gte("1e1444")&&new Decimal(player.Eng.upgrades.length).gte(56)&&player.C.points.gte("1e60000")
+	return player.E.bestPoints.gte(200)&&player.Eng.power.gte("1e1444")&&new OmegaNum(player.Eng.upgrades.length).gte(56)&&player.C.points.gte("1e60000")
 }
 
 function calculateDay() {
@@ -114,43 +140,43 @@ var displayThings = [
 	"当前残局:中考最佳分数达到119分",
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",
 	function(){return formatDay()},
-	function() {if((player.points.gte(1444))&&(player.points.lt(8000))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1444"))) + "个葡萄糖分子。"},
-	    function() {if((player.points.gte("8000"))&&(player.points.lt("64000"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8000"))) + "个碳-60分子。"},
-	    function() {if((player.points.gte("64000"))&&(player.points.lt("1e9"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("64000"))) + "个DNA。"},
-	    function() {if((player.points.gte("1e9"))&&(player.points.lt("8e9"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1e9"))) + "个乙肝病毒。"},
-	    function() {if((player.points.gte("8e9"))&&(player.points.lt("1.25e12"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8e9"))) + "个新冠病毒。"},
-	    function() {if((player.points.gte("1.25e12"))&&(player.points.lt("1.72e15"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.25e12"))) + "个大肠杆菌。"},
-	    function() {if((player.points.gte("1.72e15"))&&(player.points.lt("3.5e20"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.72e15"))) + "个红细胞。"},
-	    function() {if((player.points.gte("3.5e20"))&&(player.points.lt("1e21"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("3.5e20"))) + "个卵细胞。"},
-	    function() {if((player.points.gte("1e21"))&&(player.points.lt("1e24"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1e21"))) + "个盐粒。"},
-	    function() {if((player.points.gte("1e24"))&&(player.points.lt("1.2e26"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1e24"))) + "个米粒。"},
-	    function() {if((player.points.gte("1.2e26"))&&(player.points.lt("1e30"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.2e26"))) + "个1元硬币。"},
-	    function() {if((player.points.gte("1e30"))&&(player.points.lt("1.25e35"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1e30"))) + "个篮球。"},
-	    function() {if((player.points.gte("1.25e35"))&&(player.points.lt("1e39"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.25e35"))) + "个作者。(按照作者体重43kg,密度1000kg/m^3计算)"},
-	    function() {if((player.points.gte("1e39"))&&(player.points.lt("8e42"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1e39"))) + "架标准航天飞机。"},
-	    function() {if((player.points.gte("8e42"))&&(player.points.lt("1.6e47"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8e42"))) + "个埃菲尔铁塔。"},
-	    function() {if((player.points.gte("1.6e47"))&&(player.points.lt("1.28e48"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.6e47"))) + "个珠穆朗玛峰。"},
-	    function() {if((player.points.gte("1.28e48"))&&(player.points.lt("1.28e51"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.28e48"))) + "个标准中子星。"},
-	    function() {if((player.points.gte("1.28e51"))&&(player.points.lt("1.16e53"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.28e51"))) + "个土卫九。"},
-	    function() {if((player.points.gte("1.16e53"))&&(player.points.lt("2.19e54"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.16e53"))) + "个谷神星（最大的小行星）。"},
-	    function() {if((player.points.gte("2.19e54"))&&(player.points.lt("6.64e54"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("2.19e54"))) + "个冥王星（矮行星）。"},
-	    function() {if((player.points.gte("6.64e54"))&&(player.points.lt("3.5e56"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("6.64e54"))) + "个月球。"},
-	    function() {if((player.points.gte("3.5e56"))&&(player.points.lt("4.93e59"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("3.5e56"))) + "个地球。"},
-	    function() {if((player.points.gte("4.93e59"))&&(player.points.lt("1.61e60"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("4.93e59"))) + "个木星。"},
-	    function() {if((player.points.gte("1.61e60"))&&(player.points.lt("5.52e62"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.61e60"))) + "个比邻星。"},
-	    function() {if((player.points.gte("1.61e60"))&&(player.points.lt("2.71e63"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("5.52e62"))) + "个太阳。"},
-	    function() {if((player.points.gte("2.71e63"))&&(player.points.lt("9.36e66"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("2.71e63"))) + "个天狼星。"},
-	    function() {if((player.points.gte("9.36e66"))&&(player.points.lt("1.02e70"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("9.36e66"))) + "个牧夫座alpha。"},
-	    function() {if((player.points.gte("1.02e70"))&&(player.points.lt("8.51e71"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.02e70"))) + "个海山二A。"},
-	    function() {if((player.points.gte("8.51e71"))&&(player.points.lt("1.5e78"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8.51e71"))) + "个猎户座alpha。"},
-	    function() {if((player.points.gte("1.5e78"))&&(player.points.lt("2.6e84"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.5e78"))) + "个超大质量黑洞。"},
-	    function() {if((player.points.gte("2.6e84"))&&(player.points.lt("8.77e86"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("2.6e84"))) + "个奥尔特云。"},
-	    function() {if((player.points.gte("8.77e86"))&&(player.points.lt("8.77e89"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8.77e86"))) + "个猎户座悬臂。"},
-	    function() {if((player.points.gte("8.77e89"))&&(player.points.lt("6.49e94"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("8.77e89"))) + "个银河系。"},
-	    function() {if((player.points.gte("6.49e94"))&&(player.points.lt("1.75e100"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("6.49e94"))) + "个IC 1101（已知最大星系）。"},
-	    function() {if((player.points.gte("1.75e100"))&&(player.points.lt("3.38e103"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.75e100"))) + "个本超星系团。"},
-	    function() {if((player.points.gte("3.38e103"))&&(player.points.lt("1.05e109"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("3.38e103"))) + "个史隆长城。"},
-	    function() {if((player.points.gte("1.05e109"))&&(player.points.add(1).log10().lt(120))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new Decimal("1.05e109"))) + "个可观测宇宙。"},
+	function() {if((player.points.gte(1444))&&(player.points.lt(8000))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1444"))) + "个葡萄糖分子。"},
+	    function() {if((player.points.gte("8000"))&&(player.points.lt("64000"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8000"))) + "个碳-60分子。"},
+	    function() {if((player.points.gte("64000"))&&(player.points.lt("1e9"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("64000"))) + "个DNA。"},
+	    function() {if((player.points.gte("1e9"))&&(player.points.lt("8e9"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1e9"))) + "个乙肝病毒。"},
+	    function() {if((player.points.gte("8e9"))&&(player.points.lt("1.25e12"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8e9"))) + "个新冠病毒。"},
+	    function() {if((player.points.gte("1.25e12"))&&(player.points.lt("1.72e15"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.25e12"))) + "个大肠杆菌。"},
+	    function() {if((player.points.gte("1.72e15"))&&(player.points.lt("3.5e20"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.72e15"))) + "个红细胞。"},
+	    function() {if((player.points.gte("3.5e20"))&&(player.points.lt("1e21"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("3.5e20"))) + "个卵细胞。"},
+	    function() {if((player.points.gte("1e21"))&&(player.points.lt("1e24"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1e21"))) + "个盐粒。"},
+	    function() {if((player.points.gte("1e24"))&&(player.points.lt("1.2e26"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1e24"))) + "个米粒。"},
+	    function() {if((player.points.gte("1.2e26"))&&(player.points.lt("1e30"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.2e26"))) + "个1元硬币。"},
+	    function() {if((player.points.gte("1e30"))&&(player.points.lt("1.25e35"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1e30"))) + "个篮球。"},
+	    function() {if((player.points.gte("1.25e35"))&&(player.points.lt("1e39"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.25e35"))) + "个作者。(按照作者体重43kg,密度1000kg/m^3计算)"},
+	    function() {if((player.points.gte("1e39"))&&(player.points.lt("8e42"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1e39"))) + "架标准航天飞机。"},
+	    function() {if((player.points.gte("8e42"))&&(player.points.lt("1.6e47"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8e42"))) + "个埃菲尔铁塔。"},
+	    function() {if((player.points.gte("1.6e47"))&&(player.points.lt("1.28e48"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.6e47"))) + "个珠穆朗玛峰。"},
+	    function() {if((player.points.gte("1.28e48"))&&(player.points.lt("1.28e51"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.28e48"))) + "个标准中子星。"},
+	    function() {if((player.points.gte("1.28e51"))&&(player.points.lt("1.16e53"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.28e51"))) + "个土卫九。"},
+	    function() {if((player.points.gte("1.16e53"))&&(player.points.lt("2.19e54"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.16e53"))) + "个谷神星（最大的小行星）。"},
+	    function() {if((player.points.gte("2.19e54"))&&(player.points.lt("6.64e54"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("2.19e54"))) + "个冥王星（矮行星）。"},
+	    function() {if((player.points.gte("6.64e54"))&&(player.points.lt("3.5e56"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("6.64e54"))) + "个月球。"},
+	    function() {if((player.points.gte("3.5e56"))&&(player.points.lt("4.93e59"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("3.5e56"))) + "个地球。"},
+	    function() {if((player.points.gte("4.93e59"))&&(player.points.lt("1.61e60"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("4.93e59"))) + "个木星。"},
+	    function() {if((player.points.gte("1.61e60"))&&(player.points.lt("5.52e62"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.61e60"))) + "个比邻星。"},
+	    function() {if((player.points.gte("1.61e60"))&&(player.points.lt("2.71e63"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("5.52e62"))) + "个太阳。"},
+	    function() {if((player.points.gte("2.71e63"))&&(player.points.lt("9.36e66"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("2.71e63"))) + "个天狼星。"},
+	    function() {if((player.points.gte("9.36e66"))&&(player.points.lt("1.02e70"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("9.36e66"))) + "个牧夫座alpha。"},
+	    function() {if((player.points.gte("1.02e70"))&&(player.points.lt("8.51e71"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.02e70"))) + "个海山二A。"},
+	    function() {if((player.points.gte("8.51e71"))&&(player.points.lt("1.5e78"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8.51e71"))) + "个猎户座alpha。"},
+	    function() {if((player.points.gte("1.5e78"))&&(player.points.lt("2.6e84"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.5e78"))) + "个超大质量黑洞。"},
+	    function() {if((player.points.gte("2.6e84"))&&(player.points.lt("8.77e86"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("2.6e84"))) + "个奥尔特云。"},
+	    function() {if((player.points.gte("8.77e86"))&&(player.points.lt("8.77e89"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8.77e86"))) + "个猎户座悬臂。"},
+	    function() {if((player.points.gte("8.77e89"))&&(player.points.lt("6.49e94"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("8.77e89"))) + "个银河系。"},
+	    function() {if((player.points.gte("6.49e94"))&&(player.points.lt("1.75e100"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("6.49e94"))) + "个IC 1101（已知最大星系）。"},
+	    function() {if((player.points.gte("1.75e100"))&&(player.points.lt("3.38e103"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.75e100"))) + "个本超星系团。"},
+	    function() {if((player.points.gte("3.38e103"))&&(player.points.lt("1.05e109"))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("3.38e103"))) + "个史隆长城。"},
+	    function() {if((player.points.gte("1.05e109"))&&(player.points.add(1).log10().lt(120))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1.05e109"))) + "个可观测宇宙。"},
 	    function() {if((player.points.add(1).log10().gte(120))&&(player.points.add(1).log10().lt(240))) return "如果你每秒写2个数字，不用科学计数法写下你的学分数目需要"+format(player.points.add(1).log10().div(2)) + "秒，在此期间，作者已经完成了"+format(player.points.add(1).log10().div(2).div(60).mul(32))+"次仰卧起坐。"},
 	    function() {if((player.points.add(1).log10().gte(240))&&(player.points.add(1).log10().lt(494))) return "如果你每秒写2个数字，不用科学计数法写下你的学分数目需要"+format(player.points.add(1).log10().div(2).div(60)) + "分钟，在此期间，作者已经完成了800m跑的"+format(player.points.add(1).log10().div(2).div(60).div(3.75).mul(100))+"%。"},
 	    function() {if((player.points.add(1).log10().gte(494))&&(player.points.add(1).log10().lt(14400))) return "如果你每秒写2个数字，不用科学计数法写下你的学分数目需要"+format(player.points.add(1).log10().div(2).div(60)) + "分钟。<br>在此期间，物化合场中考已经完成了"+format(player.points.add(1).log10().div(2).div(60).div(120).mul(100))+"%。"},

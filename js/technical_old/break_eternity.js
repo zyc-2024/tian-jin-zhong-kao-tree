@@ -1544,4 +1544,5 @@
     }
     globalScope.OmegaNum = OmegaNum;
   }
+
 })(this);

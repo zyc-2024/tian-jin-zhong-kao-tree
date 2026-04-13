@@ -2,8 +2,8 @@
 function save(force) {
 	NaNcheck(player)
 	if (NaNalert && !force) return
-	localStorage.setItem(modInfo.id, btoa(unescape(encodeURIComponent(JSON.stringify(player)))));
-	localStorage.setItem(modInfo.id+"_options", btoa(unescape(encodeURIComponent(JSON.stringify(options)))));
+	localStorage.setItem(modInfo.id, Base64.encode(unescape(encodeURIComponent(JSON.stringify(player)))));
+	localStorage.setItem(modInfo.id+"_options", Base64.encode(unescape(encodeURIComponent(JSON.stringify(options)))));
 
 }
 function startPlayerBase() {
@@ -135,9 +135,9 @@ function fixSave() {
 
 	for (layer in layers) {
 		if (player[layer].best !== undefined)
-			player[layer].best = new Decimal(player[layer].best);
+			player[layer].best = new OmegaNum(player[layer].best);
 		if (player[layer].total !== undefined)
-			player[layer].total = new Decimal(player[layer].total);
+			player[layer].total = new OmegaNum(player[layer].total);
 
 		if (layers[layer].tabFormat && !Array.isArray(layers[layer].tabFormat)) {
 
@@ -164,12 +164,12 @@ function fixData(defaultData, newData) {
 			else
 				fixData(defaultData[item], newData[item]);
 		}
-		else if (defaultData[item] instanceof Decimal) { // Convert to Decimal
+		else if (defaultData[item] instanceof OmegaNum) { // Convert to OmegaNum
 			if (newData[item] === undefined)
 				newData[item] = defaultData[item];
 
 			else
-				newData[item] = new Decimal(newData[item]);
+				newData[item] = new OmegaNum(newData[item]);
 		}
 		else if ((!!defaultData[item]) && (typeof defaultData[item] === "object")) {
 			if (newData[item] === undefined || (typeof defaultData[item] !== "object"))
@@ -192,7 +192,7 @@ function load() {
 		options = getStartOptions();
 	}
 	else {
-		player = Object.assign(getStartPlayer(), JSON.parse(decodeURIComponent(escape(atob(get)))));
+		player = Object.assign(getStartPlayer(), JSON.parse(decodeURIComponent(escape(Base64.decode(get)))));
 		fixSave();
 		loadOptions();
 	}
@@ -219,7 +219,7 @@ function load() {
 function loadOptions() {
 	let get2 = localStorage.getItem(modInfo.id+"_options");
 	if (get2) 
-		options = Object.assign(getStartOptions(), JSON.parse(decodeURIComponent(escape(atob(get2)))));
+		options = Object.assign(getStartOptions(), JSON.parse(decodeURIComponent(escape(Base64.decode(get2)))));
 	else 
 		options = getStartOptions()
 	if (themes.indexOf(options.theme) < 0) theme = "default"
@@ -233,33 +233,33 @@ function setupModInfo() {
 
 }
 function fixNaNs() {
-	NaNcheck(player);
+	NaNcheck(player,"");
 }
-function NaNcheck(data) {
+function NaNcheck(data, parent = "") {
 	for (item in data) {
-		if (data[item] == null) {
+		if (data[item] == null || data[item] === undefined || item=="best") {
 		}
 		else if (Array.isArray(data[item])) {
-			NaNcheck(data[item]);
+			NaNcheck(data[item],parent+"/"+item);
 		}
-		else if (data[item] !== data[item] || checkDecimalNaN(data[item])) {
+		else if (data[item] !== data[item] || checkOmegaNumNaN(data[item])) {
 			if (!NaNalert) {
 				clearInterval(interval);
 				NaNalert = true;
-				alert("Invalid value found in player, named '" + item + "'. Please let the creator of this mod know! You can refresh the page, and you will be un-NaNed.")
+				alert("Invalid value found in player, named '" + parent+"/"+item + "'. Please let the creator of this mod know! You can refresh the page, and you will be un-NaNed.")
 				return
 			}
 		}
-		else if (data[item] instanceof Decimal) {
+		else if (data[item] instanceof OmegaNum) {
 		}
 		else if ((!!data[item]) && (data[item].constructor === Object)) {
-			NaNcheck(data[item]);
+			NaNcheck(data[item],parent+"/"+item);
 		}
 	}
 }
 function exportSave() {
 	//if (NaNalert) return
-	let str = btoa(JSON.stringify(player));
+	let str = Base64.encode(JSON.stringify(player));
 
 	const el = document.createElement("textarea");
 	el.value = str;
@@ -273,7 +273,7 @@ function importSave(imported = undefined, forced = false) {
 	if (imported === undefined)
 		imported = prompt("Paste your save here");
 	try {
-		tempPlr = Object.assign(getStartPlayer(), JSON.parse(atob(imported)));
+		tempPlr = Object.assign(getStartPlayer(), JSON.parse(Base64.decode(imported)));
 		if (tempPlr.versionType != modInfo.id && !forced && !confirm("This save appears to be for a different mod! Are you sure you want to import?")) // Wrong save (use "Forced" to force it to accept.)
 			return;
 		player = tempPlr;

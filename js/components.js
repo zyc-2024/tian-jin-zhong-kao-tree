@@ -647,7 +647,7 @@ function loadVue() {
 			player,
 			tmp,
 			options,
-			Decimal,
+			OmegaNum,
 			format,
 			formatWhole,
 			formatTime,
