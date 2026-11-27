@@ -10,6 +10,8 @@
 - 搭档拥有 FRAG / STEP / IGCE 三项属性，分别影响残片获取、研究步数和全科知识获取。
 - 新增 SlowlyMilestone 长期里程碑与 Reward 永久强化。
 
+更完整的推断过程与测试方法见 [REBIRTH.md](REBIRTH.md)。
+
 ## 原始引擎
 
 This project is built on The Modding Tree, an incremental game engine based on The Prestige Tree.

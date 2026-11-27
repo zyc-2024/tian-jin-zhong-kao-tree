@@ -149,7 +149,6 @@ function rebirthPartnerUpgradeCost(id) {
 	let level = rebirthPartnerLevel(id);
 	let cost = def.costRate * level + def.costFlat;
 	if (hasUpgrade("P", 14)) cost *= 0.9;
-	if (hasMilestone("P", 7)) cost *= 0.9;
 	return new OmegaNum(Math.max(1, Math.floor(cost)));
 }
 
@@ -184,6 +183,7 @@ function rebirthFragMult() {
 	if (hasUpgrade("P", 15)) mult = mult.mul(2);
 	if (hasMilestone("P", 0)) mult = mult.mul(1.1);
 	if (hasMilestone("P", 5)) mult = mult.mul(2);
+	if (hasMilestone("P", 7)) mult = mult.mul(1.25);
 	if (hasMilestone("P", 8)) mult = mult.mul(3);
 	if (hasMilestone("P", 11)) mult = mult.mul(5);
 	return mult;
@@ -558,7 +558,7 @@ addLayer("P", {
 		4: rebirthSlowMilestone(10000, "研究步数获取 +10%。"),
 		5: rebirthSlowMilestone(25000, "残片获取 x2。"),
 		6: rebirthSlowMilestone(50000, "全科知识获取 x2。"),
-		7: rebirthSlowMilestone(100000, "搭档升级费用 -10%。"),
+		7: rebirthSlowMilestone(100000, "残片获取 +25%。"),
 		8: rebirthSlowMilestone(200000, "残片获取 x3。"),
 		9: rebirthSlowMilestone(350000, "全科知识获取 x3。"),
 		10: rebirthSlowMilestone(500000, "研究步数获取 +25%。"),
