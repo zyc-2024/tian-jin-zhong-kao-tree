@@ -1,6 +1,17 @@
-# 天津中考树：PE Focus
+# 天津中考树：Table
 
-《天津中考树》的 PE Focus 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Table 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.9.0 Table
+
+- 参考 [The-Modding-Table](https://github.com/shenmi124/The-Modding-Table/) 的表格视觉，重做全局 UI 风格。
+- 新增 `css/table-theme.css`：深色平面、等宽字体、直角边框、细滚动条。
+- 树节点改为表格单元格样式，主科与侧栏都使用直角块。
+- 标签页改为表头式按钮，并高亮当前页签。
+- 成就、购买项、升级、里程碑、弹窗和提示框统一为平面表格风格。
+- 保留原有树形结构、配色语义和所有交互逻辑。
+
+更完整的设计说明见 [STYLE.md](STYLE.md)。
 
 ## 术语约定
 
@@ -88,7 +99,7 @@
 - 新增体育成就页签，并修复成就页报错。
 - 物理层曾在此版本加入，已在 v0.8.0 删除；旧 Rebirth 原型仍保留在 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)。
+更完整的截图对照、规则说明和测试方法见 [PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
 
 ## 原始引擎
 
