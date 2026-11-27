@@ -1,6 +1,14 @@
-# 天津中考树：300
+# 天津中考树：Story
 
-《天津中考树》的 300 成就更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Story 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.15.0 Story
+
+- 新增「成长档案」页签，用 12 个章节串联成就剧情。
+- 章节根据成就数量、考试分数、学科训练和综合素质进度逐步解锁。
+- 为全部 300 个成就补充目标提示和完成后的剧情提示。
+- 成就不再只是数字，完成时会对应到成长档案中的章节。
+- 旧存档加载后会根据已有进度自动解锁对应章节。
 
 ## v0.14.0 300
 
@@ -145,7 +153,7 @@
 - 新增体育成就页签，并修复成就页报错。
 - 物理层曾在此版本加入；v0.8.0 曾删除，v0.10.0 已恢复。旧 Rebirth 原型仍保留在 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[CHEMISTRY.md](CHEMISTRY.md)、[BIOLOGY.md](BIOLOGY.md)、[PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[CHEMISTRY.md](CHEMISTRY.md)、[BIOLOGY.md](BIOLOGY.md)、[PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，成就剧情见 [STORY.md](STORY.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
 
 ## 原始引擎
 

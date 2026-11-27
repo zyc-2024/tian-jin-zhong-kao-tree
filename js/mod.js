@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "chemistry.js", "biology.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "achievements_more.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "chemistry.js", "biology.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "achievements_more.js", "achievements_story.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.14.0.20230930",
-	name: "300",
+	num: "Beta v0.15.0.20231007",
+	name: "Story",
 }
 
 let changelog = `
+中考树v0.15.0.20231007：Story<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增「成长档案」页签，用 12 个章节串联成就剧情。<br>
+- 章节根据成就数量、考试分数、学科训练和综合素质进度逐步解锁。<br>
+- 为全部 300 个成就补充目标提示和完成后的剧情提示。<br>
+- 成就不再只是数字，完成时会对应到成长档案中的章节。<br>
+- 旧存档加载后会根据已有进度自动解锁对应章节。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.14.0.20230930：300<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 成就总数扩充到 300 个。<br>
