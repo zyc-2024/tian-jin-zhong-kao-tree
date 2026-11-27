@@ -1,6 +1,15 @@
-# 天津中考树：Table
+# 天津中考树：Physics
 
-《天津中考树》的 Table 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Physics 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.10.0 Physics
+
+- 重新加入物理层（P），与体育层并列放在中考层（E）下方。
+- 恢复物理训练、物理题库、五项评分和物理里程碑。
+- 恢复物理与地理、综合素质的联动：数理、体理重新生效。
+- 物理 / 体育成就页重新合并，新增物理启程、物理最佳、物理五项和双科成就。
+- 旧存档会自动补齐物理层数据，物理页签恢复可用。
+- 表格主题继续适用于新的物理层。
 
 ## v0.9.0 Table
 
@@ -15,23 +24,24 @@
 
 ## 术语约定
 
-- 树节点使用短标记：H = 历史，G = 地理，Pol = 政治，PE = 体育，Syn = 综合素质。
-- 中文界面统一使用：历史、地理、政治、体育、综合素质。
-- 英文层名统一使用：History、Geography、Politics、Physical Education、Synergy。
-- 内部层 ID 与存档字段仍为 `His`、`Geo`、`Pol`、`PE`、`Syn`，不随显示文本变化，旧存档可以继续读取。
-- 物理层（P）已在 v0.8.0 删除，不再出现在树上。
+- 树节点使用短标记：P = 物理，PE = 体育，H = 历史，G = 地理，Pol = 政治，Syn = 综合素质。
+- 中文界面统一使用：物理、体育、历史、地理、政治、综合素质。
+- 英文层名统一使用：Physics、Physical Education、History、Geography、Politics、Synergy。
+- 内部层 ID 与存档字段仍为 `P`、`PE`、`His`、`Geo`、`Pol`、`Syn`，不随显示文本变化，旧存档可以继续读取。
 
 ## 树形布局
 
 ```text
 第一排：C   M   Eng   H   G   Pol
 第二排：            E
-第三排：            PE
+第三排：        P   PE
 
 右侧：Syn / A / Am / Exp / L / Nf
 ```
 
-## v0.8.0 PE Focus
+## v0.8.0 PE Focus（历史版本）
+
+> v0.8.0 曾删除物理层，v0.10.0 已恢复。以下为历史记录。
 
 - 删除物理层（P），树上的物理训练、物理里程碑和物理成就全部移除。
 - 体育层移到中考层（E）正下方，成为唯一的训练挑战层。
@@ -53,7 +63,7 @@
 ## v0.7.0 Synergy
 
 - 新增综合素质层：把各层里程碑做成 10 组跨学科联动。
-- 联动包括语史、语政、语英、数英、数地、英地、史地、政史、体政、体地。
+- 联动包括语史、语政、语英、数理、数地、英地、史地、政史、体理、体地。
 - 每对联动等级由双方层的里程碑数量决定，提供全科知识倍率。
 - 综合素质层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。
 - 新增综合素质层里程碑和 5 个联动成就，成就页新增综合素质页签。
@@ -97,9 +107,9 @@
 - 新增独立的 **体育层（PE）**：最佳中考 256 分解锁，复现身体数据表和 30 秒反应速度训练。
 - 体育 Minigame I：30 道整数计算题，答对 +3、答错 -1，结束后提升体育能力与反应速度。
 - 新增体育成就页签，并修复成就页报错。
-- 物理层曾在此版本加入，已在 v0.8.0 删除；旧 Rebirth 原型仍保留在 `Old Things/rebirth-prototype.js`，不再加载。
+- 物理层曾在此版本加入；v0.8.0 曾删除，v0.10.0 已恢复。旧 Rebirth 原型仍保留在 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
 
 ## 原始引擎
 
