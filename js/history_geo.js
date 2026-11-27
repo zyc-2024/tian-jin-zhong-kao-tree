@@ -374,8 +374,8 @@ const HIS_LAYER = makeSocialLayer("His", {
 	darkColor: "#3A2410",
 	resource: "历史知识",
 	unlock: 103,
-	row: 2,
-	position: 1,
+	row: 0,
+	position: 3,
 	tooltip: "中考历史",
 	tableTitle: "历史学科评分（与 Pol / C 联动）",
 	crossText: "联动：Pol 时政敏感度 → His 全科倍率；His 训练会给 Pol 增加时政积累。",
@@ -392,8 +392,8 @@ const GEO_LAYER = makeSocialLayer("Geo", {
 	darkColor: "#123A26",
 	resource: "地理知识",
 	unlock: 119,
-	row: 2,
-	position: 2,
+	row: 0,
+	position: 4,
 	tooltip: "中考地理",
 	tableTitle: "地理学科评分（与 P / M 联动）",
 	crossText: "联动：P 力学/实验评分 → Geo 全科倍率；Geo 训练会给 P 增加实验评分。",
@@ -406,7 +406,7 @@ addLayer("Geo", GEO_LAYER);
 
 // E 层树枝
 if (layers.E && layers.E.branches) {
-	let colors = { His: "#8B5A2B", Geo: "#2E8B57" };
+	let colors = { His: "#8B5A2B", Geo: "#2E8B57", PE: "#FF00FF" };
 	for (let key in colors) {
 		let exists = false;
 		for (let i = 0; i < layers.E.branches.length; i++) if (layers.E.branches[i][0] === key) exists = true;

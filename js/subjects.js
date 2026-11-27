@@ -375,8 +375,8 @@ addLayer("PE", {
 
 	color: "#FF00FF",
 	resource: "体育能力",
-	row: "side",
-	position: 5,
+	row: 2,
+	position: 1,
 	symbol: "PE",
 	type: "none",
 	name: "PE",

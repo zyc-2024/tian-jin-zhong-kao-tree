@@ -21,7 +21,7 @@
 
 - 新增历史层 **His**：中考最佳分数 103 后解锁。
 - 新增地理层 **Geo**：中考最佳分数 119 后解锁。
-- His / Geo 位于 E 层下方，与 P 并列；各有 Main、背诵专区和 Minigame I。
+- His / Geo 位于 row 0，与 C / M / Eng / Pol 同排；各有 Main、背诵专区和 Minigame I。
 - 交叉联动：His ↔ Pol / C，Geo ↔ P / M，His ↔ Geo 互相提供全科倍率。
 - 考试板块新增 His / Geo 试卷：单项选择题、材料解析题、综合题 / 材料分析题，题型参考天津中考。
 - His / Geo 分数计入中考总分，两科都交卷后才能查分。

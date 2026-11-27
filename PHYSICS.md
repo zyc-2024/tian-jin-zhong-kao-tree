@@ -16,7 +16,7 @@
 3. **P 不是 Phigros / Rebirth。P = Physics（物理），与 M（Math）无关。**
    上一版把 P 误当成 Phigros/Rebirth 的原型，这一版已将它移到 `Old Things/rebirth-prototype.js`，不再加载。
    M 层原来的 Phigros 占位页也已改名 Math，避免再和 P 混淆。
-4. 体育是新内容里的独立层，不占用 P 的位置；P 仍然是树上的 Physics 层，体育层作为 side 层出现。
+4. 体育是新内容里的独立层，不占用 P 的位置；P 仍然是树上的 Physics 层，体育层放在 E 层下方。
 
 ## 已实现
 
@@ -31,7 +31,7 @@
 
 ### PE（体育）
 
-- 独立 side 层，中考最佳分数达到 **256** 后解锁。
+- 位于 E 层下方，与 P 并列；中考最佳分数达到 **256** 后解锁。
 - Main 复现截图中的身体数据表：
   - 姓名、年龄（由 `player.E.year - 2001` 计算）
   - 身高 167 cm / 体重 53 kg / 肺活量 2970 mL
