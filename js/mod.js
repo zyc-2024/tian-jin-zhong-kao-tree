@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "chemistry.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.10.0.20230902",
-	name: "Physics",
+	num: "Beta v0.11.0.20230909",
+	name: "Chemistry",
 }
 
 let changelog = `
+中考树v0.11.0.20230909：Chemistry<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增化学层（Chem），与物理 / 体育并列放在中考层下方。<br>
+- 新增化学训练、化学题库、五项评分和化学里程碑。<br>
+- 新增化学成就页与 4 个化学成就：化学启程、化学最佳、化学五项、理化双全。<br>
+- 综合素质新增化理、化数联动，总联动数扩展到 12 组。<br>
+- 化学实验训练会给物理增加少量实验评分。<br>
+- 旧存档会自动补齐化学层数据，表格主题继续适用。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.10.0.20230902：Physics<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 重新加入物理层（P），与体育层并列放在中考层（E）下方。<br>
@@ -156,7 +166,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你完成了物理与体育的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了物理、化学与体育的三科训练挑战！<br>理科实验、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -197,6 +207,7 @@ if(hasUpgrade("Eng",67)) gain = gain.mul(upgradeEffect("Eng",67))
 if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
 if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
+if (player.Chem && player.Chem.unlocked && tmp.Chem && tmp.Chem.effect) gain = gain.mul(tmp.Chem.effect)
 if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
 if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
 if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
@@ -216,10 +227,10 @@ function addedPlayerData() { return {
 // Determines when the game "ends"
 function isEndgame() {
 	return !!(
-		player.P && player.PE &&
-		player.P.bestScore && player.PE.bestScore &&
-		player.P.bestScore.gte(80) && player.PE.bestScore.gte(80) &&
-		player.P.trainingRuns.gte(5) && player.PE.trainingRuns.gte(5)
+		player.P && player.Chem && player.PE &&
+		player.P.bestScore && player.Chem.bestScore && player.PE.bestScore &&
+		player.P.bestScore.gte(80) && player.Chem.bestScore.gte(80) && player.PE.bestScore.gte(80) &&
+		player.P.trainingRuns.gte(5) && player.Chem.trainingRuns.gte(5) && player.PE.trainingRuns.gte(5)
 	)
 }
 
@@ -254,30 +265,34 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	// 旧版物理层数据可能缺失或被旧版本清理；现在统一补齐。
+	// 旧版物理 / 化学层数据可能缺失；现在统一补齐。
 	if (player.P && player.P.partnerLevels) player.P = getStartLayerData("P");
+	if (player.Chem && player.Chem.partnerLevels) player.Chem = getStartLayerData("Chem");
 	if (player.PE && player.PE.partnerLevels) player.PE = getStartLayerData("PE");
 	if (!player.P) player.P = getStartLayerData("P");
+	if (!player.Chem) player.Chem = getStartLayerData("Chem");
 	if (!player.PE) player.PE = getStartLayerData("PE");
 	// 旧存档可能没有新的训练字段；fixData 通常已补齐，这里只兜底。
 	if (player.P.trainingRuns === undefined) player.P.trainingRuns = new OmegaNum(0);
+	if (player.Chem.trainingRuns === undefined) player.Chem.trainingRuns = new OmegaNum(0);
 	if (player.PE.trainingRuns === undefined) player.PE.trainingRuns = new OmegaNum(0);
 }
 var displayThings = [
 	function() {
-		if (player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
-			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
-			return "当前残局：物理与体育训练的双科最佳都达到 80 分";
+		if (player.P && player.Chem && player.PE &&
+			player.P.bestScore && player.Chem.bestScore && player.PE.bestScore &&
+			player.P.bestScore.gte(80) && player.Chem.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
+			return "当前残局：物理、化学与体育训练的三科最佳都达到 80 分";
 		}
-		if (player.E.bestPoints.gte(256)) return "当前残局：完成物理 / 体育的训练挑战";
-		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁物理与体育";
+		if (player.E.bestPoints.gte(256)) return "当前残局：完成物理 / 化学 / 体育的训练挑战";
+		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁物理、化学与体育";
 		if (player.E.bestPoints.gte(103)) return "当前残局：历史已解锁，继续冲击 119 分以解锁地理";
 		if (player.E.bestPoints.gte(84)) return "当前残局：政治已解锁，继续冲击 103 分以解锁历史";
-		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁物理与体育";
+		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁物理、化学与体育";
 	},
 	function() {
 		if (player.E.bestPoints.gte(256)) {
-			return "物理能力：" + subjectNumber(player.P.points) + " · 体育能力：" + subjectNumber(player.PE.points);
+			return "物理能力：" + subjectNumber(player.P.points) + " · 化学能力：" + subjectNumber(player.Chem.points) + " · 体育能力：" + subjectNumber(player.PE.points);
 		}
 	},
 	function() {

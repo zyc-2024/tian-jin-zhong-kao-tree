@@ -47,6 +47,7 @@ function subjectTableRow(label, value, suffix, forcedGrade) {
 
 function subjectColor(layer) {
 	if (layer === "P") return "#00BFFF";
+	if (layer === "Chem") return "#32CD32";
 	if (layer === "Pol") return "#E74C3C";
 	if (layer === "His") return "#8B5A2B";
 	if (layer === "Geo") return "#2E8B57";
@@ -115,6 +116,7 @@ function subjectReset(layer) {
 function subjectNextQuestion(layer) {
 	let q;
 	if (layer === "P") q = physicsMakeQuestion();
+	else if (layer === "Chem") q = chemistryMakeQuestion();
 	else if (layer === "Pol") q = politicsMakeQuestion();
 	else if (layer === "His") q = historyMakeQuestion();
 	else if (layer === "Geo") q = geographyMakeQuestion();
@@ -201,6 +203,13 @@ function subjectFinish(layer) {
 		if (p[category] === undefined) category = "mechanics";
 		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
 		p.mechanics = p.mechanics.add(Math.max(0, Math.floor(p.score / 30)));
+	} else if (layer === "Chem") {
+		let category = p.lastCategory || "concept";
+		if (p[category] === undefined) category = "concept";
+		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
+		p.concept = p.concept.add(Math.max(0, Math.floor(p.score / 30)));
+		// 化学实验训练会给物理增加一点实验观察。
+		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
 	}
 
 	if (layer !== "Pol" && layer !== "His" && layer !== "Geo") {
@@ -375,7 +384,7 @@ addLayer("PE", {
 	color: "#FF00FF",
 	resource: "体育能力",
 	row: 2,
-	position: 1,
+	position: 2,
 	symbol: "PE",
 	type: "none",
 	name: "Physical Education",
