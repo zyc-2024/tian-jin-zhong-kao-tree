@@ -1,6 +1,14 @@
-# 天津中考树：Achievements
+# 天津中考树：Synergy
 
-《天津中考树》的 Achievements 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Synergy 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.7.0 Synergy
+
+- 新增 Syn 综合素质层：把各层里程碑做成 10 组跨学科联动。
+- 联动包括语史、语政、语英、数理、数地、英地、史地、政史、体理、体地。
+- 每对联动等级由双方层的里程碑数量决定，提供全科知识倍率。
+- Syn 层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。
+- 新增 Syn 层里程碑和 5 个 Syn 成就，成就页新增 Syn 页签。
 
 ## v0.6.0 Achievements
 
@@ -45,7 +53,7 @@
 - 新增 P & PE 成就页签，并修复成就页报错。
 - 上一版 P=Phigros/Rebirth 的原型已移至 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)。
 
 ## 原始引擎
 

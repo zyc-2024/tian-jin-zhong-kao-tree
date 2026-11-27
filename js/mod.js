@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.6.0.20230728",
-	name: "Achievements",
+	num: "Beta v0.7.0.20230805",
+	name: "Synergy",
 }
 
 let changelog = `
+中考树v0.7.0.20230805：Synergy<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增 Syn 综合素质层：把各层里程碑做成 10 组跨学科联动。<br>
+- 联动包括语史、语政、语英、数理、数地、英地、史地、政史、体理、体地。<br>
+- 每一对联动等级由双方层的里程碑数量决定，提供全科知识倍率。<br>
+- Syn 层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。<br>
+- Syn 层有 5 个联动里程碑和 5 个联动成就。<br>
+- 成就页新增 Syn 页签。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.6.0.20230728：Achievements<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 为 M / Nf / Am / Exp / L / C / E / Eng 的里程碑增加对应成就。<br>
@@ -152,6 +162,7 @@ if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.
 if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
 if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
 if (typeof milestonePointMult === "function") gain = gain.mul(milestonePointMult())
+if (typeof synergyMult === "function") gain = gain.mul(synergyMult())
 	return gain
 }
 
