@@ -86,7 +86,7 @@ addLayer("Chem", {
 	type: "none",
 	name: "Chemistry",
 	branches: [["E", "#32CD32", 30]],
-	nodeStyle: { "font-size": "28px" },
+	nodeStyle: { width: "80px", height: "80px", "font-size": "22px" },
 
 	layerShown() {
 		return player.E.bestPoints.gte(256) || (player.Chem && player.Chem.trainingRuns.gte(1));

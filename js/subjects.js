@@ -48,6 +48,7 @@ function subjectTableRow(label, value, suffix, forcedGrade) {
 function subjectColor(layer) {
 	if (layer === "P") return "#00BFFF";
 	if (layer === "Chem") return "#32CD32";
+	if (layer === "Bio") return "#20B2AA";
 	if (layer === "Pol") return "#E74C3C";
 	if (layer === "His") return "#8B5A2B";
 	if (layer === "Geo") return "#2E8B57";
@@ -117,6 +118,7 @@ function subjectNextQuestion(layer) {
 	let q;
 	if (layer === "P") q = physicsMakeQuestion();
 	else if (layer === "Chem") q = chemistryMakeQuestion();
+	else if (layer === "Bio") q = biologyMakeQuestion();
 	else if (layer === "Pol") q = politicsMakeQuestion();
 	else if (layer === "His") q = historyMakeQuestion();
 	else if (layer === "Geo") q = geographyMakeQuestion();
@@ -210,6 +212,13 @@ function subjectFinish(layer) {
 		p.concept = p.concept.add(Math.max(0, Math.floor(p.score / 30)));
 		// 化学实验训练会给物理增加一点实验观察。
 		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
+	} else if (layer === "Bio") {
+		let category = p.lastCategory || "cell";
+		if (p[category] === undefined) category = "cell";
+		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
+		p.cell = p.cell.add(Math.max(0, Math.floor(p.score / 30)));
+		// 生物实验训练会给化学增加一点实验评分。
+		if (player.Chem && player.Chem.experiment) player.Chem.experiment = player.Chem.experiment.add(Math.max(0, Math.floor(p.score / 40)));
 	}
 
 	if (layer !== "Pol" && layer !== "His" && layer !== "Geo") {
@@ -384,8 +393,9 @@ addLayer("PE", {
 	color: "#FF00FF",
 	resource: "体育能力",
 	row: 2,
-	position: 2,
+	position: 3,
 	symbol: "PE",
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px" },
 	type: "none",
 	name: "Physical Education",
 
@@ -648,6 +658,7 @@ addLayer("P", {
 	type: "none",
 	name: "Physics",
 	branches: [["E", "#00BFFF", 30]],
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px" },
 
 	layerShown() {
 		return player.E.bestPoints.gte(256) || (player.P && player.P.trainingRuns.gte(1));

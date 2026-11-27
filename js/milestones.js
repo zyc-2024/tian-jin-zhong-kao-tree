@@ -1,7 +1,7 @@
 // ============================================================
 // 全层级里程碑补充
 // - 给已有里程碑的语文 / 中考 / 英语追加后期里程碑
-// - 给数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜 / 物理 / 化学 / 体育 / 政治 / 历史 / 地理增加里程碑
+// - 给数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜 / 物理 / 化学 / 生物 / 体育 / 政治 / 历史 / 地理增加里程碑
 // - 所有新增里程碑统一提供全科知识倍率，并在各层显示
 // ============================================================
 
@@ -168,6 +168,20 @@ addMilestone("Chem", 3, "化学五项评分总和达到 100", "全科知识获�
 addMilestone("Chem", 4, "完成 10 次化学训练且最佳 90 分", "全科知识获取 +50%。",
 	function () { return player.Chem.trainingRuns.gte(10) && player.Chem.bestScore.gte(90); }, milestoneAfter("Chem", 4));
 
+// ---------- Bio：生物 ----------
+
+const BIO_STATS = ["cell", "genetics", "ecology", "experiment", "human"];
+addMilestone("Bio", 0, "完成 1 次生物训练", "全科知识获取 +10%。",
+	function () { return player.Bio.trainingRuns.gte(1); });
+addMilestone("Bio", 1, "完成 5 次生物训练", "全科知识获取 +20%。",
+	function () { return player.Bio.trainingRuns.gte(5); }, milestoneAfter("Bio", 1));
+addMilestone("Bio", 2, "生物训练单次达到 80 分", "全科知识获取 +30%。",
+	function () { return player.Bio.bestScore.gte(80); }, milestoneAfter("Bio", 2));
+addMilestone("Bio", 3, "生物五项评分总和达到 100", "全科知识获取 +40%。",
+	function () { return statTotal("Bio", BIO_STATS).gte(100); }, milestoneAfter("Bio", 3));
+addMilestone("Bio", 4, "完成 10 次生物训练且最佳 90 分", "全科知识获取 +50%。",
+	function () { return player.Bio.trainingRuns.gte(10) && player.Bio.bestScore.gte(90); }, milestoneAfter("Bio", 4));
+
 // ---------- PE：体育 ----------
 
 const PE_STATS = ["speed", "endurance", "flexibility", "strength", "reaction"];
@@ -243,6 +257,7 @@ function milestonePointMult() {
 	add("L", 0, 1.1); add("L", 1, 1.2); add("L", 2, 1.3); add("L", 3, 1.5);
 	add("P", 0, 1.1); add("P", 1, 1.2); add("P", 2, 1.3); add("P", 3, 1.4); add("P", 4, 1.5);
 	add("Chem", 0, 1.1); add("Chem", 1, 1.2); add("Chem", 2, 1.3); add("Chem", 3, 1.4); add("Chem", 4, 1.5);
+	add("Bio", 0, 1.1); add("Bio", 1, 1.2); add("Bio", 2, 1.3); add("Bio", 3, 1.4); add("Bio", 4, 1.5);
 	add("PE", 0, 1.1); add("PE", 1, 1.2); add("PE", 2, 1.3); add("PE", 3, 1.4); add("PE", 4, 1.5);
 	add("Pol", 0, 1.1); add("Pol", 1, 1.2); add("Pol", 2, 1.3); add("Pol", 3, 1.4); add("Pol", 4, 1.5);
 	add("His", 0, 1.1); add("His", 1, 1.2); add("His", 2, 1.3); add("His", 3, 1.4); add("His", 4, 1.5);
@@ -267,6 +282,7 @@ addMilestoneTab("Nf");
 addMilestoneTab("Am");
 addMilestoneTab("P");
 addMilestoneTab("Chem");
+addMilestoneTab("Bio");
 addMilestoneTab("PE");
 addMilestoneTab("Pol");
 addMilestoneTab("His");

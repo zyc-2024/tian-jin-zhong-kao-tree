@@ -1,6 +1,15 @@
-# 天津中考树：Chemistry
+# 天津中考树：Biology
 
-《天津中考树》的 Chemistry 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Biology 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.12.0 Biology
+
+- 新增生物层（Bio），与物理 / 化学 / 体育并列放在中考层（E）下方。
+- 新增生物训练、生物题库、五项评分和生物里程碑。
+- 新增生物成就页与 4 个生物成就：生物启程、生物最佳、生物五项、生化双全。
+- 综合素质新增生化、生地联动，总联动数扩展到 14 组。
+- 生物实验训练会给化学增加少量实验评分。
+- 旧存档会自动补齐生物层数据，表格主题继续适用。
 
 ## v0.11.0 Chemistry
 
@@ -33,17 +42,17 @@
 
 ## 术语约定
 
-- 树节点使用短标记：P = 物理，Chem = 化学，PE = 体育，H = 历史，G = 地理，Pol = 政治，Syn = 综合素质。
-- 中文界面统一使用：物理、化学、体育、历史、地理、政治、综合素质。
-- 英文层名统一使用：Physics、Chemistry、Physical Education、History、Geography、Politics、Synergy。
-- 内部层 ID 与存档字段仍为 `P`、`Chem`、`PE`、`His`、`Geo`、`Pol`、`Syn`，不随显示文本变化，旧存档可以继续读取。
+- 树节点使用短标记：P = 物理，Chem = 化学，Bio = 生物，PE = 体育，H = 历史，G = 地理，Pol = 政治，Syn = 综合素质。
+- 中文界面统一使用：物理、化学、生物、体育、历史、地理、政治、综合素质。
+- 英文层名统一使用：Physics、Chemistry、Biology、Physical Education、History、Geography、Politics、Synergy。
+- 内部层 ID 与存档字段仍为 `P`、`Chem`、`Bio`、`PE`、`His`、`Geo`、`Pol`、`Syn`，不随显示文本变化，旧存档可以继续读取。
 
 ## 树形布局
 
 ```text
 第一排：C   M   Eng   H   G   Pol
 第二排：            E
-第三排：        P   Chem   PE
+第三排：        P   Chem   Bio   PE
 
 右侧：Syn / A / Am / Exp / L / Nf
 ```
@@ -118,7 +127,7 @@
 - 新增体育成就页签，并修复成就页报错。
 - 物理层曾在此版本加入；v0.8.0 曾删除，v0.10.0 已恢复。旧 Rebirth 原型仍保留在 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[CHEMISTRY.md](CHEMISTRY.md)、[PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[CHEMISTRY.md](CHEMISTRY.md)、[BIOLOGY.md](BIOLOGY.md)、[PE.md](PE.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)，跨学科联动见 [SYNERGY.md](SYNERGY.md)，表格皮肤见 [STYLE.md](STYLE.md)。
 
 ## 原始引擎
 
