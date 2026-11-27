@@ -1,7 +1,7 @@
 // ============================================================
 // 全层级里程碑补充
-// - 给已有里程碑的 C / E / Eng 追加后期里程碑
-// - 给 M / Nf / A / Am / Exp / L / P / PE / Pol / His / Geo 增加里程碑
+// - 给已有里程碑的语文 / 中考 / 英语追加后期里程碑
+// - 给数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜 / 物理 / 体育 / 政治 / 历史 / 地理增加里程碑
 // - 所有新增里程碑统一提供全科知识倍率，并在各层显示
 // ============================================================
 
@@ -140,72 +140,72 @@ addMilestone("L", 2, "最佳中考分数达到 200", "全科知识获取 +30%。
 addMilestone("L", 3, "最佳中考分数达到 256", "全科知识获取 +50%。",
 	function () { return player.E.bestPoints.gte(256); }, milestoneAfter("L", 3));
 
-// ---------- P：Physics ----------
+// ---------- P：物理 ----------
 
 const P_STATS = ["mechanics", "thermo", "optics", "electricity", "experiment"];
-addMilestone("P", 0, "完成 1 次 P 训练", "全科知识获取 +10%。",
+addMilestone("P", 0, "完成 1 次物理训练", "全科知识获取 +10%。",
 	function () { return player.P.trainingRuns.gte(1); });
-addMilestone("P", 1, "完成 5 次 P 训练", "全科知识获取 +20%。",
+addMilestone("P", 1, "完成 5 次物理训练", "全科知识获取 +20%。",
 	function () { return player.P.trainingRuns.gte(5); }, milestoneAfter("P", 1));
-addMilestone("P", 2, "P 训练单次达到 80 分", "全科知识获取 +30%。",
+addMilestone("P", 2, "物理训练单次达到 80 分", "全科知识获取 +30%。",
 	function () { return player.P.bestScore.gte(80); }, milestoneAfter("P", 2));
-addMilestone("P", 3, "P 五项评分总和达到 100", "全科知识获取 +40%。",
+addMilestone("P", 3, "物理五项评分总和达到 100", "全科知识获取 +40%。",
 	function () { return statTotal("P", P_STATS).gte(100); }, milestoneAfter("P", 3));
-addMilestone("P", 4, "完成 10 次 P 训练且最佳 90 分", "全科知识获取 +50%。",
+addMilestone("P", 4, "完成 10 次物理训练且最佳 90 分", "全科知识获取 +50%。",
 	function () { return player.P.trainingRuns.gte(10) && player.P.bestScore.gte(90); }, milestoneAfter("P", 4));
 
 // ---------- PE：体育 ----------
 
 const PE_STATS = ["speed", "endurance", "flexibility", "strength", "reaction"];
-addMilestone("PE", 0, "完成 1 次 PE 训练", "全科知识获取 +10%。",
+addMilestone("PE", 0, "完成 1 次体育训练", "全科知识获取 +10%。",
 	function () { return player.PE.trainingRuns.gte(1); });
 addMilestone("PE", 1, "反应速度达到 20%", "全科知识获取 +20%。",
 	function () { return player.PE.reaction.gte(20); }, milestoneAfter("PE", 1));
-addMilestone("PE", 2, "PE 训练单次达到 80 分", "全科知识获取 +30%。",
+addMilestone("PE", 2, "体育训练单次达到 80 分", "全科知识获取 +30%。",
 	function () { return player.PE.bestScore.gte(80); }, milestoneAfter("PE", 2));
 addMilestone("PE", 3, "体育能力达到 1,000", "全科知识获取 +40%。",
 	function () { return player.PE.points.gte(1000); }, milestoneAfter("PE", 3));
-addMilestone("PE", 4, "完成 10 次 PE 训练", "全科知识获取 +50%。",
+addMilestone("PE", 4, "完成 10 次体育训练", "全科知识获取 +50%。",
 	function () { return player.PE.trainingRuns.gte(10); }, milestoneAfter("PE", 4));
 
 // ---------- Pol：政治 ----------
 
 const POL_STATS = ["morality", "law", "national", "current", "answer"];
-addMilestone("Pol", 0, "完成 1 次 Pol 训练", "全科知识获取 +10%。",
+addMilestone("Pol", 0, "完成 1 次政治训练", "全科知识获取 +10%。",
 	function () { return player.Pol.trainingRuns.gte(1); });
-addMilestone("Pol", 1, "Pol 训练单次达到 80 分", "全科知识获取 +20%。",
+addMilestone("Pol", 1, "政治训练单次达到 80 分", "全科知识获取 +20%。",
 	function () { return player.Pol.bestScore.gte(80); }, milestoneAfter("Pol", 1));
-addMilestone("Pol", 2, "Pol 五项评分总和达到 50", "全科知识获取 +30%。",
+addMilestone("Pol", 2, "政治五项评分总和达到 50", "全科知识获取 +30%。",
 	function () { return statTotal("Pol", POL_STATS).gte(50); }, milestoneAfter("Pol", 2));
 addMilestone("Pol", 3, "背诵专区累计 10 次", "全科知识获取 +40%。",
 	function () { return buyableTotal("Pol") >= 10; }, milestoneAfter("Pol", 3));
-addMilestone("Pol", 4, "完成 10 次 Pol 训练", "全科知识获取 +50%。",
+addMilestone("Pol", 4, "完成 10 次政治训练", "全科知识获取 +50%。",
 	function () { return player.Pol.trainingRuns.gte(10); }, milestoneAfter("Pol", 4));
 
 // ---------- His：历史 ----------
 
-addMilestone("His", 0, "完成 1 次 His 训练", "全科知识获取 +10%。",
+addMilestone("His", 0, "完成 1 次历史训练", "全科知识获取 +10%。",
 	function () { return player.His.trainingRuns.gte(1); });
-addMilestone("His", 1, "His 训练单次达到 80 分", "全科知识获取 +20%。",
+addMilestone("His", 1, "历史训练单次达到 80 分", "全科知识获取 +20%。",
 	function () { return player.His.bestScore.gte(80); }, milestoneAfter("His", 1));
-addMilestone("His", 2, "His 五项评分总和达到 50", "全科知识获取 +30%。",
+addMilestone("His", 2, "历史五项评分总和达到 50", "全科知识获取 +30%。",
 	function () { return statTotal("His", ["timeline", "sources", "events", "figures", "essay"]).gte(50); }, milestoneAfter("His", 2));
 addMilestone("His", 3, "历史背诵累计 10 次", "全科知识获取 +40%。",
 	function () { return buyableTotal("His") >= 10; }, milestoneAfter("His", 3));
-addMilestone("His", 4, "完成 10 次 His 训练", "全科知识获取 +50%。",
+addMilestone("His", 4, "完成 10 次历史训练", "全科知识获取 +50%。",
 	function () { return player.His.trainingRuns.gte(10); }, milestoneAfter("His", 4));
 
 // ---------- Geo：地理 ----------
 
-addMilestone("Geo", 0, "完成 1 次 Geo 训练", "全科知识获取 +10%。",
+addMilestone("Geo", 0, "完成 1 次地理训练", "全科知识获取 +10%。",
 	function () { return player.Geo.trainingRuns.gte(1); });
-addMilestone("Geo", 1, "Geo 训练单次达到 80 分", "全科知识获取 +20%。",
+addMilestone("Geo", 1, "地理训练单次达到 80 分", "全科知识获取 +20%。",
 	function () { return player.Geo.bestScore.gte(80); }, milestoneAfter("Geo", 1));
-addMilestone("Geo", 2, "Geo 五项评分总和达到 50", "全科知识获取 +30%。",
+addMilestone("Geo", 2, "地理五项评分总和达到 50", "全科知识获取 +30%。",
 	function () { return statTotal("Geo", ["map", "climate", "region", "resources", "comprehensive"]).gte(50); }, milestoneAfter("Geo", 2));
 addMilestone("Geo", 3, "地理背诵累计 10 次", "全科知识获取 +40%。",
 	function () { return buyableTotal("Geo") >= 10; }, milestoneAfter("Geo", 3));
-addMilestone("Geo", 4, "完成 10 次 Geo 训练", "全科知识获取 +50%。",
+addMilestone("Geo", 4, "完成 10 次地理训练", "全科知识获取 +50%。",
 	function () { return player.Geo.trainingRuns.gte(10); }, milestoneAfter("Geo", 4));
 
 // ---------- 全局里程碑倍率 ----------
@@ -240,8 +240,8 @@ function milestonePointMult() {
 function addMilestoneTab(layer) {
 	let L = layers[layer];
 	if (!L || !L.tabFormat || Array.isArray(L.tabFormat)) return;
-	if (L.tabFormat.Milestones) return;
-	L.tabFormat.Milestones = {
+	if (L.tabFormat["里程碑"] || L.tabFormat.Milestones) return;
+	L.tabFormat["里程碑"] = {
 		content: ["milestones"],
 		buttonStyle: { "border-color": L.color, "background-color": "#222222" },
 	};

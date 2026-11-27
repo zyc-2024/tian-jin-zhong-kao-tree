@@ -96,16 +96,16 @@ addLayer("Pol", {
 	position: 2,
 	symbol: "Pol",
 	type: "none",
-	name: "Pol",
+	name: "Politics",
 
 	layerShown() {
 		return player.E.bestPoints.gte(84) || (player.Pol && player.Pol.trainingRuns.gte(1));
 	},
 	tooltip() {
-		return "Pol：道德与法治";
+		return "道德与法治：中考政治专项训练";
 	},
 	tooltipLocked() {
-		return "Pol 层<br>中考最佳分数达到 84 分后解锁";
+		return "政治 · 道德与法治<br>最佳中考分数达到 84 分后解锁";
 	},
 
 	update(diff) {
@@ -392,10 +392,10 @@ addLayer("Pol", {
 	infoboxes: {
 		politicsBox: {
 			title() {
-				return "Pol";
+				return "政治";
 			},
 			body() {
-				return "中考最佳分数达到 84 分后解锁。<br><br>Main 显示政治能力与五项评分；背诵页可以消耗政治能力提升评分；Minigame I 是 30 秒时政速答，答对 +3、答错 -1。<br><br>温馨提示：选择题看到“一定”“绝对”先警惕，主观题记得分点作答。";
+				return "最佳中考分数达到 84 分后解锁。<br><br>Main 显示政治能力与五项评分；背诵页可以消耗政治能力提升评分；Minigame I 是 30 秒时政速答，答对 +3、答错 -1。<br><br>温馨提示：选择题看到“一定”“绝对”先警惕，主观题记得分点作答。";
 			},
 			style() {
 				return { borderColor: "#E74C3C" };
@@ -416,7 +416,7 @@ addLayer("Pol", {
 				["display-text", function () {
 					let p = player.Pol;
 					let table = "<table style='width:min(620px,92%);margin:8px auto;border-collapse:collapse;color:white;font-size:14px'>";
-					table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>Pol</b><br>道德与法治评分（影响全科知识获取）</td></tr>";
+					table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>政治</b><br>道德与法治评分（影响全科知识获取）</td></tr>";
 					table += subjectTableRow("道德修养", subjectNumber(p.morality), "");
 					table += subjectTableRow("法治意识", subjectNumber(p.law), "");
 					table += subjectTableRow("国情认知", subjectNumber(p.national), "");
@@ -428,7 +428,7 @@ addLayer("Pol", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.Pol.trainingRuns) + "</b> 次 · 历史最佳 <b>" + subjectNumber(player.Pol.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Pol && tmp.Pol.effect ? tmp.Pol.effect : 1) + "（由五项政治评分提供）";
+					return "已训练 <b>" + subjectNumber(player.Pol.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Pol.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Pol && tmp.Pol.effect ? tmp.Pol.effect : 1) + "（由五项政治评分提供）";
 				}],
 				"blank",
 				["infobox", "politicsBox"],
@@ -487,10 +487,10 @@ if (layers.E && layers.E.branches) {
 
 // ---------- 政治成就与成就页 ----------
 
-layers.A.tabFormat.Pol = {
+layers.A.tabFormat["政治"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#E74C3C'>Pol 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#E74C3C'>政治成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [
@@ -507,7 +507,7 @@ layers.A.tabFormat.Pol = {
 };
 
 layers.A.achievements[96] = {
-	name: "Pol 启程",
+	name: "政治启程",
 	done() {
 		return player.Pol && player.Pol.trainingRuns && player.Pol.trainingRuns.gte(1);
 	},
@@ -517,7 +517,7 @@ layers.A.achievements[96] = {
 	tooltip: "完成一次政治训练。",
 };
 layers.A.achievements[97] = {
-	name: "Pol 时政达人",
+	name: "时政达人",
 	done() {
 		return player.Pol && player.Pol.current && player.Pol.current.gte(10);
 	},
@@ -527,7 +527,7 @@ layers.A.achievements[97] = {
 	tooltip: "时政敏感度达到 10。",
 };
 layers.A.achievements[98] = {
-	name: "Pol 背诵标兵",
+	name: "背诵标兵",
 	done() {
 		if (!player.Pol || !player.Pol.buyables) return false;
 		let total = 0;
@@ -540,7 +540,7 @@ layers.A.achievements[98] = {
 	tooltip: "在背诵专区累计背诵 10 次。",
 };
 layers.A.achievements[99] = {
-	name: "Pol 最佳",
+	name: "政治最佳",
 	done() {
 		return player.Pol && player.Pol.bestScore && player.Pol.bestScore.gte(80);
 	},
@@ -550,7 +550,7 @@ layers.A.achievements[99] = {
 	tooltip: "政治训练单次达到 80 分。",
 };
 layers.A.achievements[100] = {
-	name: "Pol 德法兼修",
+	name: "德法兼修",
 	done() {
 		return player.Pol &&
 			player.Pol.morality.gte(10) && player.Pol.law.gte(10) &&

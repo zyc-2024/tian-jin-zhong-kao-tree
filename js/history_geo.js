@@ -1,8 +1,8 @@
 // ============================================================
-// 天津中考树：History / Geography 扩展
-// - His / Geo 两个完整学科层
-// - 考试板块新增天津中考风格的 His / Geo 试卷
-// - 与 Pol / C、P / M 以及彼此交叉联动
+// 天津中考树：历史 / 地理扩展
+// - 两个完整学科层（内部 ID：His / Geo；树节点：H / G）
+// - 考试板块新增天津中考风格的历史 / 地理试卷
+// - 与政治 / 语文、物理 / 数学以及彼此交叉联动
 // ============================================================
 
 // ---------- 学科训练题库 ----------
@@ -106,16 +106,16 @@ function makeSocialLayer(id, cfg) {
 		position: cfg.position,
 		symbol: cfg.symbol,
 		type: "none",
-		name: cfg.symbol,
+		name: cfg.name || cfg.symbol,
 
 		layerShown() {
 			return player.E.bestPoints.gte(cfg.unlock) || (player[id] && player[id].trainingRuns.gte(1));
 		},
 		tooltip() {
-			return cfg.symbol + "：" + cfg.tooltip;
+			return cfg.tooltip;
 		},
 		tooltipLocked() {
-			return cfg.symbol + " 层<br>中考最佳分数达到 " + cfg.unlock + " 分后解锁";
+			return cfg.label + "<br>最佳中考分数达到 " + cfg.unlock + " 分后解锁";
 		},
 
 		update(diff) {
@@ -139,7 +139,7 @@ function makeSocialLayer(id, cfg) {
 		clickables: {
 			100: {
 				display() {
-					return "开始" + cfg.symbol + "训练";
+					return "开始" + cfg.label + "训练";
 				},
 				unlocked() {
 					return !player[id].active && !player[id].completed;
@@ -195,7 +195,7 @@ function makeSocialLayer(id, cfg) {
 		infoboxes: {
 			box: {
 				title() {
-					return cfg.symbol;
+					return cfg.label;
 				},
 				body() {
 					return cfg.info;
@@ -218,7 +218,7 @@ function makeSocialLayer(id, cfg) {
 					}],
 					["display-text", function () {
 						let table = "<table style='width:min(620px,92%);margin:8px auto;border-collapse:collapse;color:white;font-size:14px'>";
-						table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>" + cfg.symbol + "</b><br>" + cfg.tableTitle + "</td></tr>";
+						table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>" + cfg.label + "</b><br>" + cfg.tableTitle + "</td></tr>";
 						for (let i = 0; i < cfg.stats.length; i++) {
 							let s = cfg.stats[i];
 							table += subjectTableRow(s.label, subjectNumber(player[id][s.key]), "");
@@ -229,7 +229,7 @@ function makeSocialLayer(id, cfg) {
 					["clickable", 100],
 					["clickable", 104],
 					["display-text", function () {
-						return "已训练 <b>" + subjectNumber(player[id].trainingRuns) + "</b> 次 · 历史最佳 <b>" + subjectNumber(player[id].bestScore) + "</b> 分<br>全科知识倍率：x" + format(tmp[id].effect ? tmp[id].effect : 1) + "<br>" + cfg.crossText;
+						return "已训练 <b>" + subjectNumber(player[id].trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player[id].bestScore) + "</b> 分<br>全科知识倍率：x" + format(tmp[id].effect ? tmp[id].effect : 1) + "<br>" + cfg.crossText;
 					}],
 					"blank",
 					["infobox", "box"],
@@ -270,7 +270,7 @@ function makeSocialLayer(id, cfg) {
 					["display-text", function () {
 						if (player[id].active) return "答对 +3 分，答错 -1 分。限时 30 秒。";
 						if (player[id].completed) return "训练结束。点击“复盘”再来一次。";
-						return "点击“开始" + cfg.symbol + "训练”进入 30 秒速答。";
+						return "点击“开始" + cfg.label + "训练”进入 30 秒速答。";
 					}],
 				],
 			},
@@ -369,17 +369,19 @@ const GEO_STATS = [
 ];
 
 const HIS_LAYER = makeSocialLayer("His", {
-	symbol: "His",
+	symbol: "H",
+	name: "History",
+	label: "历史",
 	color: "#8B5A2B",
 	darkColor: "#3A2410",
 	resource: "历史知识",
 	unlock: 103,
 	row: 0,
 	position: 3,
-	tooltip: "中考历史",
-	tableTitle: "历史学科评分（与 Pol / C 联动）",
-	crossText: "联动：Pol 时政敏感度 → His 全科倍率；His 训练会给 Pol 增加时政积累。",
-	info: "中考最佳分数达到 103 分后解锁。<br><br>Minigame I 是 30 秒历史速答，答对 +3、答错 -1。背诵专区可以消耗历史知识提升时间线、史料、事件、人物、论述评分。<br><br>历史训练会给 Pol 增加少量时政敏感度。",
+	tooltip: "中考历史专项训练：时间线、史料与论述",
+	tableTitle: "历史学科评分（与政治 / 语文联动）",
+	crossText: "联动：政治时政敏感度 → 历史全科倍率；历史训练会给政治增加时政积累。",
+	info: "最佳中考分数达到 103 分后解锁。<br><br>Minigame I 是 30 秒历史速答，答对 +3、答错 -1。背诵专区可以消耗历史知识提升时间线、史料、事件、人物、论述评分。<br><br>历史训练会给政治增加少量时政敏感度。",
 	stats: HIS_STATS,
 	costBase: 30,
 });
@@ -387,17 +389,19 @@ HIS_LAYER.__statKeys = HIS_STATS.map(function (s) { return s.key; });
 addLayer("His", HIS_LAYER);
 
 const GEO_LAYER = makeSocialLayer("Geo", {
-	symbol: "Geo",
+	symbol: "G",
+	name: "Geography",
+	label: "地理",
 	color: "#2E8B57",
 	darkColor: "#123A26",
 	resource: "地理知识",
 	unlock: 119,
 	row: 0,
 	position: 4,
-	tooltip: "中考地理",
-	tableTitle: "地理学科评分（与 P / M 联动）",
-	crossText: "联动：P 力学/实验评分 → Geo 全科倍率；Geo 训练会给 P 增加实验评分。",
-	info: "中考最佳分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理训练会给 P 增加少量实验评分。",
+	tooltip: "中考地理专项训练：地图、气候与区域",
+	tableTitle: "地理学科评分（与物理 / 数学联动）",
+	crossText: "联动：物理力学/实验评分 → 地理全科倍率；地理训练会给物理增加实验评分。",
+	info: "最佳中考分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理训练会给物理增加少量实验评分。",
 	stats: GEO_STATS,
 	costBase: 40,
 });
@@ -414,7 +418,7 @@ if (layers.E && layers.E.branches) {
 	}
 }
 
-// ---------- 考试板块：His / Geo 试卷 ----------
+// ---------- 考试板块：历史 / 地理试卷 ----------
 
 const HISTORY_EXAM = [
 	{ id: 301, type: "单项选择题", points: 4, time: 120, short: "中国近代史开端", prompt: "1840 年，英国发动鸦片战争。中国近代史的开端是？" },
@@ -544,13 +548,15 @@ function makeExamHeader(id, title, text, width) {
 
 function makeExamSubmit(subject, color, timeField, scoreField, inFlag, doneFlag) {
 	let id = subject === "His" ? 350 : 450;
+	let label = subject === "His" ? "历史" : "地理";
 	return {
 		title() {
 			return "交卷！";
 		},
 		display() {
-			if (player.E[inFlag].gte(1)) return "完成本次" + subject + "考试。<br>当前得分：" + format(player.E[scoreField]) + " / 100<br>剩余时间：" + format(player.E[timeField]) + "s<br>*交卷后无法再修改本科目答案。";
-			return "您已完成本次" + subject + "考试。";
+			if (player.E[inFlag].gte(1)) return "完成本次" + label + "考试。<br>当前得分：" + format(player.E[scoreField]) + " / 100<br>剩余时间：" + format(player.E[timeField]) + "s<br>*交卷后无法再修改本科目答案。";
+			if (player.E[doneFlag]) return "您已完成本次" + label + "考试。";
+			return "本场" + label + "考试尚未开始。";
 		},
 		unlocked() {
 			return true;
@@ -594,8 +600,8 @@ layers.E.buyables[GEOGRAPHY_EXAM[12].id] = makeExamQuestion("Geo", GEOGRAPHY_EXA
 layers.E.buyables[450] = makeExamSubmit("Geo", "#2E8B57", "GeoTime", "geoScore", "inGeo", "completedGeo");
 layers.E.buyables[400].style.height = "150px";
 
-// E 层 tab：His / Geo
-layers.E.tabFormat.His = {
+// E 层 tab：历史 / 地理
+layers.E.tabFormat["历史"] = {
 	content: [
 		["buyable", 300],
 		["buyable", 340],
@@ -615,7 +621,7 @@ layers.E.tabFormat.His = {
 		return player.E.inExam.gte(1) && (player.E.inHistory.gte(1) || player.E.completedHistory);
 	},
 };
-layers.E.tabFormat.Geo = {
+layers.E.tabFormat["地理"] = {
 	content: [
 		["buyable", 400],
 		["buyable", 440],
@@ -686,14 +692,14 @@ layers.E.buyables[11].buy = function () {
 	resetSocialExam();
 };
 
-// 英语交卷后进入 His / Geo 考试
+// 英语交卷后进入历史 / 地理考试
 const oldEnglishSubmit = layers.E.buyables[116].buy;
 layers.E.buyables[116].buy = function () {
 	oldEnglishSubmit.call(this);
 	startSocialExam();
 };
 
-// 查分必须完成 His / Geo
+// 查分必须完成历史 / 地理
 const oldFinishUnlocked = layers.E.buyables[52].unlocked;
 const oldFinishCanAfford = layers.E.buyables[52].canAfford;
 const oldFinishBuy = layers.E.buyables[52].buy;
@@ -710,10 +716,10 @@ layers.E.buyables[52].buy = function () {
 
 // 分数展示
 layers.E.buyables[58].title = function () {
-	return "<h3>His：" + subjectNumber(player.E.historyScore) + "/100";
+	return "<h3>历史：" + subjectNumber(player.E.historyScore) + " / 100";
 };
 layers.E.buyables[59].title = function () {
-	return "<h3>Geo：" + subjectNumber(player.E.geoScore) + "/100";
+	return "<h3>地理：" + subjectNumber(player.E.geoScore) + " / 100";
 };
 
 // 兼容卡在英语交卷后的旧存档
@@ -727,20 +733,20 @@ layers.E.update = function (diff) {
 
 // ---------- 历史 / 地理成就 ----------
 
-layers.A.tabFormat.His = {
+layers.A.tabFormat["历史"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#8B5A2B'>His 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#8B5A2B'>历史成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [["achievement", 101], ["achievement", 102], ["achievement", 103], ["achievement", 104], ["achievement", 105]]],
 	],
 	buttonStyle: { "border-color": "#8B5A2B", "background-color": "#3A2410" },
 };
-layers.A.tabFormat.Geo = {
+layers.A.tabFormat["地理"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#2E8B57'>Geo 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#2E8B57'>地理成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [["achievement", 106], ["achievement", 107], ["achievement", 108], ["achievement", 109], ["achievement", 110]]],
@@ -749,19 +755,19 @@ layers.A.tabFormat.Geo = {
 };
 
 layers.A.achievements[101] = {
-	name: "His 启程",
+	name: "历史启程",
 	done() { return player.His && player.His.trainingRuns.gte(1); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
 	tooltip: "完成一次历史训练。",
 };
 layers.A.achievements[102] = {
-	name: "His 最佳",
+	name: "历史最佳",
 	done() { return player.His && player.His.bestScore.gte(80); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
 	tooltip: "历史训练单次达到 80 分。",
 };
 layers.A.achievements[103] = {
-	name: "His 背诵",
+	name: "历史背诵",
 	done() {
 		if (!player.His || !player.His.buyables) return false;
 		let n = 0; for (let i in player.His.buyables) n += Number(player.His.buyables[i]) || 0;
@@ -771,7 +777,7 @@ layers.A.achievements[103] = {
 	tooltip: "历史背诵累计 10 次。",
 };
 layers.A.achievements[104] = {
-	name: "文史贯通",
+	name: "政史贯通",
 	done() { return player.His && player.Pol && player.His.trainingRuns.gte(5) && player.Pol.trainingRuns.gte(1); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
 	tooltip: "历史训练 5 次且完成过政治训练。",
@@ -783,19 +789,19 @@ layers.A.achievements[105] = {
 	tooltip: "历史和地理各训练一次。",
 };
 layers.A.achievements[106] = {
-	name: "Geo 启程",
+	name: "地理启程",
 	done() { return player.Geo && player.Geo.trainingRuns.gte(1); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
 	tooltip: "完成一次地理训练。",
 };
 layers.A.achievements[107] = {
-	name: "Geo 最佳",
+	name: "地理最佳",
 	done() { return player.Geo && player.Geo.bestScore.gte(80); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
 	tooltip: "地理训练单次达到 80 分。",
 };
 layers.A.achievements[108] = {
-	name: "Geo 背诵",
+	name: "地理背诵",
 	done() {
 		if (!player.Geo || !player.Geo.buyables) return false;
 		let n = 0; for (let i in player.Geo.buyables) n += Number(player.Geo.buyables[i]) || 0;
@@ -808,7 +814,7 @@ layers.A.achievements[109] = {
 	name: "地物联动",
 	done() { return player.Geo && player.P && player.Geo.trainingRuns.gte(5) && player.P.trainingRuns.gte(1); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
-	tooltip: "地理训练 5 次且完成过 P 训练。",
+	tooltip: "地理训练 5 次且完成过物理训练。",
 };
 layers.A.achievements[110] = {
 	name: "史地双修",

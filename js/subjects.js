@@ -1,7 +1,7 @@
 // ============================================================
-// 天津中考树：Physics & PE 更新
+// 天津中考树：物理 / 体育更新
 // - P = Physics（物理），与 M（数学）无关
-// - 体育层：独立 side 层，按新备份实现 30 秒反应速度训练
+// - 体育层：独立层，按新备份实现 30 秒反应速度训练
 // ============================================================
 
 // ---------- 评级与数字格式 ----------
@@ -55,14 +55,14 @@ function subjectColor(layer) {
 }
 
 function subjectHeaderHTML(layer, name) {
-	return "You have <h2 style='color:" + subjectColor(layer) + ";text-shadow:0px 0px 10px " + subjectColor(layer) + "'>" + subjectNumber(player[layer].points) + "</h2> " + name;
+	return "当前" + name + "：<h2 style='color:" + subjectColor(layer) + ";text-shadow:0px 0px 10px " + subjectColor(layer) + "'>" + subjectNumber(player[layer].points) + "</h2>";
 }
 
 function subjectTimerHTML(layer) {
 	let p = player[layer];
 	let time = p.active ? Math.max(0, p.timeLeft) : 0;
 	let pct = p.active ? Math.max(0, Math.min(100, time / 30 * 100)) : (p.completed ? 0 : 100);
-	let text = p.active ? time.toFixed(2) + "秒 Remaining!!" : (p.completed ? "0.00秒 Remaining!!" : "30.00秒 Remaining!!");
+	let text = p.active ? "剩余 " + time.toFixed(2) + " 秒" : (p.completed ? "剩余 0.00 秒" : "剩余 30.00 秒");
 	return (
 		"<h2 style='color:" + subjectColor(layer) + ";text-shadow:0px 0px 10px " + subjectColor(layer) + "'>" + text + "</h2>" +
 		"<div style='width:min(600px,90%);height:28px;margin:8px auto;border:2px solid white;border-radius:16px;background:#111;overflow:hidden'>" +
@@ -83,7 +83,7 @@ function subjectQuestionHTML(layer) {
 		return "<h1 style='color:" + color + ";font-size:64px'>" + p.lastScore + "</h1>" +
 			"<h2 style='color:" + color + "'>" + p.lastMessage + "</h2>";
 	}
-	return "<h2>准备...开始!</h2><p>开始训练！！！（限时30s，答对题目越多训练越成功）</p>";
+	return "<h2>准备……开始！</h2><p>限时 30 秒，答对题目越多，训练成绩越好。</p>";
 }
 
 function subjectStart(layer) {
@@ -385,10 +385,10 @@ addLayer("PE", {
 		return player.E.bestPoints.gte(256) || (player.PE && player.PE.trainingRuns.gte(1));
 	},
 	tooltip() {
-		return "体育：中考体育训练";
+		return "体育：中考体育反应训练";
 	},
 	tooltipLocked() {
-		return "体育层<br>中考最佳分数达到 256 分后解锁";
+		return "体育<br>最佳中考分数达到 256 分后解锁";
 	},
 
 	update(diff) {
@@ -529,7 +529,7 @@ addLayer("PE", {
 				return "体育";
 			},
 			body() {
-				return "中考最佳分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒反应速度训练：30 道小学三四年级难度的整数计算题，答对 +3 分，答错 -1 分。训练结束后按总分提升体育能力和反应速度。";
+				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒反应速度训练：30 道小学三四年级难度的整数计算题，答对 +3 分，答错 -1 分。训练结束后按总分提升体育能力和反应速度。";
 			},
 			style() {
 				return { borderColor: "#FF00FF" };
@@ -567,7 +567,7 @@ addLayer("PE", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.PE.trainingRuns) + "</b> 次 · 历史最佳 <b>" + subjectNumber(player.PE.bestScore) + "</b> 分<br>体育能力每 1,000 点使学分获取 +100%。";
+					return "已训练 <b>" + subjectNumber(player.PE.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.PE.bestScore) + "</b> 分<br>体育能力每 1,000 点使学分获取 +100%。";
 				}],
 				"blank",
 				["infobox", "peBox"],
@@ -645,10 +645,10 @@ addLayer("P", {
 		return player.E.bestPoints.gte(256) || (player.P && player.P.trainingRuns.gte(1));
 	},
 	tooltip() {
-		return "物理：中考物理训练";
+		return "物理：中考物理计算与实验";
 	},
 	tooltipLocked() {
-		return "物理层<br>中考最佳分数达到 256 分后解锁";
+		return "物理<br>最佳中考分数达到 256 分后解锁";
 	},
 
 	update(diff) {
@@ -790,7 +790,7 @@ addLayer("P", {
 				return "物理";
 			},
 			body() {
-				return "P 代表 Physics（物理），与 M（数学）无关。<br><br>中考最佳分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。";
+				return "物理（Physics，树节点简称 P）与数学（M）是两个独立科目。<br><br>最佳中考分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。";
 			},
 			style() {
 				return { borderColor: "#00BFFF" };
@@ -823,7 +823,7 @@ addLayer("P", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.P.trainingRuns) + "</b> 次 · 历史最佳 <b>" + subjectNumber(player.P.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.P && tmp.P.effect ? tmp.P.effect : 1) + "（由五项物理评分提供）";
+					return "已训练 <b>" + subjectNumber(player.P.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.P.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.P && tmp.P.effect ? tmp.P.effect : 1) + "（由五项物理评分提供）";
 				}],
 				"blank",
 				["infobox", "physicsBox"],
@@ -868,10 +868,10 @@ for (let tab in layers.A.tabFormat) {
 		});
 	}
 }
-layers.A.tabFormat.Subjects = {
+layers.A.tabFormat["物理 / 体育"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#00BFFF'>物理 & 体育成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#00BFFF'>物理 / 体育成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [

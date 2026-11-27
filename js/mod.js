@@ -13,56 +13,65 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.7.0.20230805",
-	name: "Synergy",
+	num: "Beta v0.7.1.20230812",
+	name: "Clarity",
 }
 
 let changelog = `
+中考树v0.7.1.20230812：Clarity<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 统一学科称呼：树节点使用 H / G 等短标记，中文界面使用历史 / 地理 / 政治 / 物理 / 体育 / 综合素质，英文全名只用于层名和代码。<br>
+- 层提示、说明框、成就名、里程碑描述、考试交卷、分数标题和成就页签全部同步。<br>
+- 修正“文史贯通”等与联动对象不符的文本，统一为“政史贯通”。<br>
+- “中考最佳分数”和“最佳中考分数”统一写法；训练计时改为中文。<br>
+- 内部层 ID 与存档字段保持不变，旧存档可以继续读取。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.7.0.20230805：Synergy<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 新增 Syn 综合素质层：把各层里程碑做成 10 组跨学科联动。<br>
+- 新增综合素质层：把各层里程碑做成 10 组跨学科联动。<br>
 - 联动包括语史、语政、语英、数理、数地、英地、史地、政史、体理、体地。<br>
 - 每一对联动等级由双方层的里程碑数量决定，提供全科知识倍率。<br>
-- Syn 层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。<br>
-- Syn 层有 5 个联动里程碑和 5 个联动成就。<br>
-- 成就页新增 Syn 页签。<br>
+- 综合素质层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。<br>
+- 综合素质层有 5 个联动里程碑和 5 个联动成就。<br>
+- 成就页新增综合素质页签。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.6.0.20230728：Achievements<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 为 M / Nf / Am / Exp / L / C / E / Eng 的里程碑增加对应成就。<br>
+- 为数学 / 计数法 / 自动化 / 经验 / 排行榜 / 语文 / 中考 / 英语的里程碑增加对应成就。<br>
 - 新增全局里程碑收集成就：10 / 30 / 50 个里程碑。<br>
 - 新增「成就达人」「成就狂人」等成就自身成就。<br>
-- 成就页新增 M / Nf / Am、Exp / L、C / E / Eng、Global 四个页签。<br>
+- 成就页新增数学 / 策略 / 自动化、经验 / 排行榜、语文 / 中考 / 英语、全局里程碑四个页签。<br>
 - 所有新成就都会增加 A 层 Goals，并与现有 A 层里程碑联动。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.5.0.20230725：Milestones<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 为 C / E / Eng 增加后期里程碑。<br>
-- 为 M / Nf / A / Am / Exp / L 增加里程碑。<br>
-- 为 P / PE / Pol / His / Geo 增加训练里程碑。<br>
+- 为语文 / 中考 / 英语增加后期里程碑。<br>
+- 为数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜增加里程碑。<br>
+- 为物理 / 体育 / 政治 / 历史 / 地理增加训练里程碑。<br>
 - 所有新增里程碑统一提供全科知识倍率，并在对应层级显示。<br>
-- P / PE / Pol / His / Geo 新增 Milestones 页签；M / Nf / A / Am 也补上里程碑页。<br>
+- 物理 / 体育 / 政治 / 历史 / 地理新增里程碑页签；数学 / 计数法 / 成就 / 自动化也补上里程碑页。<br>
 - 里程碑解锁时会弹出提示，效果会即时生效。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-中考树v0.4.0.20230720：His / Geo<br>
+中考树v0.4.0.20230720：历史 / 地理<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 新增历史层「His」：中考最佳分数 103 后解锁，与 Pol / C 联动。<br>
-- 新增地理层「Geo」：中考最佳分数 119 后解锁，与 P / M 联动。<br>
-- His / Geo 各有 Main、背诵专区和 Minigame I 速答。<br>
-- 历史训练会给 Pol 增加时政敏感度；地理训练会给 P 增加实验评分。<br>
-- His 与 Geo 互相提供全科倍率加成，史地不分家。<br>
-- 考试板块新增 His / Geo 试卷：单项选择题、材料解析题、综合题，题型参考天津中考。<br>
-- His / Geo 考试分数会计入中考总分，未完成两科不能查分。<br>
-- 新增 His / Geo 成就和成就页签。<br>
+- 新增历史层：最佳中考分数 103 后解锁，与政治 / 语文联动。<br>
+- 新增地理层：最佳中考分数 119 后解锁，与物理 / 数学联动。<br>
+- 历史 / 地理各有 Main、背诵专区和 Minigame I 速答。<br>
+- 历史训练会给政治增加时政敏感度；地理训练会给物理增加实验评分。<br>
+- 历史与地理互相提供全科倍率加成，史地不分家。<br>
+- 考试板块新增历史 / 地理试卷：单项选择题、材料解析题、综合题，题型参考天津中考。<br>
+- 历史 / 地理考试分数会计入中考总分，未完成两科不能查分。<br>
+- 新增历史 / 地理成就和成就页签。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-中考树v0.3.0.20230715：P / PE / Pol<br>
+中考树v0.3.0.20230715：政治 / 物理 / 体育<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 新增政治层「Pol / 道德与法治」：中考最佳分数达到 84 分后解锁。<br>
-- Pol 位于 C / M / Eng 同排，是第四门主科；与 P（Physics）互相独立。<br>
+- 新增政治层（道德与法治）：最佳中考分数达到 84 分后解锁。<br>
+- 政治位于语文 / 数学 / 英语同排，是第四门主科；与物理互相独立。<br>
 - Main 显示政治能力与道德修养 / 法治意识 / 国情认知 / 时政敏感度 / 答题规范五项评分。<br>
 - 新增背诵专区：消耗政治能力背诵知识点，永久提升对应评分。<br>
 - 新增 Minigame I「时政速答」：30 秒政治选择题，答对 +3、答错 -1。<br>
@@ -72,17 +81,17 @@ let changelog = `
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.2.0.20230712：Physics & PE<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- <b>P 层确定为 Physics（物理），与 M（数学）无关。</b><br>
-- M 层占位页签由 Phigros 改名 Math，明确它是数学层、不是 P 层。<br>
-- P 层在中考最佳分数达到 256 分后解锁，位于 E 层下方。<br>
-- 新增 Physics 的 Main / Minigame I：30 秒物理量计算训练，答对 +3 分、答错 -1 分。<br>
+- <b>物理层（P）确定为 Physics，与数学层（M）无关。</b><br>
+- 数学层占位页签由 Phigros 改名 Math，明确它是数学层、不是物理层。<br>
+- 物理层在最佳中考分数达到 256 分后解锁，位于中考层下方。<br>
+- 新增物理的 Main / Minigame I：30 秒物理量计算训练，答对 +3 分、答错 -1 分。<br>
 - 物理训练提升力学、热学、光学、电学、实验评分，并提高全科知识获取。<br>
-- 新增独立的 体育 side 层（中考 256 分解锁）：Main 显示身体数据与五项评分，Minigame I 为 30 秒反应速度训练。<br>
+- 新增独立的体育层（最佳中考 256 分解锁）：Main 显示身体数据与五项评分，Minigame I 为 30 秒反应速度训练。<br>
 - 体育训练使用 30 道小学三四年级整数计算题，答对 +3 分、答错 -1 分，结束后提升体育能力与反应速度。<br>
-- 修复打开成就页时报错的问题，并新增 Physics & PE 成就页签。<br>
+- 修复打开成就页时报错的问题，并新增物理 / 体育成就页签。<br>
 - 修复中文姓名/中文训练记录在存档后变成乱码的问题；旧格式存档仍可读取。<br>
 - 保留之前的修复：第五个 Uncommon 写作手法需要第 5 次挖掘；作文超时会自动交卷。<br>
-- 上一版把 P 误当成 Phigros/Rebirth 的原型已移至 Old Things，不再参与游戏。<br>
+- 上一版把物理层误当成 Phigros/Rebirth 的原型已移至 Old Things，不再参与游戏。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 特殊成就12获得方法：将你的游戏内名字改成作者的名字，并且完成一次考试！与此同时，神奇的事情将会发生哦
@@ -116,7 +125,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你完成了 P 与 PE 的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了物理与体育的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -227,30 +236,30 @@ var displayThings = [
 	function() {
 		if (player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
 			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
-			return "当前残局:P 与 PE 训练双科最佳达到 80 分";
+			return "当前残局：物理与体育训练的双科最佳都达到 80 分";
 		}
-		if (player.E.bestPoints.gte(256)) return "当前残局:完成 P / PE 的训练挑战";
-		if (player.E.bestPoints.gte(119)) return "当前残局:His / Geo 已解锁，继续冲击 256 分以解锁 P 与 PE";
-		if (player.E.bestPoints.gte(103)) return "当前残局:His 已解锁，继续冲击 119 分以解锁 Geo";
-		if (player.E.bestPoints.gte(84)) return "当前残局:Pol 已解锁，继续冲击 103 分以解锁 His";
-		return "当前残局:84 解锁 Pol；103 解锁 His；119 解锁 Geo；256 解锁 P 与 PE";
+		if (player.E.bestPoints.gte(256)) return "当前残局：完成物理 / 体育的训练挑战";
+		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁物理与体育";
+		if (player.E.bestPoints.gte(103)) return "当前残局：历史已解锁，继续冲击 119 分以解锁地理";
+		if (player.E.bestPoints.gte(84)) return "当前残局：政治已解锁，继续冲击 103 分以解锁历史";
+		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁物理与体育";
 	},
 	function() {
 		if (player.E.bestPoints.gte(256)) {
-			return "物理能力: " + subjectNumber(player.P.points) + " · 体育能力: " + subjectNumber(player.PE.points);
+			return "物理能力：" + subjectNumber(player.P.points) + " · 体育能力：" + subjectNumber(player.PE.points);
 		}
 	},
 	function() {
 		if (player.E.bestPoints.gte(84) && player.Pol) {
-			return "政治能力: " + subjectNumber(player.Pol.points) + " · Pol 最佳训练: " + subjectNumber(player.Pol.bestScore) + " 分";
+			return "政治能力：" + subjectNumber(player.Pol.points) + " · 政治最佳训练：" + subjectNumber(player.Pol.bestScore) + " 分";
 		}
 	},
 	function() {
 		if (player.E.bestPoints.gte(119) && player.His && player.Geo) {
-			return "历史知识: " + subjectNumber(player.His.points) + " · 地理知识: " + subjectNumber(player.Geo.points) + " · His/Geo 最佳: " + subjectNumber(player.His.bestScore) + " / " + subjectNumber(player.Geo.bestScore);
+			return "历史知识：" + subjectNumber(player.His.points) + " · 地理知识：" + subjectNumber(player.Geo.points) + " · 史地最佳：" + subjectNumber(player.His.bestScore) + " / " + subjectNumber(player.Geo.bestScore);
 		}
 		if (player.E.bestPoints.gte(103) && player.His) {
-			return "历史知识: " + subjectNumber(player.His.points) + " · His 最佳训练: " + subjectNumber(player.His.bestScore) + " 分";
+			return "历史知识：" + subjectNumber(player.His.points) + " · 历史最佳训练：" + subjectNumber(player.His.bestScore) + " 分";
 		}
 	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",

@@ -61,8 +61,22 @@ function synergyRate() {
 	return rate;
 }
 
+function synergyLayerName(layer) {
+	let names = {
+		C: "语文",
+		M: "数学",
+		Eng: "英语",
+		P: "物理",
+		PE: "体育",
+		Pol: "政治",
+		His: "历史",
+		Geo: "地理",
+	};
+	return names[layer] || layer;
+}
+
 function synergyPairTableHTML() {
-	let html = "<table style='width:min(620px,92%);margin:8px auto;border-collapse:collapse;color:white;font-size:13px'>";
+	let html = "<table style='width:min(680px,94%);margin:8px auto;border-collapse:collapse;color:white;font-size:13px'>";
 	html += "<tr><td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>联动</b></td>";
 	html += "<td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>配对</b></td>";
 	html += "<td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>等级</b></td>";
@@ -72,7 +86,7 @@ function synergyPairTableHTML() {
 		let level = synergyPairLevel(pair);
 		html += "<tr>";
 		html += "<td style='padding:5px;border:1px solid #555;background:#333;text-align:center'>" + pair.name + "</td>";
-		html += "<td style='padding:5px;border:1px solid #555;background:#222;text-align:center'>" + pair.a + " + " + pair.b + "</td>";
+		html += "<td style='padding:5px;border:1px solid #555;background:#222;text-align:center'>" + synergyLayerName(pair.a) + " + " + synergyLayerName(pair.b) + "</td>";
 		html += "<td style='padding:5px;border:1px solid #555;background:#222;text-align:center'>" + level + " / 5</td>";
 		html += "<td style='padding:5px;border:1px solid #555;background:#222;text-align:center'>+" + (level * 5) + "%</td>";
 		html += "</tr>";
@@ -97,16 +111,16 @@ addLayer("Syn", {
 	position: 0,
 	symbol: "Syn",
 	type: "none",
-	name: "Syn",
+	name: "Synergy",
 
 	layerShown() {
 		return player.E.bestPoints.gte(84);
 	},
 	tooltip() {
-		return "Syn：跨学科综合素质";
+		return "综合素质：跨学科联动";
 	},
 	tooltipLocked() {
-		return "Syn 层<br>中考最佳分数达到 84 分后解锁";
+		return "综合素质<br>最佳中考分数达到 84 分后解锁";
 	},
 
 	update(diff) {
@@ -255,19 +269,19 @@ addLayer("Syn", {
 			buttonStyle: { "font-size": "16px", padding: "4px 8px", "border-color": "#FFD700" },
 			content: [
 				["display-text", function () {
-					return "You have <h2 style='color:#FFD700'>" + subjectNumber(player.Syn.points) + "</h2> 综合素质";
+					return "当前综合素质：<h2 style='color:#FFD700'>" + subjectNumber(player.Syn.points) + "</h2>";
 				}],
 				["display-text", function () {
 					return synergyPairTableHTML();
 				}],
 				["display-text", function () {
-					return "当前跨学科倍率：x" + format(synergyMult()) + " · 综合素质产出：" + format(synergyRate()) + "/sec";
+					return "当前跨学科倍率：x" + format(synergyMult()) + " · 综合素质产出：" + format(synergyRate()) + "/秒";
 				}],
 				["clickable", 100],
 				["display-text", "联动等级由双方层级的里程碑数量决定；两科都推进，联动才会升级。"],
 			],
 		},
-		Reward: {
+		"奖励": {
 			buttonStyle: { "font-size": "16px", padding: "4px 8px", "border-color": "#FFD700" },
 			content: [
 				["display-text", function () {
@@ -276,7 +290,7 @@ addLayer("Syn", {
 				"upgrades",
 			],
 		},
-		Milestones: {
+		"里程碑": {
 			buttonStyle: { "font-size": "16px", padding: "4px 8px", "border-color": "#FFD700" },
 			content: ["milestones"],
 		},
@@ -304,10 +318,10 @@ synA(142, "史地联动", function () { return synergyPairLevel(synPair("HG")) >
 synA(143, "全面联动", function () { return synergyPairCountAtLeast(2) >= 10; }, "全部 10 对联动达到 2 级。");
 synA(144, "综合大师", function () { return synergyMult().gte(2); }, "跨学科倍率达到 x2。");
 
-layers.A.tabFormat.Syn = {
+layers.A.tabFormat["综合素质"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#FFD700'>Syn 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#FFD700'>综合素质成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [["achievement", 140], ["achievement", 141], ["achievement", 142]]],
