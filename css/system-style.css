@@ -211,10 +211,10 @@ ul {
 
 .sideLayers {
 	z-index: 10000;
-	pointer-events:auto;
+	pointer-events: auto;
 	position: absolute;
-	right: 55px;
-	top: 65px;
+	right: 20px;
+	top: 320px;
 	background-color: transparent;
 }
 

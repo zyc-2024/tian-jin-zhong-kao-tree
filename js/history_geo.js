@@ -2,7 +2,7 @@
 // 天津中考树：历史 / 地理扩展
 // - 两个完整学科层（内部 ID：His / Geo；树节点：H / G）
 // - 考试板块新增天津中考风格的历史 / 地理试卷
-// - 与政治 / 语文、物理 / 数学以及彼此交叉联动
+// - 与政治 / 语文、数学以及彼此交叉联动
 // ============================================================
 
 // ---------- 学科训练题库 ----------
@@ -107,6 +107,7 @@ function makeSocialLayer(id, cfg) {
 		symbol: cfg.symbol,
 		type: "none",
 		name: cfg.name || cfg.symbol,
+		nodeStyle: cfg.nodeStyle,
 
 		layerShown() {
 			return player.E.bestPoints.gte(cfg.unlock) || (player[id] && player[id].trainingRuns.gte(1));
@@ -129,7 +130,6 @@ function makeSocialLayer(id, cfg) {
 				if (player.C && player.C.tier) mult = mult.add(new OmegaNum(player.C.tier).div(100));
 				if (player.Geo) mult = mult.add(totalOf("Geo").div(200));
 			} else if (id === "Geo") {
-				if (player.P) mult = mult.add(player.P.mechanics.add(player.P.experiment).div(200));
 				if (player.M && player.M.points && player.M.points.gt(0)) mult = mult.add(player.M.points.log10().max(0).div(200));
 				if (player.His) mult = mult.add(totalOf("His").div(200));
 			}
@@ -378,6 +378,7 @@ const HIS_LAYER = makeSocialLayer("His", {
 	unlock: 103,
 	row: 0,
 	position: 3,
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	tooltip: "中考历史专项训练：时间线、史料与论述",
 	tableTitle: "历史学科评分（与政治 / 语文联动）",
 	crossText: "联动：政治时政敏感度 → 历史全科倍率；历史训练会给政治增加时政积累。",
@@ -398,10 +399,11 @@ const GEO_LAYER = makeSocialLayer("Geo", {
 	unlock: 119,
 	row: 0,
 	position: 4,
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	tooltip: "中考地理专项训练：地图、气候与区域",
-	tableTitle: "地理学科评分（与物理 / 数学联动）",
-	crossText: "联动：物理力学/实验评分 → 地理全科倍率；地理训练会给物理增加实验评分。",
-	info: "最佳中考分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理训练会给物理增加少量实验评分。",
+	tableTitle: "地理学科评分（与数学联动）",
+	crossText: "联动：数学理论 → 地理全科倍率；地理与历史互相提供加成。",
+	info: "最佳中考分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理与历史互相提供全科倍率加成。",
 	stats: GEO_STATS,
 	costBase: 40,
 });
@@ -461,7 +463,7 @@ function examChance(subject, q) {
 		if (player.Pol) extra = extra.add(player.Pol.current.mul(1.5));
 		if (player.C) extra = extra.add(new OmegaNum(player.C.tier).mul(2));
 	} else if (subject === "Geo") {
-		if (player.P) extra = extra.add(player.P.mechanics.add(player.P.experiment).mul(0.5));
+		if (player.M && player.M.points && player.M.points.gt(0)) extra = extra.add(player.M.points.log10().max(0).mul(0.5));
 	}
 	if (q.type !== "单项选择题") extra = extra.mul(0.8);
 	return extra.add(base).min(95).max(1);
@@ -811,10 +813,10 @@ layers.A.achievements[108] = {
 	tooltip: "地理背诵累计 10 次。",
 };
 layers.A.achievements[109] = {
-	name: "地物联动",
-	done() { return player.Geo && player.P && player.Geo.trainingRuns.gte(5) && player.P.trainingRuns.gte(1); },
+	name: "数地联动",
+	done() { return player.Geo && player.M && player.Geo.trainingRuns.gte(5) && player.M.points.gte(1); },
 	onComplete() { player.A.Goals = player.A.Goals.add(1); },
-	tooltip: "地理训练 5 次且完成过物理训练。",
+	tooltip: "地理训练 5 次且拥有数学理论。",
 };
 layers.A.achievements[110] = {
 	name: "史地双修",

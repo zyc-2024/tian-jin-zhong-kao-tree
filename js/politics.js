@@ -1,6 +1,6 @@
 // ============================================================
 // 天津中考树：Politics（政治 / 道德与法治）
-// 仿照 Physics / 体育层的作者风格制作：
+// 仿照体育层的作者风格制作：
 //   Main 数据表 + 背诵 buyables + Minigame I 时政速答
 // ============================================================
 
@@ -93,7 +93,8 @@ addLayer("Pol", {
 	color: "#E74C3C",
 	resource: "政治能力",
 	row: 0,
-	position: 2,
+	position: 5,
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	symbol: "Pol",
 	type: "none",
 	name: "Politics",

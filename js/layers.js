@@ -61,6 +61,7 @@ addLayer("C", {
 		};
 	},
 	position: 0,
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	perSecond() {
 		let gain = new OmegaNum(0);
 		gain = gain.add(tmp.C.readingPointsMult.mul(player.C.balance1));
@@ -18664,7 +18665,8 @@ addLayer("Eng", {
 	color: "#909561", // The color for this layer, which affects many elements.
 	resource: "英语语法", // The name of this layer's main prestige resource.
 	row: 0,
-	position: 1, // The row this layer is on (0 is the first row).
+	position: 2, // The row this layer is on (0 is the first row).
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 
 	baseResource: "points", // The name of the resource your prestige gain is based on.
 	baseAmount() {
@@ -22686,6 +22688,7 @@ addLayer("M", {
 	type: "normal", // Determines the formula used for calculating prestige currency.
 	exponent: 0.5,
 	position: 1, // "normal" prestige gain is (currency^exponent).
+	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 
 	gainMult() {
 		// Returns your multiplier to your gain of the prestige resource.
@@ -22716,7 +22719,7 @@ addLayer("M", {
 					" / " +
 					"56 个已购买的英语网格节点<br>需要" +
 					format(player.C.points) +
-					" / 1e60000 语文知识<br>这是数学层未来的重置入口，目前暂未开放。<br>物理（P）与数学（M）是两个独立科目。";
+					" / 1e60000 语文知识<br>这是数学层未来的重置入口，目前暂未开放。";
 				return display;
 			},
 			unlocked() {

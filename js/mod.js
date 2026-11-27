@@ -13,14 +13,25 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.7.1.20230812",
-	name: "Clarity",
+	num: "Beta v0.8.0.20230819",
+	name: "PE Focus",
 }
 
 let changelog = `
+中考树v0.8.0.20230819：PE Focus<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 删除物理层（P），树上的物理训练与物理里程碑不再出现。<br>
+- 体育层移到中考层（E）正下方，作为唯一的训练挑战层。<br>
+- 语文 / 数学 / 英语 / 历史 / 地理 / 政治全部放在第一排。<br>
+- 地理联动改为数学理论；综合素质联动用「数英」「体政」替换「数理」「体理」。<br>
+- 物理 / 体育成就页改为体育成就页，原 5 个成就全部改为体育目标。<br>
+- 旧存档会自动清理物理层数据，体育层与成就数据保留。<br>
+- 旧版本记录中的物理层内容仅作历史保留。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.7.1.20230812：Clarity<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 统一学科称呼：树节点使用 H / G 等短标记，中文界面使用历史 / 地理 / 政治 / 物理 / 体育 / 综合素质，英文全名只用于层名和代码。<br>
+- 统一学科称呼：树节点使用 H / G 等短标记，中文界面使用历史 / 地理 / 政治 / 体育 / 综合素质，英文全名只用于层名和代码。<br>
 - 层提示、说明框、成就名、里程碑描述、考试交卷、分数标题和成就页签全部同步。<br>
 - 修正“文史贯通”等与联动对象不符的文本，统一为“政史贯通”。<br>
 - “中考最佳分数”和“最佳中考分数”统一写法；训练计时改为中文。<br>
@@ -125,7 +136,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你完成了物理与体育的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了体育训练挑战！<br>体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -165,7 +176,6 @@ if(hasUpgrade("Eng",57)) gain = gain.mul(upgradeEffect("Eng",57))
 if(hasUpgrade("Eng",67)) gain = gain.mul(upgradeEffect("Eng",67))
 if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
-if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
 if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
 if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
 if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
@@ -185,10 +195,10 @@ function addedPlayerData() { return {
 // Determines when the game "ends"
 function isEndgame() {
 	return !!(
-		player.P && player.PE &&
-		player.P.bestScore && player.PE.bestScore &&
-		player.P.bestScore.gte(80) && player.PE.bestScore.gte(80) &&
-		player.P.trainingRuns.gte(5) && player.PE.trainingRuns.gte(5)
+		player.PE &&
+		player.PE.bestScore &&
+		player.PE.bestScore.gte(80) &&
+		player.PE.trainingRuns.gte(10)
 	)
 }
 
@@ -223,30 +233,31 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	// 旧版 P 曾是 Phigros/Rebirth 原型；P 现在是 Physics，直接换成新层数据。
-	if (player.P && player.P.partnerLevels) player.P = getStartLayerData("P");
+	// 物理层已删除；旧存档里的物理数据、页签和当前页面一并清理。
+	if (player.P) delete player.P;
+	if (player.subtabs && player.subtabs.P) delete player.subtabs.P;
+	if (player.tab === "P") player.tab = "C";
+	if (player.navTab === "P") player.navTab = "tree-tab";
+	if (player.prevTab === "P") player.prevTab = "C";
 	if (player.PE && player.PE.partnerLevels) player.PE = getStartLayerData("PE");
-	if (!player.P) player.P = getStartLayerData("P");
 	if (!player.PE) player.PE = getStartLayerData("PE");
 	// 旧存档可能没有新的训练字段；fixData 通常已补齐，这里只兜底。
-	if (player.P.trainingRuns === undefined) player.P.trainingRuns = new OmegaNum(0);
 	if (player.PE.trainingRuns === undefined) player.PE.trainingRuns = new OmegaNum(0);
 }
 var displayThings = [
 	function() {
-		if (player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
-			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
-			return "当前残局：物理与体育训练的双科最佳都达到 80 分";
+		if (player.PE && player.PE.bestScore && player.PE.bestScore.gte(80) && player.PE.trainingRuns.gte(5)) {
+			return "当前残局：体育训练单次最佳达到 80 分";
 		}
-		if (player.E.bestPoints.gte(256)) return "当前残局：完成物理 / 体育的训练挑战";
-		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁物理与体育";
+		if (player.E.bestPoints.gte(256)) return "当前残局：完成体育的训练挑战";
+		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁体育";
 		if (player.E.bestPoints.gte(103)) return "当前残局：历史已解锁，继续冲击 119 分以解锁地理";
 		if (player.E.bestPoints.gte(84)) return "当前残局：政治已解锁，继续冲击 103 分以解锁历史";
-		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁物理与体育";
+		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁体育";
 	},
 	function() {
 		if (player.E.bestPoints.gte(256)) {
-			return "物理能力：" + subjectNumber(player.P.points) + " · 体育能力：" + subjectNumber(player.PE.points);
+			return "体育能力：" + subjectNumber(player.PE.points);
 		}
 	},
 	function() {

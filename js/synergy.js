@@ -7,12 +7,12 @@ const SYNERGY_PAIRS = [
 	{ id: "CH", name: "语史", a: "C", b: "His", desc: "阅读与史料互证" },
 	{ id: "CP", name: "语政", a: "C", b: "Pol", desc: "阅读与时政表达" },
 	{ id: "CE", name: "语英", a: "C", b: "Eng", desc: "语言能力互通" },
-	{ id: "MP", name: "数理", a: "M", b: "P", desc: "数学工具与物理建模" },
+	{ id: "ME", name: "数英", a: "M", b: "Eng", desc: "逻辑与表达" },
 	{ id: "MG", name: "数地", a: "M", b: "Geo", desc: "比例尺、坐标与统计" },
 	{ id: "EG", name: "英地", a: "Eng", b: "Geo", desc: "区域资料与外文材料" },
 	{ id: "HG", name: "史地", a: "His", b: "Geo", desc: "时空综合" },
 	{ id: "PH", name: "政史", a: "Pol", b: "His", desc: "制度史与时政" },
-	{ id: "PP", name: "体理", a: "PE", b: "P", desc: "运动数据与物理实验" },
+	{ id: "PEP", name: "体政", a: "PE", b: "Pol", desc: "规则意识与体育精神" },
 	{ id: "PG", name: "体地", a: "PE", b: "Geo", desc: "户外训练与区域地理" },
 ];
 
@@ -66,7 +66,6 @@ function synergyLayerName(layer) {
 		C: "语文",
 		M: "数学",
 		Eng: "英语",
-		P: "物理",
 		PE: "体育",
 		Pol: "政治",
 		His: "历史",
@@ -313,7 +312,7 @@ function synPair(id) {
 }
 
 synA(140, "语史联动", function () { return synergyPairLevel(synPair("CH")) >= 3; }, "语史联动达到 3 级。");
-synA(141, "数理联动", function () { return synergyPairLevel(synPair("MP")) >= 3; }, "数理联动达到 3 级。");
+synA(141, "数英联动", function () { return synergyPairLevel(synPair("ME")) >= 3; }, "数英联动达到 3 级。");
 synA(142, "史地联动", function () { return synergyPairLevel(synPair("HG")) >= 3; }, "史地联动达到 3 级。");
 synA(143, "全面联动", function () { return synergyPairCountAtLeast(2) >= 10; }, "全部 10 对联动达到 2 级。");
 synA(144, "综合大师", function () { return synergyMult().gte(2); }, "跨学科倍率达到 x2。");

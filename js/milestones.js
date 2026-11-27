@@ -1,7 +1,7 @@
 // ============================================================
 // 全层级里程碑补充
 // - 给已有里程碑的语文 / 中考 / 英语追加后期里程碑
-// - 给数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜 / 物理 / 体育 / 政治 / 历史 / 地理增加里程碑
+// - 给数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜 / 体育 / 政治 / 历史 / 地理增加里程碑
 // - 所有新增里程碑统一提供全科知识倍率，并在各层显示
 // ============================================================
 
@@ -140,20 +140,6 @@ addMilestone("L", 2, "最佳中考分数达到 200", "全科知识获取 +30%。
 addMilestone("L", 3, "最佳中考分数达到 256", "全科知识获取 +50%。",
 	function () { return player.E.bestPoints.gte(256); }, milestoneAfter("L", 3));
 
-// ---------- P：物理 ----------
-
-const P_STATS = ["mechanics", "thermo", "optics", "electricity", "experiment"];
-addMilestone("P", 0, "完成 1 次物理训练", "全科知识获取 +10%。",
-	function () { return player.P.trainingRuns.gte(1); });
-addMilestone("P", 1, "完成 5 次物理训练", "全科知识获取 +20%。",
-	function () { return player.P.trainingRuns.gte(5); }, milestoneAfter("P", 1));
-addMilestone("P", 2, "物理训练单次达到 80 分", "全科知识获取 +30%。",
-	function () { return player.P.bestScore.gte(80); }, milestoneAfter("P", 2));
-addMilestone("P", 3, "物理五项评分总和达到 100", "全科知识获取 +40%。",
-	function () { return statTotal("P", P_STATS).gte(100); }, milestoneAfter("P", 3));
-addMilestone("P", 4, "完成 10 次物理训练且最佳 90 分", "全科知识获取 +50%。",
-	function () { return player.P.trainingRuns.gte(10) && player.P.bestScore.gte(90); }, milestoneAfter("P", 4));
-
 // ---------- PE：体育 ----------
 
 const PE_STATS = ["speed", "endurance", "flexibility", "strength", "reaction"];
@@ -227,7 +213,6 @@ function milestonePointMult() {
 	add("Am", 0, 1.1); add("Am", 1, 1.2); add("Am", 2, 1.3); add("Am", 3, 1.5);
 	add("Exp", 0, 1.1); add("Exp", 1, 1.2); add("Exp", 2, 1.3); add("Exp", 3, 1.4); add("Exp", 4, 1.5); add("Exp", 5, 1.5);
 	add("L", 0, 1.1); add("L", 1, 1.2); add("L", 2, 1.3); add("L", 3, 1.5);
-	add("P", 0, 1.1); add("P", 1, 1.2); add("P", 2, 1.3); add("P", 3, 1.4); add("P", 4, 1.5);
 	add("PE", 0, 1.1); add("PE", 1, 1.2); add("PE", 2, 1.3); add("PE", 3, 1.4); add("PE", 4, 1.5);
 	add("Pol", 0, 1.1); add("Pol", 1, 1.2); add("Pol", 2, 1.3); add("Pol", 3, 1.4); add("Pol", 4, 1.5);
 	add("His", 0, 1.1); add("His", 1, 1.2); add("His", 2, 1.3); add("His", 3, 1.4); add("His", 4, 1.5);
@@ -250,7 +235,6 @@ function addMilestoneTab(layer) {
 addMilestoneTab("M");
 addMilestoneTab("Nf");
 addMilestoneTab("Am");
-addMilestoneTab("P");
 addMilestoneTab("PE");
 addMilestoneTab("Pol");
 addMilestoneTab("His");

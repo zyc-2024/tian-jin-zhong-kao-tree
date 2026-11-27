@@ -1,7 +1,6 @@
 // ============================================================
-// 天津中考树：物理 / 体育更新
-// - P = Physics（物理），与 M（数学）无关
-// - 体育层：独立层，按新备份实现 30 秒反应速度训练
+// 天津中考树：体育更新
+// - 体育层：位于中考层下方，按新备份实现 30 秒反应速度训练
 // ============================================================
 
 // ---------- 评级与数字格式 ----------
@@ -47,7 +46,6 @@ function subjectTableRow(label, value, suffix, forcedGrade) {
 // ---------- 通用训练逻辑 ----------
 
 function subjectColor(layer) {
-	if (layer === "P") return "#00BFFF";
 	if (layer === "Pol") return "#E74C3C";
 	if (layer === "His") return "#8B5A2B";
 	if (layer === "Geo") return "#2E8B57";
@@ -115,8 +113,7 @@ function subjectReset(layer) {
 
 function subjectNextQuestion(layer) {
 	let q;
-	if (layer === "P") q = physicsMakeQuestion();
-	else if (layer === "Pol") q = politicsMakeQuestion();
+	if (layer === "Pol") q = politicsMakeQuestion();
 	else if (layer === "His") q = historyMakeQuestion();
 	else if (layer === "Geo") q = geographyMakeQuestion();
 	else q = peMakeQuestion();
@@ -191,17 +188,10 @@ function subjectFinish(layer) {
 		if (p[category] === undefined) category = "region";
 		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
 		p.comprehensive = p.comprehensive.add(Math.max(0, Math.floor(p.score / 30)));
-		// 地物联动：地理训练会顺手提升 P 的实验观察。
-		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
 		if (p.score >= 70) p.lastMessage = "地图在握，天下我有！";
 		else if (p.score >= 50) p.lastMessage = "区域定位不错。";
 		else if (p.score >= 0) p.lastMessage = "还需多看地图。";
 		else p.lastMessage = "建议把地图册翻烂。";
-	} else {
-		let category = p.lastCategory || "mechanics";
-		if (p[category] === undefined) category = "mechanics";
-		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
-		p.mechanics = p.mechanics.add(Math.max(0, Math.floor(p.score / 30)));
 	}
 
 	if (layer !== "Pol" && layer !== "His" && layer !== "Geo") {
@@ -261,85 +251,6 @@ function peMakeQuestion() {
 	return { text: text, options: opts.options, correct: opts.correct, category: "reaction" };
 }
 
-// ---------- 物理层题目：简单物理量计算 ----------
-
-function physicsMakeQuestion() {
-	let type = Math.floor(Math.random() * 9);
-	let a, b, answer, text, category;
-	if (type === 0) {
-		// v = s / t
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a;
-		text = "s = " + (a * b) + " m，t = " + b + " s，v = ? m/s";
-		category = "mechanics";
-	} else if (type === 1) {
-		// ρ = m / V
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a;
-		text = "m = " + (a * b) + " kg，V = " + b + " m³，ρ = ? kg/m³";
-		category = "mechanics";
-	} else if (type === 2) {
-		// F = ma
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a * b;
-		text = "m = " + a + " kg，a = " + b + " m/s²，F = ? N";
-		category = "mechanics";
-	} else if (type === 3) {
-		// W = Fs
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a * b;
-		text = "F = " + a + " N，s = " + b + " m，W = ? J";
-		category = "mechanics";
-	} else if (type === 4) {
-		// P = W / t
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a;
-		text = "W = " + (a * b) + " J，t = " + b + " s，P = ? W";
-		category = "mechanics";
-	} else if (type === 5) {
-		// I = U / R
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a;
-		text = "U = " + (a * b) + " V，R = " + b + " Ω，I = ? A";
-		category = "electricity";
-	} else if (type === 6) {
-		// P = UI
-		a = 2 + Math.floor(Math.random() * 11);
-		b = 2 + Math.floor(Math.random() * 11);
-		answer = a * b;
-		text = "U = " + a + " V，I = " + b + " A，P = ? W";
-		category = "electricity";
-	} else if (type === 7) {
-		// 三次测量取平均
-		a = 8 + Math.floor(Math.random() * 5);
-		b = a + 2 + Math.floor(Math.random() * 3);
-		let c = a + 2 * (b - a);
-		answer = (a + b + c) / 3;
-		text = "三次测量：" + a + "、" + b + "、" + c + " cm，平均值 = ? cm";
-		category = "experiment";
-	} else {
-		// 常识题
-		let facts = [
-			{ q: "光在真空中的速度约为 ? ×10⁸ m/s", a: 3, c: "optics" },
-			{ q: "标准大气压下水的沸点 = ? °C", a: 100, c: "thermo" },
-			{ q: "冰的熔点 = ? °C", a: 0, c: "thermo" },
-			{ q: "声音在 15°C 空气中的速度约为 ? m/s", a: 340, c: "optics" },
-		];
-		let f = facts[Math.floor(Math.random() * facts.length)];
-		text = f.q;
-		answer = f.a;
-		category = f.c;
-	}
-	let opts = subjectMakeOptions(answer);
-	return { text: text, options: opts.options, correct: opts.correct, category: category };
-}
-
 // ---------- 体育层 ----------
 
 addLayer("PE", {
@@ -376,7 +287,7 @@ addLayer("PE", {
 	color: "#FF00FF",
 	resource: "体育能力",
 	row: 2,
-	position: 1,
+	position: 0,
 	symbol: "PE",
 	type: "none",
 	name: "Physical Education",
@@ -602,263 +513,7 @@ addLayer("PE", {
 	},
 });
 
-// ---------- Physics 层 ----------
-
-addLayer("P", {
-	startData() {
-		return {
-			unlocked: true,
-			points: new OmegaNum(0),
-			total: new OmegaNum(0),
-			best: new OmegaNum(0),
-			mechanics: new OmegaNum(0),
-			thermo: new OmegaNum(0),
-			optics: new OmegaNum(0),
-			electricity: new OmegaNum(0),
-			experiment: new OmegaNum(0),
-			trainingRuns: new OmegaNum(0),
-			bestScore: new OmegaNum(0),
-			active: false,
-			completed: false,
-			timeLeft: 0,
-			questionIndex: 0,
-			score: 0,
-			question: "",
-			options: ["", "", ""],
-			correctIndex: 0,
-			lastCategory: "",
-			lastScore: 0,
-			lastMessage: "",
-		};
-	},
-
-	color: "#00BFFF",
-	resource: "物理能力",
-	row: 2,
-	position: 0,
-	symbol: "P",
-	type: "none",
-	name: "Physics",
-	branches: [["E", "#00BFFF", 30]],
-
-	layerShown() {
-		return player.E.bestPoints.gte(256) || (player.P && player.P.trainingRuns.gte(1));
-	},
-	tooltip() {
-		return "物理：中考物理计算与实验";
-	},
-	tooltipLocked() {
-		return "物理<br>最佳中考分数达到 256 分后解锁";
-	},
-
-	update(diff) {
-		subjectUpdate("P", diff);
-	},
-
-	effect() {
-		if (!player.P) return new OmegaNum(1);
-		let total = player.P.mechanics.add(player.P.thermo).add(player.P.optics).add(player.P.electricity).add(player.P.experiment);
-		return new OmegaNum(1).add(total.div(100));
-	},
-
-	clickables: {
-		100: {
-			display() {
-				return "开始物理训练";
-			},
-			unlocked() {
-				return !player.P.active && !player.P.completed;
-			},
-			canClick() {
-				return !player.P.active && !player.P.completed;
-			},
-			onClick() {
-				player.subtabs.P.mainTabs = "Minigame I";
-				updateTabFormats();
-				subjectStart("P");
-			},
-			style: {
-				width: "300px",
-				height: "100px",
-				"background-color": "#00BFFF",
-				color: "black",
-				border: "1px solid white",
-				"border-radius": "0px",
-				"font-size": "18px",
-			},
-			tooltip() {
-				return "开始 30 秒物理计算训练";
-			},
-		},
-		101: {
-			display() {
-				return player.P.options[0] ? "A. " + player.P.options[0] : "";
-			},
-			unlocked() {
-				return player.P.active;
-			},
-			canClick() {
-				return player.P.active;
-			},
-			onClick() {
-				subjectAnswer("P", 0);
-			},
-			style: {
-				width: "160px",
-				height: "100px",
-				"background-color": "#00BFFF",
-				color: "black",
-				border: "1px solid white",
-				"border-radius": "0px",
-				"font-size": "17px",
-			},
-		},
-		102: {
-			display() {
-				return player.P.options[1] ? "B. " + player.P.options[1] : "";
-			},
-			unlocked() {
-				return player.P.active;
-			},
-			canClick() {
-				return player.P.active;
-			},
-			onClick() {
-				subjectAnswer("P", 1);
-			},
-			style: {
-				width: "160px",
-				height: "100px",
-				"background-color": "#00BFFF",
-				color: "black",
-				border: "1px solid white",
-				"border-radius": "0px",
-				"font-size": "17px",
-			},
-		},
-		103: {
-			display() {
-				return player.P.options[2] ? "C. " + player.P.options[2] : "";
-			},
-			unlocked() {
-				return player.P.active;
-			},
-			canClick() {
-				return player.P.active;
-			},
-			onClick() {
-				subjectAnswer("P", 2);
-			},
-			style: {
-				width: "160px",
-				height: "100px",
-				"background-color": "#00BFFF",
-				color: "black",
-				border: "1px solid white",
-				"border-radius": "0px",
-				"font-size": "17px",
-			},
-		},
-		104: {
-			display() {
-				return "复盘\n重新开始训练。";
-			},
-			unlocked() {
-				return player.P.completed;
-			},
-			canClick() {
-				return player.P.completed;
-			},
-			onClick() {
-				subjectReset("P");
-			},
-			style: {
-				width: "300px",
-				height: "100px",
-				"background-color": "#00BFFF",
-				color: "black",
-				border: "1px solid white",
-				"border-radius": "0px",
-				"font-size": "18px",
-			},
-		},
-	},
-
-	infoboxes: {
-		physicsBox: {
-			title() {
-				return "物理";
-			},
-			body() {
-				return "物理（Physics，树节点简称 P）与数学（M）是两个独立科目。<br><br>最佳中考分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。";
-			},
-			style() {
-				return { borderColor: "#00BFFF" };
-			},
-			titleStyle() {
-				return { backgroundColor: "#00BFFF", color: "#000000" };
-			},
-		},
-	},
-
-	tabFormat: {
-		Main: {
-			buttonStyle: { "font-size": "16px", padding: "4px 8px", "border-color": "#00BFFF" },
-			content: [
-				["display-text", function () {
-					return subjectHeaderHTML("P", "物理能力");
-				}],
-				["display-text", function () {
-					let p = player.P;
-					let table = "<table style='width:min(620px,92%);margin:8px auto;border-collapse:collapse;color:white;font-size:14px'>";
-					table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>物理</b><br>物理能力评分（影响全科知识获取）</td></tr>";
-					table += subjectTableRow("力学评分", subjectNumber(p.mechanics), "");
-					table += subjectTableRow("热学评分", subjectNumber(p.thermo), "");
-					table += subjectTableRow("光学评分", subjectNumber(p.optics), "");
-					table += subjectTableRow("电学评分", subjectNumber(p.electricity), "");
-					table += subjectTableRow("实验评分", subjectNumber(p.experiment), "");
-					table += "</table>";
-					return table;
-				}],
-				["clickable", 100],
-				["clickable", 104],
-				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.P.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.P.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.P && tmp.P.effect ? tmp.P.effect : 1) + "（由五项物理评分提供）";
-				}],
-				"blank",
-				["infobox", "physicsBox"],
-			],
-		},
-		"Minigame I": {
-			buttonStyle: { "font-size": "16px", padding: "4px 8px", "border-color": "#00BFFF" },
-			content: [
-				["display-text", function () {
-					return subjectHeaderHTML("P", "物理能力");
-				}],
-				["display-text", function () {
-					return subjectTimerHTML("P");
-				}],
-				["display-text", function () {
-					return subjectQuestionHTML("P");
-				}],
-				["clickable", 100],
-				["row", [
-					["clickable", 101],
-					["clickable", 102],
-					["clickable", 103],
-				]],
-				["clickable", 104],
-				["display-text", function () {
-					if (player.P.active) return "答对 +3 分，答错 -1 分。限时 30 秒。";
-					if (player.P.completed) return "训练结束。点击“复盘”再来一次。";
-					return "点击“开始物理训练”进入 30 秒物理量计算训练。";
-				}],
-			],
-		},
-	},
-});
-
-// ---------- 成就页修复与 Physics/PE 成就 ----------
+// ---------- 成就页修复与体育成就 ----------
 
 for (let tab in layers.A.tabFormat) {
 	let content = layers.A.tabFormat[tab].content;
@@ -868,10 +523,10 @@ for (let tab in layers.A.tabFormat) {
 		});
 	}
 }
-layers.A.tabFormat["物理 / 体育"] = {
+layers.A.tabFormat["体育"] = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#00BFFF'>物理 / 体育成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#FF00FF'>体育成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [
@@ -882,20 +537,20 @@ layers.A.tabFormat["物理 / 体育"] = {
 			["achievement", 95],
 		]],
 		"blank",
-		["display-text", "这些成就会在物理层和体育层的训练中解锁。"],
+		["display-text", "这些成就会在体育层的训练中解锁。"],
 	],
-	buttonStyle: { "border-color": "#00BFFF", "background-color": "#003A5A" },
+	buttonStyle: { "border-color": "#FF00FF", "background-color": "#3A003A" },
 };
 
 layers.A.achievements[91] = {
-	name: "物理启程",
+	name: "体育健将",
 	done() {
-		return player.P && player.P.trainingRuns && player.P.trainingRuns.gte(1);
+		return player.PE && player.PE.trainingRuns && player.PE.trainingRuns.gte(10);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "完成一次物理训练。",
+	tooltip: "完成 10 次体育训练。",
 };
 layers.A.achievements[92] = {
 	name: "体育启程",
@@ -908,14 +563,16 @@ layers.A.achievements[92] = {
 	tooltip: "完成一次体育训练。",
 };
 layers.A.achievements[93] = {
-	name: "物理最佳",
+	name: "体育五项",
 	done() {
-		return player.P && player.P.bestScore && player.P.bestScore.gte(80);
+		if (!player.PE) return false;
+		let total = player.PE.speed.add(player.PE.endurance).add(player.PE.flexibility).add(player.PE.strength).add(player.PE.reaction);
+		return total.gte(100);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "物理训练单次达到 80 分。",
+	tooltip: "体育五项评分总和达到 100。",
 };
 layers.A.achievements[94] = {
 	name: "体育最佳",
@@ -928,13 +585,15 @@ layers.A.achievements[94] = {
 	tooltip: "体育训练单次达到 80 分。",
 };
 layers.A.achievements[95] = {
-	name: "物理 / 体育双全",
+	name: "体育全优",
 	done() {
-		return player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
-			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80);
+		return player.PE &&
+			player.PE.speed.gte(30) && player.PE.endurance.gte(30) &&
+			player.PE.flexibility.gte(30) && player.PE.strength.gte(30) &&
+			player.PE.reaction.gte(30);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "物理和体育训练都达到 80 分。",
+	tooltip: "体育五项评分全部达到 30。",
 };
