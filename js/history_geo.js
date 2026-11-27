@@ -230,7 +230,7 @@ function makeSocialLayer(id, cfg) {
 					["clickable", 100],
 					["clickable", 104],
 					["display-text", function () {
-						return "已训练 <b>" + subjectNumber(player[id].trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player[id].bestScore) + "</b> 分<br>全科知识倍率：x" + format(tmp[id].effect ? tmp[id].effect : 1) + "<br>" + cfg.crossText;
+						return "已训练 <b>" + subjectNumber(player[id].trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player[id].bestScore) + "</b> 分<br>全科知识倍率：x" + format(tmp[id].effect ? tmp[id].effect : 1) + "<br>" + cfg.crossText + subjectLinkText(id);
 					}],
 					"blank",
 					["infobox", "box"],
@@ -382,8 +382,8 @@ const HIS_LAYER = makeSocialLayer("His", {
 	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	tooltip: "中考历史专项训练：时间线、史料与论述",
 	tableTitle: "历史学科评分（与政治 / 语文联动）",
-	crossText: "联动：政治时政敏感度 → 历史全科倍率；历史训练会给政治增加时政积累。",
-	info: "最佳中考分数达到 103 分后解锁。<br><br>Minigame I 是 30 秒历史速答，答对 +3、答错 -1。背诵专区可以消耗历史知识提升时间线、史料、事件、人物、论述评分。<br><br>历史训练会给政治增加少量时政敏感度。",
+	crossText: "联动：政治时政敏感度 → 历史全科倍率；历史训练会给政治增加时政积累，并反哺语文阅读感悟。",
+	info: "最佳中考分数达到 103 分后解锁。<br><br>Minigame I 是 30 秒历史速答，答对 +3、答错 -1。背诵专区可以消耗历史知识提升时间线、史料、事件、人物、论述评分。<br><br>历史训练会给政治增加少量时政敏感度，并反哺语文阅读。",
 	stats: HIS_STATS,
 	costBase: 30,
 });
@@ -403,8 +403,8 @@ const GEO_LAYER = makeSocialLayer("Geo", {
 	nodeStyle: { width: "80px", height: "80px", "font-size": "30px", margin: "3px" },
 	tooltip: "中考地理专项训练：地图、气候与区域",
 	tableTitle: "地理学科评分（与物理 / 数学联动）",
-	crossText: "联动：物理力学/实验评分与数学理论 → 地理全科倍率；地理训练会给物理增加实验评分。",
-	info: "最佳中考分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理训练会给物理增加少量实验评分。",
+	crossText: "联动：物理力学/实验评分与数学理论 → 地理全科倍率；地理训练会给物理增加实验评分，并反哺生物生态评分。",
+	info: "最佳中考分数达到 119 分后解锁。<br><br>Minigame I 是 30 秒地理速答，答对 +3、答错 -1。背诵专区可以消耗地理知识提升地图、气候、区域、资源、综合评分。<br><br>地理训练会给物理增加实验评分，也会反哺生物生态评分。",
 	stats: GEO_STATS,
 	costBase: 40,
 });

@@ -59,6 +59,27 @@ function subjectHeaderHTML(layer, name) {
 	return "当前" + name + "：<h2 style='color:" + subjectColor(layer) + ";text-shadow:0px 0px 10px " + subjectColor(layer) + "'>" + subjectNumber(player[layer].points) + "</h2>";
 }
 
+function subjectLinkLevel(layer) {
+	if (typeof SYNERGY_PAIRS === "undefined") return 0;
+	let level = 0;
+	for (let i = 0; i < SYNERGY_PAIRS.length; i++) {
+		if (SYNERGY_PAIRS[i].a === layer || SYNERGY_PAIRS[i].b === layer) {
+			level += synergyPairLevel(SYNERGY_PAIRS[i]);
+		}
+	}
+	return level;
+}
+
+function subjectLinkMult(layer) {
+	return new OmegaNum(1).add(subjectLinkLevel(layer) * 0.05);
+}
+
+function subjectLinkText(layer) {
+	let level = subjectLinkLevel(layer);
+	if (!level) return "";
+	return "<br>跨学科训练加成：x" + format(subjectLinkMult(layer)) + "（联动等级 " + level + "）";
+}
+
 function subjectTimerHTML(layer) {
 	let p = player[layer];
 	let time = p.active ? Math.max(0, p.timeLeft) : 0;
@@ -160,7 +181,7 @@ function subjectFinish(layer) {
 	p.lastScore = p.score;
 	p.trainingRuns = p.trainingRuns.add(1);
 	p.bestScore = p.bestScore.max(p.score);
-	let gain = Math.max(0, p.score);
+	let gain = new OmegaNum(Math.max(0, p.score)).mul(subjectLinkMult(layer));
 	addPoints(layer, gain);
 
 	if (layer === "PE") {
@@ -169,11 +190,15 @@ function subjectFinish(layer) {
 		p.endurance = p.endurance.add(Math.max(0, Math.floor(p.score / 12)));
 		p.flexibility = p.flexibility.add(Math.max(0, Math.floor(p.score / 15)));
 		p.strength = p.strength.add(Math.max(0, Math.floor(p.score / 12)));
+		// 体育训练会带动生物的人体评分。
+		if (player.Bio && player.Bio.human) player.Bio.human = player.Bio.human.add(Math.max(0, Math.floor(p.score / 50)));
 	} else if (layer === "Pol") {
 		let category = p.lastCategory || "national";
 		if (p[category] === undefined) category = "national";
 		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
 		p.national = p.national.add(Math.max(0, Math.floor(p.score / 30)));
+		// 政治训练会补充历史的事件背景。
+		if (player.His && player.His.events) player.His.events = player.His.events.add(Math.max(0, Math.floor(p.score / 50)));
 		if (p.score >= 70) p.lastMessage = "同志，你的政治觉悟很高！";
 		else if (p.score >= 50) p.lastMessage = "继续保持，稳中向好。";
 		else if (p.score >= 0) p.lastMessage = "还需加强时政学习。";
@@ -185,6 +210,8 @@ function subjectFinish(layer) {
 		p.events = p.events.add(Math.max(0, Math.floor(p.score / 30)));
 		// 文史不分家：历史训练会给 Pol 提供一点时政/国情积累。
 		if (player.Pol && player.Pol.current) player.Pol.current = player.Pol.current.add(Math.max(0, Math.floor(p.score / 40)));
+		// 史料阅读也会反哺语文阅读感悟。
+		if (player.C && player.C.readingPoints) player.C.readingPoints = player.C.readingPoints.add(Math.max(0, Math.floor(p.score / 60)));
 		if (p.score >= 70) p.lastMessage = "以史为鉴，可以知兴替！";
 		else if (p.score >= 50) p.lastMessage = "年代线记得不错。";
 		else if (p.score >= 0) p.lastMessage = "还需多翻史料。";
@@ -196,6 +223,8 @@ function subjectFinish(layer) {
 		p.comprehensive = p.comprehensive.add(Math.max(0, Math.floor(p.score / 30)));
 		// 地物联动：地理训练会顺手提升物理实验观察。
 		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
+		// 区域生态会反哺生物生态评分。
+		if (player.Bio && player.Bio.ecology) player.Bio.ecology = player.Bio.ecology.add(Math.max(0, Math.floor(p.score / 50)));
 		if (p.score >= 70) p.lastMessage = "地图在握，天下我有！";
 		else if (p.score >= 50) p.lastMessage = "区域定位不错。";
 		else if (p.score >= 0) p.lastMessage = "还需多看地图。";
@@ -205,6 +234,8 @@ function subjectFinish(layer) {
 		if (p[category] === undefined) category = "mechanics";
 		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
 		p.mechanics = p.mechanics.add(Math.max(0, Math.floor(p.score / 30)));
+		// 物理实验会带动化学实验评分。
+		if (player.Chem && player.Chem.experiment) player.Chem.experiment = player.Chem.experiment.add(Math.max(0, Math.floor(p.score / 50)));
 	} else if (layer === "Chem") {
 		let category = p.lastCategory || "concept";
 		if (p[category] === undefined) category = "concept";
@@ -212,6 +243,8 @@ function subjectFinish(layer) {
 		p.concept = p.concept.add(Math.max(0, Math.floor(p.score / 30)));
 		// 化学实验训练会给物理增加一点实验观察。
 		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
+		// 化学实验也会带动生物实验评分。
+		if (player.Bio && player.Bio.experiment) player.Bio.experiment = player.Bio.experiment.add(Math.max(0, Math.floor(p.score / 50)));
 	} else if (layer === "Bio") {
 		let category = p.lastCategory || "cell";
 		if (p[category] === undefined) category = "cell";
@@ -219,6 +252,8 @@ function subjectFinish(layer) {
 		p.cell = p.cell.add(Math.max(0, Math.floor(p.score / 30)));
 		// 生物实验训练会给化学增加一点实验评分。
 		if (player.Chem && player.Chem.experiment) player.Chem.experiment = player.Chem.experiment.add(Math.max(0, Math.floor(p.score / 40)));
+		// 生态观察会带动地理综合评分。
+		if (player.Geo && player.Geo.comprehensive) player.Geo.comprehensive = player.Geo.comprehensive.add(Math.max(0, Math.floor(p.score / 50)));
 	}
 
 	if (layer !== "Pol" && layer !== "His" && layer !== "Geo") {
@@ -547,7 +582,7 @@ addLayer("PE", {
 				return "体育";
 			},
 			body() {
-				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒反应速度训练：30 道小学三四年级难度的整数计算题，答对 +3 分，答错 -1 分。训练结束后按总分提升体育能力和反应速度。";
+				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒反应速度训练：30 道小学三四年级难度的整数计算题，答对 +3 分，答错 -1 分。训练结束后按总分提升体育能力和反应速度。<br><br>体育训练会带动生物的人体评分。";
 			},
 			style() {
 				return { borderColor: "#FF00FF" };
@@ -585,7 +620,7 @@ addLayer("PE", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.PE.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.PE.bestScore) + "</b> 分<br>体育能力每 1,000 点使学分获取 +100%。";
+					return "已训练 <b>" + subjectNumber(player.PE.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.PE.bestScore) + "</b> 分<br>体育能力每 1,000 点使学分获取 +100%。" + subjectLinkText("PE");
 				}],
 				"blank",
 				["infobox", "peBox"],
@@ -809,7 +844,7 @@ addLayer("P", {
 				return "物理";
 			},
 			body() {
-				return "物理（Physics，树节点简称 P）与数学（M）是两个独立科目。<br><br>最佳中考分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。";
+				return "物理（Physics，树节点简称 P）与数学（M）是两个独立科目。<br><br>最佳中考分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。<br><br>物理实验训练会给化学增加少量实验评分。";
 			},
 			style() {
 				return { borderColor: "#00BFFF" };
@@ -842,7 +877,7 @@ addLayer("P", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.P.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.P.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.P && tmp.P.effect ? tmp.P.effect : 1) + "（由五项物理评分提供）";
+					return "已训练 <b>" + subjectNumber(player.P.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.P.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.P && tmp.P.effect ? tmp.P.effect : 1) + "（由五项物理评分提供）" + subjectLinkText("P");
 				}],
 				"blank",
 				["infobox", "physicsBox"],

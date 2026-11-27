@@ -396,7 +396,7 @@ addLayer("Pol", {
 				return "政治";
 			},
 			body() {
-				return "最佳中考分数达到 84 分后解锁。<br><br>Main 显示政治能力与五项评分；背诵页可以消耗政治能力提升评分；Minigame I 是 30 秒时政速答，答对 +3、答错 -1。<br><br>温馨提示：选择题看到“一定”“绝对”先警惕，主观题记得分点作答。";
+				return "最佳中考分数达到 84 分后解锁。<br><br>Main 显示政治能力与五项评分；背诵页可以消耗政治能力提升评分；Minigame I 是 30 秒时政速答，答对 +3、答错 -1。<br><br>政治训练会补充历史的事件背景；历史训练也会反哺时政积累。";
 			},
 			style() {
 				return { borderColor: "#E74C3C" };
@@ -429,7 +429,7 @@ addLayer("Pol", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.Pol.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Pol.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Pol && tmp.Pol.effect ? tmp.Pol.effect : 1) + "（由五项政治评分提供）";
+					return "已训练 <b>" + subjectNumber(player.Pol.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Pol.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Pol && tmp.Pol.effect ? tmp.Pol.effect : 1) + "（由五项政治评分提供）" + subjectLinkText("Pol");
 				}],
 				"blank",
 				["infobox", "politicsBox"],

@@ -18,6 +18,7 @@ const SYNERGY_PAIRS = [
 	{ id: "ChM", name: "化数", a: "Chem", b: "M", desc: "化学计算与比例" },
 	{ id: "ChB", name: "生化", a: "Chem", b: "Bio", desc: "生命活动与化学实验" },
 	{ id: "BG", name: "生地", a: "Bio", b: "Geo", desc: "生态系统与区域环境" },
+	{ id: "PB", name: "体生", a: "PE", b: "Bio", desc: "运动训练与人体生理" },
 ];
 
 function synergyLayerLevel(layer) {
@@ -257,9 +258,9 @@ addLayer("Syn", {
 			unlocked() { return hasMilestone("Syn", 1); },
 		},
 		3: {
-			requirementDescription: "全部 14 对联动达到 3 级",
+			requirementDescription: "全部 15 对联动达到 3 级",
 			effectDescription: "跨学科倍率 +20%。",
-			done() { return synergyPairCountAtLeast(3) >= 14; },
+			done() { return synergyPairCountAtLeast(3) >= 15; },
 			unlocked() { return hasMilestone("Syn", 2); },
 		},
 		4: {
@@ -284,7 +285,7 @@ addLayer("Syn", {
 					return "当前跨学科倍率：x" + format(synergyMult()) + " · 综合素质产出：" + format(synergyRate()) + "/秒";
 				}],
 				["clickable", 100],
-				["display-text", "联动等级由双方层级的里程碑数量决定；两科都推进，联动才会升级。14 组联动覆盖全部学科。"],
+				["display-text", "联动等级由双方层级的里程碑数量决定；两科都推进，联动才会升级。15 组联动覆盖全部学科。"],
 			],
 		},
 		"奖励": {
@@ -321,10 +322,11 @@ function synPair(id) {
 synA(140, "语史联动", function () { return synergyPairLevel(synPair("CH")) >= 3; }, "语史联动达到 3 级。");
 synA(141, "数理联动", function () { return synergyPairLevel(synPair("MP")) >= 3; }, "数理联动达到 3 级。");
 synA(142, "史地联动", function () { return synergyPairLevel(synPair("HG")) >= 3; }, "史地联动达到 3 级。");
-synA(143, "全面联动", function () { return synergyPairCountAtLeast(2) >= 14; }, "全部 14 对联动达到 2 级。");
+synA(143, "全面联动", function () { return synergyPairCountAtLeast(2) >= 15; }, "全部 15 对联动达到 2 级。");
 synA(144, "综合大师", function () { return synergyMult().gte(2); }, "跨学科倍率达到 x2。");
 synA(153, "化理联动", function () { return synergyPairLevel(synPair("ChP")) >= 3; }, "化理联动达到 3 级。");
 synA(158, "生化联动", function () { return synergyPairLevel(synPair("ChB")) >= 3; }, "生化联动达到 3 级。");
+synA(159, "体生联动", function () { return synergyPairLevel(synPair("PB")) >= 3; }, "体生联动达到 3 级。");
 
 layers.A.tabFormat["综合素质"] = {
 	content: [
@@ -333,7 +335,8 @@ layers.A.tabFormat["综合素质"] = {
 		}],
 		"blank",
 		["row", [["achievement", 140], ["achievement", 141], ["achievement", 142]]],
-		["row", [["achievement", 143], ["achievement", 144], ["achievement", 153], ["achievement", 158]]],
+		["row", [["achievement", 143], ["achievement", 144]]],
+		["row", [["achievement", 153], ["achievement", 158], ["achievement", 159]]],
 		"blank",
 		["display-text", function () {
 			return "当前跨学科倍率：x" + format(synergyMult()) + " · 联动总等级：" + synergyTotalLinkLevels();

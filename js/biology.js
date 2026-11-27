@@ -237,7 +237,7 @@ addLayer("Bio", {
 				return "生物";
 			},
 			body() {
-				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒生物速答：答对 +3 分，答错 -1 分。训练会提升细胞、遗传、生态、实验和人体评分，并提高生物能力。<br><br>生物实验训练会给化学增加少量实验评分。";
+				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒生物速答：答对 +3 分，答错 -1 分。训练会提升细胞、遗传、生态、实验和人体评分，并提高生物能力。<br><br>生物实验训练会给化学增加少量实验评分，生态观察会带动地理综合评分。";
 			},
 			style() {
 				return { borderColor: "#20B2AA" };
@@ -270,7 +270,7 @@ addLayer("Bio", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.Bio.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Bio.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Bio && tmp.Bio.effect ? tmp.Bio.effect : 1) + "（由五项生物评分提供）";
+					return "已训练 <b>" + subjectNumber(player.Bio.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Bio.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Bio && tmp.Bio.effect ? tmp.Bio.effect : 1) + "（由五项生物评分提供）" + subjectLinkText("Bio");
 				}],
 				"blank",
 				["infobox", "biologyBox"],

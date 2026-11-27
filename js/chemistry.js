@@ -237,7 +237,7 @@ addLayer("Chem", {
 				return "化学";
 			},
 			body() {
-				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒化学速答：答对 +3 分，答错 -1 分。训练会提升化学式、方程式、实验、计算和概念评分，并提高化学能力。<br><br>化学实验训练会给物理增加少量实验评分。";
+				return "最佳中考分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒化学速答：答对 +3 分，答错 -1 分。训练会提升化学式、方程式、实验、计算和概念评分，并提高化学能力。<br><br>化学实验训练会给物理和生物增加少量实验评分。";
 			},
 			style() {
 				return { borderColor: "#32CD32" };
@@ -270,7 +270,7 @@ addLayer("Chem", {
 				["clickable", 100],
 				["clickable", 104],
 				["display-text", function () {
-					return "已训练 <b>" + subjectNumber(player.Chem.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Chem.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Chem && tmp.Chem.effect ? tmp.Chem.effect : 1) + "（由五项化学评分提供）";
+					return "已训练 <b>" + subjectNumber(player.Chem.trainingRuns) + "</b> 次 · 单次最佳 <b>" + subjectNumber(player.Chem.bestScore) + "</b> 分<br>当前全科知识倍率：x" + format(tmp.Chem && tmp.Chem.effect ? tmp.Chem.effect : 1) + "（由五项化学评分提供）" + subjectLinkText("Chem");
 				}],
 				"blank",
 				["infobox", "chemistryBox"],
