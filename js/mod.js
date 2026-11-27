@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "politics.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,22 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.2.0.20230712",
-	name: "Physics & PE",
+	num: "Beta v0.3.0.20230715",
+	name: "P / PE / Pol",
 }
 
 let changelog = `
+中考树v0.3.0.20230715：P / PE / Pol<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增政治层「Pol / 道德与法治」：中考最佳分数达到 84 分后解锁。<br>
+- Pol 位于 C / M / Eng 同排，是第四门主科；与 P（Physics）互相独立。<br>
+- Main 显示政治能力与道德修养 / 法治意识 / 国情认知 / 时政敏感度 / 答题规范五项评分。<br>
+- 新增背诵专区：消耗政治能力背诵知识点，永久提升对应评分。<br>
+- 新增 Minigame I「时政速答」：30 秒政治选择题，答对 +3、答错 -1。<br>
+- 新增政治相关成就与成就页签。<br>
+- 政治五项评分总和会提高全科知识获取。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.2.0.20230712：Physics & PE<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - <b>P 层确定为 Physics（物理），与 M（数学）无关。</b><br>
@@ -64,7 +75,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你完成了 Physics 与体育的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了 P 与 PE 的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -106,6 +117,7 @@ if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
 if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
 if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
+if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
 	return gain
 }
 
@@ -170,14 +182,20 @@ var displayThings = [
 	function() {
 		if (player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
 			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
-			return "当前残局:Physics 与体育训练双科最佳达到 80 分";
+			return "当前残局:P 与 PE 训练双科最佳达到 80 分";
 		}
-		if (player.E.bestPoints.gte(256)) return "当前残局:完成 Physics / 体育的训练挑战";
-		return "当前残局:中考最佳分数达到 256 分，解锁 Physics 与体育层";
+		if (player.E.bestPoints.gte(256)) return "当前残局:完成 P / PE 的训练挑战";
+		if (player.E.bestPoints.gte(84)) return "当前残局:Pol 已解锁，继续冲击 256 分以解锁 P 与 PE";
+		return "当前残局:中考最佳分数达到 84 分解锁 Pol；256 分解锁 P 与 PE";
 	},
 	function() {
 		if (player.E.bestPoints.gte(256)) {
 			return "物理能力: " + subjectNumber(player.P.points) + " · 体育能力: " + subjectNumber(player.PE.points);
+		}
+	},
+	function() {
+		if (player.E.bestPoints.gte(84) && player.Pol) {
+			return "政治能力: " + subjectNumber(player.Pol.points) + " · Pol 最佳训练: " + subjectNumber(player.Pol.bestScore) + " 分";
 		}
 	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",

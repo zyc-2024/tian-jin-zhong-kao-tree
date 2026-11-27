@@ -47,7 +47,9 @@ function subjectTableRow(label, value, suffix, forcedGrade) {
 // ---------- 通用训练逻辑 ----------
 
 function subjectColor(layer) {
-	return layer === "P" ? "#00BFFF" : "#FF00FF";
+	if (layer === "P") return "#00BFFF";
+	if (layer === "Pol") return "#E74C3C";
+	return "#FF00FF";
 }
 
 function subjectHeaderHTML(layer, name) {
@@ -110,7 +112,7 @@ function subjectReset(layer) {
 }
 
 function subjectNextQuestion(layer) {
-	let q = layer === "P" ? physicsMakeQuestion() : peMakeQuestion();
+	let q = layer === "P" ? physicsMakeQuestion() : (layer === "Pol" ? politicsMakeQuestion() : peMakeQuestion());
 	let p = player[layer];
 	p.question = q.text;
 	p.options = q.options;
@@ -157,6 +159,15 @@ function subjectFinish(layer) {
 		p.endurance = p.endurance.add(Math.max(0, Math.floor(p.score / 12)));
 		p.flexibility = p.flexibility.add(Math.max(0, Math.floor(p.score / 15)));
 		p.strength = p.strength.add(Math.max(0, Math.floor(p.score / 12)));
+	} else if (layer === "Pol") {
+		let category = p.lastCategory || "national";
+		if (p[category] === undefined) category = "national";
+		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
+		p.national = p.national.add(Math.max(0, Math.floor(p.score / 30)));
+		if (p.score >= 70) p.lastMessage = "同志，你的政治觉悟很高！";
+		else if (p.score >= 50) p.lastMessage = "继续保持，稳中向好。";
+		else if (p.score >= 0) p.lastMessage = "还需加强时政学习。";
+		else p.lastMessage = "建议把课本再背一遍。";
 	} else {
 		let category = p.lastCategory || "mechanics";
 		if (p[category] === undefined) category = "mechanics";
@@ -164,10 +175,12 @@ function subjectFinish(layer) {
 		p.mechanics = p.mechanics.add(Math.max(0, Math.floor(p.score / 30)));
 	}
 
-	if (p.score >= 70) p.lastMessage = "真是不得了了！！";
-	else if (p.score >= 50) p.lastMessage = "不错不错，继续保持！";
-	else if (p.score >= 0) p.lastMessage = "还需努力。";
-	else p.lastMessage = "可以去拜拜地藏菩萨了";
+	if (layer !== "Pol") {
+		if (p.score >= 70) p.lastMessage = "真是不得了了！！";
+		else if (p.score >= 50) p.lastMessage = "不错不错，继续保持！";
+		else if (p.score >= 0) p.lastMessage = "还需努力。";
+		else p.lastMessage = "可以去拜拜地藏菩萨了";
+	}
 
 	updateTemp();
 }
@@ -335,18 +348,18 @@ addLayer("PE", {
 	resource: "体育能力",
 	row: "side",
 	position: 5,
-	symbol: "体",
+	symbol: "PE",
 	type: "none",
-	name: "体育",
+	name: "PE",
 
 	layerShown() {
 		return player.E.bestPoints.gte(256) || (player.PE && player.PE.trainingRuns.gte(1));
 	},
 	tooltip() {
-		return "体育：中考体育训练";
+		return "PE：中考体育训练";
 	},
 	tooltipLocked() {
-		return "体育层<br>中考最佳分数达到 256 分后解锁";
+		return "PE 层<br>中考最佳分数达到 256 分后解锁";
 	},
 
 	update(diff) {
@@ -484,7 +497,7 @@ addLayer("PE", {
 	infoboxes: {
 		peBox: {
 			title() {
-				return "体育层";
+				return "PE";
 			},
 			body() {
 				return "中考最佳分数达到 256 分后解锁。<br><br>Minigame I 是 30 秒反应速度训练：30 道小学三四年级难度的整数计算题，答对 +3 分，答错 -1 分。训练结束后按总分提升体育能力和反应速度。";
@@ -596,17 +609,17 @@ addLayer("P", {
 	position: 0,
 	symbol: "P",
 	type: "none",
-	name: "Physics",
+	name: "P",
 	branches: [["E", "#00BFFF", 30]],
 
 	layerShown() {
 		return player.E.bestPoints.gte(256) || (player.P && player.P.trainingRuns.gte(1));
 	},
 	tooltip() {
-		return "Physics：中考物理训练";
+		return "P：中考物理训练";
 	},
 	tooltipLocked() {
-		return "Physics 层<br>中考最佳分数达到 256 分后解锁";
+		return "P 层<br>中考最佳分数达到 256 分后解锁";
 	},
 
 	update(diff) {
@@ -745,7 +758,7 @@ addLayer("P", {
 	infoboxes: {
 		physicsBox: {
 			title() {
-				return "Physics";
+				return "P";
 			},
 			body() {
 				return "P 代表 Physics（物理），与 M（数学）无关。<br><br>中考最佳分数达到 256 分后解锁。Minigame I 是 30 秒物理量计算训练：答对 +3 分，答错 -1 分。训练会提升力学、热学、光学、电学和实验评分，并提高物理能力。";
@@ -769,7 +782,7 @@ addLayer("P", {
 				["display-text", function () {
 					let p = player.P;
 					let table = "<table style='width:min(620px,92%);margin:8px auto;border-collapse:collapse;color:white;font-size:14px'>";
-					table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>Physics</b><br>物理能力评分（影响全科知识获取）</td></tr>";
+					table += "<tr><td colspan='3' style='padding:8px;border:1px solid #555;background:#DDDDDD;color:black;text-align:center'><b>P</b><br>物理能力评分（影响全科知识获取）</td></tr>";
 					table += subjectTableRow("力学评分", subjectNumber(p.mechanics), "");
 					table += subjectTableRow("热学评分", subjectNumber(p.thermo), "");
 					table += subjectTableRow("光学评分", subjectNumber(p.optics), "");
@@ -829,7 +842,7 @@ for (let tab in layers.A.tabFormat) {
 layers.A.tabFormat.Subjects = {
 	content: [
 		["display-text", function () {
-			return "<h2 style='color:#00BFFF'>Physics & PE 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
+			return "<h2 style='color:#00BFFF'>P & PE 成就</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b>";
 		}],
 		"blank",
 		["row", [
@@ -840,53 +853,53 @@ layers.A.tabFormat.Subjects = {
 			["achievement", 95],
 		]],
 		"blank",
-		["display-text", "这些成就会在 Physics 和体育层的训练中解锁。"],
+		["display-text", "这些成就会在 P 和 PE 层的训练中解锁。"],
 	],
 	buttonStyle: { "border-color": "#00BFFF", "background-color": "#003A5A" },
 };
 
 layers.A.achievements[91] = {
-	name: "物理启程",
+	name: "P 启程",
 	done() {
 		return player.P && player.P.trainingRuns && player.P.trainingRuns.gte(1);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "完成一次 Physics 训练。",
+	tooltip: "完成一次 P 训练。",
 };
 layers.A.achievements[92] = {
-	name: "体育启程",
+	name: "PE 启程",
 	done() {
 		return player.PE && player.PE.trainingRuns && player.PE.trainingRuns.gte(1);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "完成一次体育训练。",
+	tooltip: "完成一次 PE 训练。",
 };
 layers.A.achievements[93] = {
-	name: "物理最佳",
+	name: "P 最佳",
 	done() {
 		return player.P && player.P.bestScore && player.P.bestScore.gte(80);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "Physics 训练单次达到 80 分。",
+	tooltip: "P 训练单次达到 80 分。",
 };
 layers.A.achievements[94] = {
-	name: "体育最佳",
+	name: "PE 最佳",
 	done() {
 		return player.PE && player.PE.bestScore && player.PE.bestScore.gte(80);
 	},
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "体育训练单次达到 80 分。",
+	tooltip: "PE 训练单次达到 80 分。",
 };
 layers.A.achievements[95] = {
-	name: "文武双全",
+	name: "P / PE 双全",
 	done() {
 		return player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
 			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80);
@@ -894,5 +907,5 @@ layers.A.achievements[95] = {
 	onComplete() {
 		player.A.Goals = player.A.Goals.add(1);
 	},
-	tooltip: "Physics 和体育训练都达到 80 分。",
+	tooltip: "P 和 PE 训练都达到 80 分。",
 };
