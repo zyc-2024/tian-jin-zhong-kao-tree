@@ -7468,7 +7468,7 @@ addLayer("E", {
 				return player.E.story.gte(3);
 			},
 			canAfford() {
-				return getBuyableAmount(this.layer, this.id).lt(1);
+				return getBuyableAmount(this.layer, this.id).lt(1) && player.E.inZuowen.gte(1);
 			},
 			buy() {
 				setBuyableAmount(this.layer, this.id, new OmegaNum(1));
@@ -7958,6 +7958,8 @@ addLayer("E", {
 			title() {
 				return "(Uncommon)独辟蹊径";
 			},
+			// 第五个 Uncommon 写作手法需要先完成第 5 次挖掘（Exp61=5），
+			// 原版这里误写成 gte(4)，导致第五个手法提前解锁。
 			gain() {
 				let gain = new OmegaNum(5);
 				return gain;
@@ -7970,7 +7972,7 @@ addLayer("E", {
 			},
 			unlocked() {
 				return (
-					getBuyableAmount("Exp", 61).gte(4) &&
+					getBuyableAmount("Exp", 61).gte(5) &&
 					player.E.ccRandom2.gte(0) &&
 					player.E.ccRandom2.lt(10) &&
 					player.E.inZuowen.gte(1) &&
@@ -16705,9 +16707,15 @@ addLayer("E", {
 			((player.E.ccFreeze = tmp.E.ccFreeze), (player.E.xiangxiang = player.E.xiangxiang.add(player.E.random.mul(player.E.xiangxiangMult)).floor()));
 		if (player.E.startedZuowen.gte(1)) ((player.E.ccFreeze = player.E.ccFreeze.sub(1)), (player.E.zuowenTime = player.E.zuowenTime.sub(5)));
 		if (player.E.zuowenTime.lte(0) && player.E.inZuowen.gte(1))
-			((player.E.startedZuowen = new OmegaNum(0)),
+			// 作文计时结束时自动交作文，否则 inZuowen 会一直停在 1，
+			// 导致“完成中考并查分”无法点击（贴吧反馈：考了作文之后登不了分数）。
+			((player.E.ccPoints = player.E.luoji.add(player.E.wenbi).add(player.E.sixiang).add(player.E.xiangxiang)),
+				(player.E.Chinese = player.E.Chinese.add(layers.E.ccScore())),
+				(player.E.ccBest = player.E.ccBest.max(layers.E.ccScore())),
+				(player.E.startedZuowen = new OmegaNum(0)),
 				(player.E.completedZuowen = new OmegaNum(1)),
-				(player.E.ccPoints = player.E.luoji.add(player.E.wenbi).add(player.E.sixiang).add(player.E.xiangxiang)),
+				(player.E.inZuowen = new OmegaNum(0)),
+				(player.E.story = new OmegaNum(0)),
 				(player.E.lingganFreeze = tmp.E.lingganFreezeLimit),
 				(player.E.linggan = false));
 		if (player.E.freeze.gt(0)) player.E.freeze = player.E.freeze.sub(new OmegaNum(5).mul(diff).mul(hasChallenge("Exp", 21) ? 2 : 1));

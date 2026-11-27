@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "tree.js"],
+	modFiles: ["layers.js", "rebirth.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,27 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.0.5.20230101",
-	name: "新年特辑",
+	num: "Beta v0.1.0.20230710",
+	name: "Rebirth",
 }
 
 let changelog = `
+中考树v0.1.0.20230710：Rebirth<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增 P 层「Rebirth」：完成 M 层的 Phigros 重置后开启，位于 E 层下方。<br>
+- 新增 残片 货币与 转生（Rebirth）：重置本轮中考进度，保留最佳分数、E 层里程碑和搭档。<br>
+- 新增 搭档系统：Hikari、Tairitsu、Kou 初始可用，Saya、Lethe、Ilith 可在 Reward 页签解锁。<br>
+- 搭档拥有 FRAG / STEP / IGCE 三项属性，分别影响残片、研究步数和全科知识获取。<br>
+- 新增 SlowlyMilestone：随着累计研究步数慢慢解锁的长期里程碑。<br>
+- 新增 Reward：消耗残片购买永久强化与搭档解锁。<br>
+- 新增 5 个 Rebirth 相关成就。<br>
+- 修复 M 层 Phigros 重置条件显示不全的问题；现在会明确显示中考最佳分数 200 分的要求。<br>
+- 修复第五个 Uncommon 写作手法提前解锁的问题：现在需要完成第 5 次挖掘。<br>
+- 修复作文计时结束后无法交卷/登分的问题：超时会自动交作文并解除考试锁定。<br>
+- 修复打开成就页时报错的问题，并新增 Rebirth 成就页签。<br>
+- 旧存档兼容：完成过旧版本毕业条件的玩家可以从 M 层进入 Rebirth。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 特殊成就12获得方法：将你的游戏内名字改成作者的名字，并且完成一次考试！与此同时，神奇的事情将会发生哦
 <br><br>
 中考树v0.0.5.20230101<br>
@@ -49,7 +65,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你取得了该版本的毕业成绩！新年快乐！<br>作者到达该版本毕业成绩的时间为2222年，你的成绩超越作者了吗？<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你走完了《天津中考树：Rebirth》的全部主线！<br>你带着搭档们完成了无数次中考，终于把这段循环变成了新的开始。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -89,6 +105,7 @@ if(hasUpgrade("Eng",57)) gain = gain.mul(upgradeEffect("Eng",57))
 if(hasUpgrade("Eng",67)) gain = gain.mul(upgradeEffect("Eng",67))
 if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
+if (player.P && player.P.unlocked && tmp.P && tmp.P.igceMult) gain = gain.mul(tmp.P.igceMult)
 	return gain
 }
 
@@ -101,7 +118,7 @@ function addedPlayerData() { return {
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.E.bestPoints.gte(200)&&player.Eng.power.gte("1e1444")&&new OmegaNum(player.Eng.upgrades.length).gte(56)&&player.C.points.gte("1e60000")
+	return !!(player.P && player.P.unlocked && hasMilestone("P", 11))
 }
 
 function calculateDay() {
@@ -135,9 +152,31 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+	// 旧存档里没有 P 层；getStartPlayer/fixData 会补齐，但这里再兜底一次。
+	if (!player.P) player.P = getStartLayerData("P");
+	if (!player.P.partnerLevels) player.P.partnerLevels = {11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1};
+	if (!player.P.partnerUnlocked) player.P.partnerUnlocked = {11: true, 12: true, 13: true, 14: false, 15: false, 16: false};
+	for (let i = 0; i < REBIRTH_PARTNER_ORDER.length; i++) {
+		let id = REBIRTH_PARTNER_ORDER[i];
+		if (player.P.partnerLevels[id] === undefined) player.P.partnerLevels[id] = 1;
+		if (player.P.partnerUnlocked[id] === undefined) player.P.partnerUnlocked[id] = REBIRTH_INITIAL_PARTNERS.includes(id);
+	}
+	if (player.P.selectedPartner === undefined || !isFinite(Number(player.P.selectedPartner))) player.P.selectedPartner = 11;
+	else player.P.selectedPartner = Number(player.P.selectedPartner);
+	if (player.P.steps === undefined) player.P.steps = new OmegaNum(0);
+	if (player.P.totalSteps === undefined) player.P.totalSteps = new OmegaNum(0);
+	if (player.P.rebirths === undefined) player.P.rebirths = new OmegaNum(0);
+	if (player.P.lastGain === undefined) player.P.lastGain = new OmegaNum(0);
 }
 var displayThings = [
-	"当前残局:中考最佳分数达到119分",
+	function() {
+		if (player.P && player.P.unlocked) return "当前残局:完成全部 SlowlyMilestone，抵达 Rebirth 的终点";
+		if (hasMilestone("E", 24)) return "当前残局:取得 200 分并完成 M 层 Phigros 重置，开启 Rebirth";
+		return "当前残局:中考最佳分数达到 200 分";
+	},
+	function() {
+		if (player.P && player.P.unlocked) return "残片: " + format(player.P.points) + " · 搭档: " + rebirthSelectedPartnerName() + " · 累计步数: " + format(player.P.totalSteps);
+	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",
 	function(){return formatDay()},
 	function() {if((player.points.gte(1444))&&(player.points.lt(8000))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1444"))) + "个葡萄糖分子。"},
