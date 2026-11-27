@@ -1,6 +1,13 @@
-# 天津中考树：His / Geo
+# 天津中考树：Milestones
 
-《天津中考树》的 His / Geo 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Milestones 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.5.0 Milestones
+
+- 为每个层级补充里程碑：C / E / Eng / M / Nf / A / Am / Exp / L / P / PE / Pol / His / Geo。
+- P / PE / Pol / His / Geo、M / Nf / A / Am 新增 Milestones 页签。
+- 所有新增里程碑提供可叠加的全科知识倍率，采用加算避免数值失控。
+- 里程碑达成时自动弹窗并即时生效。
 
 ## v0.4.0 His / Geo
 
@@ -30,7 +37,7 @@
 - 新增 P & PE 成就页签，并修复成就页报错。
 - 上一版 P=Phigros/Rebirth 的原型已移至 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。
 
 ## 原始引擎
 

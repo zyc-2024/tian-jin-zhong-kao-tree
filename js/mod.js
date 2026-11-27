@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.4.0.20230720",
-	name: "His / Geo",
+	num: "Beta v0.5.0.20230725",
+	name: "Milestones",
 }
 
 let changelog = `
+中考树v0.5.0.20230725：Milestones<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 为 C / E / Eng 增加后期里程碑。<br>
+- 为 M / Nf / A / Am / Exp / L 增加里程碑。<br>
+- 为 P / PE / Pol / His / Geo 增加训练里程碑。<br>
+- 所有新增里程碑统一提供全科知识倍率，并在对应层级显示。<br>
+- P / PE / Pol / His / Geo 新增 Milestones 页签；M / Nf / A / Am 也补上里程碑页。<br>
+- 里程碑解锁时会弹出提示，效果会即时生效。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.4.0.20230720：His / Geo<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 新增历史层「His」：中考最佳分数 103 后解锁，与 Pol / C 联动。<br>
@@ -132,6 +142,7 @@ if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(
 if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
 if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
 if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
+if (typeof milestonePointMult === "function") gain = gain.mul(milestonePointMult())
 	return gain
 }
 
