@@ -1,6 +1,14 @@
-# 天津中考树：Milestones
+# 天津中考树：Achievements
 
-《天津中考树》的 Milestones 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Achievements 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.6.0 Achievements
+
+- 为 M / Nf / Am / Exp / L / C / E / Eng 的里程碑增加对应成就。
+- 新增全局里程碑收集成就：10 / 30 / 50 个里程碑。
+- 新增「成就达人」「成就狂人」等成就自身成就。
+- 成就页新增 M / Nf / Am、Exp / L、C / E / Eng、Global 四个页签。
+- 所有新成就都会增加 A 层 Goals，并与 A 层里程碑联动。
 
 ## v0.5.0 Milestones
 
@@ -37,7 +45,7 @@
 - 新增 P & PE 成就页签，并修复成就页报错。
 - 上一版 P=Phigros/Rebirth 的原型已移至 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)、[MILESTONES.md](MILESTONES.md)。成就扩展见 [ACHIEVEMENTS.md](ACHIEVEMENTS.md)。
 
 ## 原始引擎
 

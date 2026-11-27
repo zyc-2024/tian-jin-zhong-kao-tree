@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.5.0.20230725",
-	name: "Milestones",
+	num: "Beta v0.6.0.20230728",
+	name: "Achievements",
 }
 
 let changelog = `
+中考树v0.6.0.20230728：Achievements<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 为 M / Nf / Am / Exp / L / C / E / Eng 的里程碑增加对应成就。<br>
+- 新增全局里程碑收集成就：10 / 30 / 50 个里程碑。<br>
+- 新增「成就达人」「成就狂人」等成就自身成就。<br>
+- 成就页新增 M / Nf / Am、Exp / L、C / E / Eng、Global 四个页签。<br>
+- 所有新成就都会增加 A 层 Goals，并与现有 A 层里程碑联动。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.5.0.20230725：Milestones<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 为 C / E / Eng 增加后期里程碑。<br>
