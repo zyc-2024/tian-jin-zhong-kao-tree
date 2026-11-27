@@ -63,6 +63,7 @@ function synergyMult() {
 function synergyRate() {
 	let rate = new OmegaNum(0.02).mul(synergyTotalLinkLevels()).add(synergyPairCountAtLeast(1) * 0.05);
 	if (hasMilestone("Syn", 0)) rate = rate.mul(1.05);
+	if (typeof layerMilestoneBonus === "function") rate = rate.mul(layerMilestoneBonus("Syn"));
 	return rate;
 }
 
@@ -268,6 +269,18 @@ addLayer("Syn", {
 			effectDescription: "跨学科倍率 +50%。",
 			done() { return player.Syn.points.gte(1000); },
 			unlocked() { return hasMilestone("Syn", 3); },
+		},
+		5: {
+			requirementDescription: "全部 15 对联动达到 2 级",
+			effectDescription: "里程碑共鸣 +0.5% 全科知识获取；综合素质产出 +2%。",
+			done() { return synergyPairCountAtLeast(2) >= 15; },
+			unlocked() { return hasMilestone("Syn", 4); },
+		},
+		6: {
+			requirementDescription: "综合素质达到 5,000",
+			effectDescription: "里程碑共鸣 +0.5% 全科知识获取；综合素质产出 +2%。",
+			done() { return player.Syn.points.gte(5000); },
+			unlocked() { return hasMilestone("Syn", 5); },
 		},
 	},
 

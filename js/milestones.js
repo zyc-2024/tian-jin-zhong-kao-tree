@@ -41,6 +41,27 @@ function statTotal(layer, keys) {
 	return total;
 }
 
+function layerMilestoneCount(layer) {
+	if (!player[layer] || !player[layer].milestones) return 0;
+	return player[layer].milestones.length;
+}
+
+function layerMilestoneBonus(layer) {
+	return new OmegaNum(1).add(layerMilestoneCount(layer) * 0.02);
+}
+
+function allMilestoneCount() {
+	let total = 0;
+	for (let layer in layers) {
+		if (player[layer] && player[layer].milestones) total += player[layer].milestones.length;
+	}
+	return total;
+}
+
+function milestoneResonanceMult() {
+	return new OmegaNum(1).add(allMilestoneCount() * 0.005);
+}
+
 // ---------- C：后期语文里程碑 ----------
 
 addMilestone("C", 12, "语文知识达到 1e1000", "全科知识获取 +25%。",
@@ -236,6 +257,99 @@ addMilestone("Geo", 3, "地理背诵累计 10 次", "全科知识获取 +40%。"
 addMilestone("Geo", 4, "完成 10 次地理训练", "全科知识获取 +50%。",
 	function () { return player.Geo.trainingRuns.gte(10); }, milestoneAfter("Geo", 4));
 
+// ---------- 第二批里程碑：每层继续提供成长加成 ----------
+
+const MS_GLOBAL = "里程碑共鸣 +0.5% 全科知识获取。";
+const MS_OUTPUT = "里程碑共鸣 +0.5% 全科知识获取；本层产出 +2%。";
+const MS_TRAIN = "里程碑共鸣 +0.5% 全科知识获取；本层训练收益 +2%。";
+
+addMilestone("C", 15, "语文知识达到 1e100000", MS_OUTPUT,
+	function () { return player.C.points.gte("1e100000"); }, milestoneAfter("C", 15));
+addMilestone("C", 16, "语文知识达到 1e500000", MS_OUTPUT,
+	function () { return player.C.points.gte("1e500000"); }, milestoneAfter("C", 16));
+
+addMilestone("E", 28, "最佳中考分数达到 2048", MS_OUTPUT,
+	function () { return player.E.bestPoints.gte(2048); }, milestoneAfter("E", 28));
+addMilestone("E", 29, "最佳中考分数达到 4096", MS_OUTPUT,
+	function () { return player.E.bestPoints.gte(4096); }, milestoneAfter("E", 29));
+
+addMilestone("Eng", 21, "英语知识达到 1e10000", MS_OUTPUT,
+	function () { return player.Eng.power.gte("1e10000"); }, milestoneAfter("Eng", 21));
+addMilestone("Eng", 22, "英语知识达到 1e20000", MS_OUTPUT,
+	function () { return player.Eng.power.gte("1e20000"); }, milestoneAfter("Eng", 22));
+
+addMilestone("M", 5, "最佳中考分数达到 1024", MS_OUTPUT,
+	function () { return player.E.bestPoints.gte(1024); }, milestoneAfter("M", 5));
+addMilestone("M", 6, "语文知识达到 1e100000", MS_OUTPUT,
+	function () { return player.C.points.gte("1e100000"); }, milestoneAfter("M", 6));
+
+addMilestone("Nf", 4, "切换考试策略 6 次", MS_OUTPUT,
+	function () { return player.Nf.ach1.gte(6); }, milestoneAfter("Nf", 4));
+addMilestone("Nf", 5, "同时触发两个隐藏策略", MS_OUTPUT,
+	function () { return player.Nf.ach1.gte(12) && player.Nf.ach2.gte(12); }, milestoneAfter("Nf", 5));
+
+addMilestone("A", 4, "完成 100 个成就", MS_GLOBAL,
+	function () { return player.A.Goals.gte(100); }, milestoneAfter("A", 4));
+addMilestone("A", 5, "完成 200 个成就", MS_GLOBAL,
+	function () { return player.A.Goals.gte(200); }, milestoneAfter("A", 5));
+addMilestone("A", 6, "完成 300 个成就", MS_GLOBAL,
+	function () { return player.A.Goals.gte(300); }, milestoneAfter("A", 6));
+
+addMilestone("Am", 4, "开启 25 项自动化", MS_OUTPUT,
+	function () { return buyableTotal("Am") >= 25; }, milestoneAfter("Am", 4));
+addMilestone("Am", 5, "开启 30 项自动化", MS_OUTPUT,
+	function () { return buyableTotal("Am") >= 30; }, milestoneAfter("Am", 5));
+
+addMilestone("Exp", 6, "经验等级达到 1000", MS_OUTPUT,
+	function () { return player.Exp.level.gte(1000); }, milestoneAfter("Exp", 6));
+addMilestone("Exp", 7, "累计完成 25 次经验挑战", MS_OUTPUT,
+	function () { return tmp.Exp && tmp.Exp.totalChallenges && tmp.Exp.totalChallenges.gte(25); }, milestoneAfter("Exp", 7));
+
+addMilestone("L", 4, "最佳中考分数达到 512", MS_OUTPUT,
+	function () { return player.E.bestPoints.gte(512); }, milestoneAfter("L", 4));
+addMilestone("L", 5, "最佳中考分数达到 1024", MS_OUTPUT,
+	function () { return player.E.bestPoints.gte(1024); }, milestoneAfter("L", 5));
+
+addMilestone("P", 5, "完成 25 次物理训练", MS_TRAIN,
+	function () { return player.P.trainingRuns.gte(25); }, milestoneAfter("P", 5));
+addMilestone("P", 6, "物理五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("P", P_STATS).gte(200); }, milestoneAfter("P", 6));
+
+addMilestone("Chem", 5, "完成 25 次化学训练", MS_TRAIN,
+	function () { return player.Chem.trainingRuns.gte(25); }, milestoneAfter("Chem", 5));
+addMilestone("Chem", 6, "化学五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("Chem", CHEM_STATS).gte(200); }, milestoneAfter("Chem", 6));
+
+addMilestone("Bio", 5, "完成 25 次生物训练", MS_TRAIN,
+	function () { return player.Bio.trainingRuns.gte(25); }, milestoneAfter("Bio", 5));
+addMilestone("Bio", 6, "生物五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("Bio", BIO_STATS).gte(200); }, milestoneAfter("Bio", 6));
+
+addMilestone("PE", 5, "完成 25 次体育训练", MS_TRAIN,
+	function () { return player.PE.trainingRuns.gte(25); }, milestoneAfter("PE", 5));
+addMilestone("PE", 6, "体育五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("PE", PE_STATS).gte(200); }, milestoneAfter("PE", 6));
+
+addMilestone("Pol", 5, "完成 25 次政治训练", MS_TRAIN,
+	function () { return player.Pol.trainingRuns.gte(25); }, milestoneAfter("Pol", 5));
+addMilestone("Pol", 6, "政治五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("Pol", POL_STATS).gte(200); }, milestoneAfter("Pol", 6));
+
+addMilestone("His", 5, "完成 25 次历史训练", MS_TRAIN,
+	function () { return player.His.trainingRuns.gte(25); }, milestoneAfter("His", 5));
+addMilestone("His", 6, "历史五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("His", ["timeline", "sources", "events", "figures", "essay"]).gte(200); }, milestoneAfter("His", 6));
+
+addMilestone("Geo", 5, "完成 25 次地理训练", MS_TRAIN,
+	function () { return player.Geo.trainingRuns.gte(25); }, milestoneAfter("Geo", 5));
+addMilestone("Geo", 6, "地理五项评分总和达到 200", MS_TRAIN,
+	function () { return statTotal("Geo", ["map", "climate", "region", "resources", "comprehensive"]).gte(200); }, milestoneAfter("Geo", 6));
+
+addMilestone("Syn", 5, "全部 15 对联动达到 2 级", MS_OUTPUT,
+	function () { return typeof synergyPairCountAtLeast === "function" && synergyPairCountAtLeast(2) >= 15; }, milestoneAfter("Syn", 5));
+addMilestone("Syn", 6, "综合素质达到 5,000", MS_OUTPUT,
+	function () { return player.Syn.points.gte(5000); }, milestoneAfter("Syn", 6));
+
 // ---------- 全局里程碑倍率 ----------
 
 function milestonePointMult() {
@@ -288,6 +402,45 @@ addMilestoneTab("Pol");
 addMilestoneTab("His");
 addMilestoneTab("Geo");
 
+// 每层里程碑数量会提高该层产出；训练层在 subjectFinish 中结算。
+function applyMilestoneLayerBonuses() {
+	const ids = ["C", "E", "Eng", "M", "Nf", "Am", "Exp", "L"];
+	for (let i = 0; i < ids.length; i++) {
+		let id = ids[i];
+		if (layers[id] && typeof layers[id].gainMult === "function") {
+			let old = layers[id].gainMult;
+			layers[id].gainMult = function () {
+				return old.apply(this, arguments).mul(layerMilestoneBonus(id));
+			};
+		}
+	}
+	if (layers.C && typeof layers.C.perSecond === "function") {
+		let old = layers.C.perSecond;
+		layers.C.perSecond = function () {
+			return old.call(this).mul(layerMilestoneBonus("C"));
+		};
+	}
+}
+applyMilestoneLayerBonuses();
+
+function milestoneOverviewHTML() {
+	const order = ["C", "E", "Eng", "M", "Nf", "A", "Am", "Exp", "L", "P", "Chem", "Bio", "PE", "Pol", "His", "Geo", "Syn"];
+	let html = "<table style='width:min(680px,94%);margin:8px auto;border-collapse:collapse;color:white;font-size:13px'>";
+	html += "<tr><td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black'><b>层级</b></td>";
+	html += "<td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black'><b>已达成 / 总数</b></td>";
+	html += "<td style='padding:5px;border:1px solid #555;background:#DDDDDD;color:black'><b>本层加成</b></td></tr>";
+	for (let i = 0; i < order.length; i++) {
+		let id = order[i];
+		let total = layers[id] && layers[id].milestones ? Object.keys(layers[id].milestones).length : 0;
+		html += "<tr><td style='padding:5px;border:1px solid #555;background:#222'>" + (id === "A" ? "成就" : id) + "</td>";
+		html += "<td style='padding:5px;border:1px solid #555;background:#222'>" + layerMilestoneCount(id) + " / " + total + "</td>";
+		html += "<td style='padding:5px;border:1px solid #555;background:#222'>x" + format(layerMilestoneBonus(id)) + "</td></tr>";
+	}
+	html += "</table>";
+	html += "<br>当前里程碑总数：<b>" + allMilestoneCount() + "</b> · 里程碑共鸣：<b>x" + format(milestoneResonanceMult()) + "</b>";
+	return html;
+}
+
 // A 层原本每个页签都塞了 milestones，改成专用页签避免重复。
 if (layers.A && layers.A.tabFormat) {
 	for (let tab in layers.A.tabFormat) {
@@ -299,4 +452,11 @@ if (layers.A && layers.A.tabFormat) {
 		}
 	}
 	addMilestoneTab("A");
+	if (layers.A.tabFormat["里程碑"]) {
+		layers.A.tabFormat["里程碑"].content = [
+			["display-text", function () { return milestoneOverviewHTML(); }],
+			"blank",
+			"milestones",
+		];
+	}
 }

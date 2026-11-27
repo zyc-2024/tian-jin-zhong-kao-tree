@@ -13,11 +13,22 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.15.0.20231007",
-	name: "Story",
+	num: "Beta v0.16.0.20231014",
+	name: "Milestones+",
 }
 
 let changelog = `
+中考树v0.16.0.20231014：Milestones+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 每个层级继续增加里程碑，总里程碑数扩展到 166 个。<br>
+- 新增里程碑共鸣：每达成 1 个里程碑，全科知识获取 +0.5%。<br>
+- 每层里程碑还会提高本层产出或训练收益，每 1 个本层里程碑 +2%。<br>
+- 语文 / 英语 / 数学 / 中考 / 经验 / 排行榜 / 自动化等层级接入本层里程碑产出加成。<br>
+- 物理 / 化学 / 生物 / 体育 / 政治 / 历史 / 地理的训练收益接入本层里程碑加成。<br>
+- 综合素质产出接入综合素质里程碑加成。<br>
+- A 层里程碑页新增「里程碑总览」，显示每层已达成 / 总数和本层加成。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.15.0.20231007：Story<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 新增「成长档案」页签，用 12 个章节串联成就剧情。<br>
@@ -253,6 +264,7 @@ if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.
 if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
 if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
 if (typeof milestonePointMult === "function") gain = gain.mul(milestonePointMult())
+if (typeof milestoneResonanceMult === "function") gain = gain.mul(milestoneResonanceMult())
 if (typeof synergyMult === "function") gain = gain.mul(synergyMult())
 	return gain
 }
