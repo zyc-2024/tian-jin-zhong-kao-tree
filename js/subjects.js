@@ -49,6 +49,8 @@ function subjectTableRow(label, value, suffix, forcedGrade) {
 function subjectColor(layer) {
 	if (layer === "P") return "#00BFFF";
 	if (layer === "Pol") return "#E74C3C";
+	if (layer === "His") return "#8B5A2B";
+	if (layer === "Geo") return "#2E8B57";
 	return "#FF00FF";
 }
 
@@ -112,7 +114,12 @@ function subjectReset(layer) {
 }
 
 function subjectNextQuestion(layer) {
-	let q = layer === "P" ? physicsMakeQuestion() : (layer === "Pol" ? politicsMakeQuestion() : peMakeQuestion());
+	let q;
+	if (layer === "P") q = physicsMakeQuestion();
+	else if (layer === "Pol") q = politicsMakeQuestion();
+	else if (layer === "His") q = historyMakeQuestion();
+	else if (layer === "Geo") q = geographyMakeQuestion();
+	else q = peMakeQuestion();
 	let p = player[layer];
 	p.question = q.text;
 	p.options = q.options;
@@ -168,6 +175,28 @@ function subjectFinish(layer) {
 		else if (p.score >= 50) p.lastMessage = "继续保持，稳中向好。";
 		else if (p.score >= 0) p.lastMessage = "还需加强时政学习。";
 		else p.lastMessage = "建议把课本再背一遍。";
+	} else if (layer === "His") {
+		let category = p.lastCategory || "events";
+		if (p[category] === undefined) category = "events";
+		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
+		p.events = p.events.add(Math.max(0, Math.floor(p.score / 30)));
+		// 文史不分家：历史训练会给 Pol 提供一点时政/国情积累。
+		if (player.Pol && player.Pol.current) player.Pol.current = player.Pol.current.add(Math.max(0, Math.floor(p.score / 40)));
+		if (p.score >= 70) p.lastMessage = "以史为鉴，可以知兴替！";
+		else if (p.score >= 50) p.lastMessage = "年代线记得不错。";
+		else if (p.score >= 0) p.lastMessage = "还需多翻史料。";
+		else p.lastMessage = "建议把时间轴贴墙上。";
+	} else if (layer === "Geo") {
+		let category = p.lastCategory || "region";
+		if (p[category] === undefined) category = "region";
+		p[category] = p[category].add(Math.max(0, Math.floor(p.score / 10)));
+		p.comprehensive = p.comprehensive.add(Math.max(0, Math.floor(p.score / 30)));
+		// 地物联动：地理训练会顺手提升 P 的实验观察。
+		if (player.P && player.P.experiment) player.P.experiment = player.P.experiment.add(Math.max(0, Math.floor(p.score / 40)));
+		if (p.score >= 70) p.lastMessage = "地图在握，天下我有！";
+		else if (p.score >= 50) p.lastMessage = "区域定位不错。";
+		else if (p.score >= 0) p.lastMessage = "还需多看地图。";
+		else p.lastMessage = "建议把地图册翻烂。";
 	} else {
 		let category = p.lastCategory || "mechanics";
 		if (p[category] === undefined) category = "mechanics";
@@ -175,7 +204,7 @@ function subjectFinish(layer) {
 		p.mechanics = p.mechanics.add(Math.max(0, Math.floor(p.score / 30)));
 	}
 
-	if (layer !== "Pol") {
+	if (layer !== "Pol" && layer !== "His" && layer !== "Geo") {
 		if (p.score >= 70) p.lastMessage = "真是不得了了！！";
 		else if (p.score >= 50) p.lastMessage = "不错不错，继续保持！";
 		else if (p.score >= 0) p.lastMessage = "还需努力。";

@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "politics.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "politics.js", "history_geo.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.3.0.20230715",
-	name: "P / PE / Pol",
+	num: "Beta v0.4.0.20230720",
+	name: "His / Geo",
 }
 
 let changelog = `
+中考树v0.4.0.20230720：His / Geo<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增历史层「His」：中考最佳分数 103 后解锁，与 Pol / C 联动。<br>
+- 新增地理层「Geo」：中考最佳分数 119 后解锁，与 P / M 联动。<br>
+- His / Geo 各有 Main、背诵专区和 Minigame I 速答。<br>
+- 历史训练会给 Pol 增加时政敏感度；地理训练会给 P 增加实验评分。<br>
+- His 与 Geo 互相提供全科倍率加成，史地不分家。<br>
+- 考试板块新增 His / Geo 试卷：单项选择题、材料解析题、综合题，题型参考天津中考。<br>
+- His / Geo 考试分数会计入中考总分，未完成两科不能查分。<br>
+- 新增 His / Geo 成就和成就页签。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.3.0.20230715：P / PE / Pol<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 新增政治层「Pol / 道德与法治」：中考最佳分数达到 84 分后解锁。<br>
@@ -118,6 +130,8 @@ if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
 if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
 if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
 if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
+if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
+if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
 	return gain
 }
 
@@ -185,8 +199,10 @@ var displayThings = [
 			return "当前残局:P 与 PE 训练双科最佳达到 80 分";
 		}
 		if (player.E.bestPoints.gte(256)) return "当前残局:完成 P / PE 的训练挑战";
-		if (player.E.bestPoints.gte(84)) return "当前残局:Pol 已解锁，继续冲击 256 分以解锁 P 与 PE";
-		return "当前残局:中考最佳分数达到 84 分解锁 Pol；256 分解锁 P 与 PE";
+		if (player.E.bestPoints.gte(119)) return "当前残局:His / Geo 已解锁，继续冲击 256 分以解锁 P 与 PE";
+		if (player.E.bestPoints.gte(103)) return "当前残局:His 已解锁，继续冲击 119 分以解锁 Geo";
+		if (player.E.bestPoints.gte(84)) return "当前残局:Pol 已解锁，继续冲击 103 分以解锁 His";
+		return "当前残局:84 解锁 Pol；103 解锁 His；119 解锁 Geo；256 解锁 P 与 PE";
 	},
 	function() {
 		if (player.E.bestPoints.gte(256)) {
@@ -196,6 +212,14 @@ var displayThings = [
 	function() {
 		if (player.E.bestPoints.gte(84) && player.Pol) {
 			return "政治能力: " + subjectNumber(player.Pol.points) + " · Pol 最佳训练: " + subjectNumber(player.Pol.bestScore) + " 分";
+		}
+	},
+	function() {
+		if (player.E.bestPoints.gte(119) && player.His && player.Geo) {
+			return "历史知识: " + subjectNumber(player.His.points) + " · 地理知识: " + subjectNumber(player.Geo.points) + " · His/Geo 最佳: " + subjectNumber(player.His.bestScore) + " / " + subjectNumber(player.Geo.bestScore);
+		}
+		if (player.E.bestPoints.gte(103) && player.His) {
+			return "历史知识: " + subjectNumber(player.His.points) + " · His 最佳训练: " + subjectNumber(player.His.bestScore) + " 分";
 		}
 	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",

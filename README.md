@@ -1,6 +1,16 @@
-# 天津中考树：P / PE / Pol
+# 天津中考树：His / Geo
 
-《天津中考树》的 P / PE / Pol 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 His / Geo 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+
+## v0.4.0 His / Geo
+
+- 新增历史层 **His**：中考最佳分数 103 后解锁。
+- 新增地理层 **Geo**：中考最佳分数 119 后解锁。
+- His / Geo 位于 E 层下方，与 P 并列；各有 Main、背诵专区和 Minigame I。
+- 交叉联动：His ↔ Pol / C，Geo ↔ P / M，His ↔ Geo 互相提供全科倍率。
+- 考试板块新增 His / Geo 试卷：单项选择题、材料解析题、综合题 / 材料分析题，题型参考天津中考。
+- His / Geo 分数计入中考总分，两科都交卷后才能查分。
+- 新增 His / Geo 成就页签。
 
 ## v0.3.0 Pol
 
@@ -20,7 +30,7 @@
 - 新增 P & PE 成就页签，并修复成就页报错。
 - 上一版 P=Phigros/Rebirth 的原型已移至 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)、[POLITICS.md](POLITICS.md)、[HISTORY_GEO.md](HISTORY_GEO.md)。
 
 ## 原始引擎
 
