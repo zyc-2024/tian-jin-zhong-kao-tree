@@ -1,9 +1,30 @@
 // ************ Save stuff ************
+function encodeSaveData(data) {
+	return Base64.encode(JSON.stringify(data));
+}
+
+// Accept both the current JSON-in-base64 format and the old percent-encoded
+// format. The old format broke on Chinese names / messages in modern browsers.
+function decodeSaveData(encoded) {
+	let decoded = Base64.decode(encoded);
+	// Old save() stored unescape(encodeURIComponent(JSON)): Chinese became
+	// Latin-1 bytes. Try that legacy path first; it is a no-op for ASCII.
+	try {
+		return JSON.parse(decodeURIComponent(escape(decoded)));
+	} catch (e) {
+		try {
+			return JSON.parse(decoded);
+		} catch (e2) {
+			return JSON.parse(decodeURIComponent(decoded));
+		}
+	}
+}
+
 function save(force) {
 	NaNcheck(player)
 	if (NaNalert && !force) return
-	localStorage.setItem(modInfo.id, Base64.encode(unescape(encodeURIComponent(JSON.stringify(player)))));
-	localStorage.setItem(modInfo.id+"_options", Base64.encode(unescape(encodeURIComponent(JSON.stringify(options)))));
+	localStorage.setItem(modInfo.id, encodeSaveData(player));
+	localStorage.setItem(modInfo.id+"_options", encodeSaveData(options));
 
 }
 function startPlayerBase() {
@@ -192,7 +213,7 @@ function load() {
 		options = getStartOptions();
 	}
 	else {
-		player = Object.assign(getStartPlayer(), JSON.parse(decodeURIComponent(escape(Base64.decode(get)))));
+		player = Object.assign(getStartPlayer(), decodeSaveData(get));
 		fixSave();
 		loadOptions();
 	}
@@ -219,7 +240,7 @@ function load() {
 function loadOptions() {
 	let get2 = localStorage.getItem(modInfo.id+"_options");
 	if (get2) 
-		options = Object.assign(getStartOptions(), JSON.parse(decodeURIComponent(escape(Base64.decode(get2)))));
+		options = Object.assign(getStartOptions(), decodeSaveData(get2));
 	else 
 		options = getStartOptions()
 	if (themes.indexOf(options.theme) < 0) theme = "default"
@@ -259,7 +280,7 @@ function NaNcheck(data, parent = "") {
 }
 function exportSave() {
 	//if (NaNalert) return
-	let str = Base64.encode(JSON.stringify(player));
+	let str = encodeSaveData(player);
 
 	const el = document.createElement("textarea");
 	el.value = str;
@@ -273,7 +294,7 @@ function importSave(imported = undefined, forced = false) {
 	if (imported === undefined)
 		imported = prompt("Paste your save here");
 	try {
-		tempPlr = Object.assign(getStartPlayer(), JSON.parse(Base64.decode(imported)));
+		tempPlr = Object.assign(getStartPlayer(), decodeSaveData(imported));
 		if (tempPlr.versionType != modInfo.id && !forced && !confirm("This save appears to be for a different mod! Are you sure you want to import?")) // Wrong save (use "Forced" to force it to accept.)
 			return;
 		player = tempPlr;

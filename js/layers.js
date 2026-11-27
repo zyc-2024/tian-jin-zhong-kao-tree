@@ -22700,7 +22700,7 @@ addLayer("M", {
 	},
 	buyables: {
 		11: {
-			title: "<b>重置并获得 ??????",
+			title: "<b>数学层：未来的重置入口",
 			gain() {
 				let gain = new OmegaNum(5);
 				return gain;
@@ -22716,7 +22716,7 @@ addLayer("M", {
 					" / " +
 					"56 个已购买的英语网格节点<br>需要" +
 					format(player.C.points) +
-					" / 1e60000 语文知识<br>这是第一个数学相关资源的重置需求，目前无法重置，达到之后恭喜当前版本毕业！";
+					" / 1e60000 语文知识<br>这是数学层未来的重置入口，目前暂未开放。<br>P 层代表 Physics（物理），与 M（数学）无关。";
 				return display;
 			},
 			unlocked() {
@@ -22733,7 +22733,7 @@ addLayer("M", {
 
 	upgrades: {},
 	tabFormat: {
-		Phigros: {
+		Math: {
 			content: ["buyables"],
 		},
 	},

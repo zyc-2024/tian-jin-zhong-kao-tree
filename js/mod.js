@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "rebirth.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,25 +13,24 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.1.0.20230710",
-	name: "Rebirth",
+	num: "Beta v0.2.0.20230712",
+	name: "Physics & PE",
 }
 
 let changelog = `
-中考树v0.1.0.20230710：Rebirth<br>
+中考树v0.2.0.20230712：Physics & PE<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
-- 新增 P 层「Rebirth」：完成 M 层的 Phigros 重置后开启，位于 E 层下方。<br>
-- 新增 残片 货币与 转生（Rebirth）：重置本轮中考进度，保留最佳分数、E 层里程碑和搭档。<br>
-- 新增 搭档系统：Hikari、Tairitsu、Kou 初始可用，Saya、Lethe、Ilith 可在 Reward 页签解锁。<br>
-- 搭档拥有 FRAG / STEP / IGCE 三项属性，分别影响残片、研究步数和全科知识获取。<br>
-- 新增 SlowlyMilestone：随着累计研究步数慢慢解锁的长期里程碑。<br>
-- 新增 Reward：消耗残片购买永久强化与搭档解锁。<br>
-- 新增 5 个 Rebirth 相关成就。<br>
-- 修复 M 层 Phigros 重置条件显示不全的问题；现在会明确显示中考最佳分数 200 分的要求。<br>
-- 修复第五个 Uncommon 写作手法提前解锁的问题：现在需要完成第 5 次挖掘。<br>
-- 修复作文计时结束后无法交卷/登分的问题：超时会自动交作文并解除考试锁定。<br>
-- 修复打开成就页时报错的问题，并新增 Rebirth 成就页签。<br>
-- 旧存档兼容：完成过旧版本毕业条件的玩家可以从 M 层进入 Rebirth。<br>
+- <b>P 层确定为 Physics（物理），与 M（数学）无关。</b><br>
+- M 层占位页签由 Phigros 改名 Math，明确它是数学层、不是 P 层。<br>
+- P 层在中考最佳分数达到 256 分后解锁，位于 E 层下方。<br>
+- 新增 Physics 的 Main / Minigame I：30 秒物理量计算训练，答对 +3 分、答错 -1 分。<br>
+- 物理训练提升力学、热学、光学、电学、实验评分，并提高全科知识获取。<br>
+- 新增独立的 体育 side 层（中考 256 分解锁）：Main 显示身体数据与五项评分，Minigame I 为 30 秒反应速度训练。<br>
+- 体育训练使用 30 道小学三四年级整数计算题，答对 +3 分、答错 -1 分，结束后提升体育能力与反应速度。<br>
+- 修复打开成就页时报错的问题，并新增 Physics & PE 成就页签。<br>
+- 修复中文姓名/中文训练记录在存档后变成乱码的问题；旧格式存档仍可读取。<br>
+- 保留之前的修复：第五个 Uncommon 写作手法需要第 5 次挖掘；作文超时会自动交卷。<br>
+- 上一版把 P 误当成 Phigros/Rebirth 的原型已移至 Old Things，不再参与游戏。<br>
 <br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 特殊成就12获得方法：将你的游戏内名字改成作者的名字，并且完成一次考试！与此同时，神奇的事情将会发生哦
@@ -65,7 +64,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你走完了《天津中考树：Rebirth》的全部主线！<br>你带着搭档们完成了无数次中考，终于把这段循环变成了新的开始。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了 Physics 与体育的双科训练挑战！<br>物理、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -105,7 +104,8 @@ if(hasUpgrade("Eng",57)) gain = gain.mul(upgradeEffect("Eng",57))
 if(hasUpgrade("Eng",67)) gain = gain.mul(upgradeEffect("Eng",67))
 if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
-if (player.P && player.P.unlocked && tmp.P && tmp.P.igceMult) gain = gain.mul(tmp.P.igceMult)
+if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
+if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
 	return gain
 }
 
@@ -118,7 +118,12 @@ function addedPlayerData() { return {
 
 // Determines when the game "ends"
 function isEndgame() {
-	return !!(player.P && player.P.unlocked && hasMilestone("P", 11))
+	return !!(
+		player.P && player.PE &&
+		player.P.bestScore && player.PE.bestScore &&
+		player.P.bestScore.gte(80) && player.PE.bestScore.gte(80) &&
+		player.P.trainingRuns.gte(5) && player.PE.trainingRuns.gte(5)
+	)
 }
 
 function calculateDay() {
@@ -152,30 +157,28 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	// 旧存档里没有 P 层；getStartPlayer/fixData 会补齐，但这里再兜底一次。
+	// 旧版 P 曾是 Phigros/Rebirth 原型；P 现在是 Physics，直接换成新层数据。
+	if (player.P && player.P.partnerLevels) player.P = getStartLayerData("P");
+	if (player.PE && player.PE.partnerLevels) player.PE = getStartLayerData("PE");
 	if (!player.P) player.P = getStartLayerData("P");
-	if (!player.P.partnerLevels) player.P.partnerLevels = {11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1};
-	if (!player.P.partnerUnlocked) player.P.partnerUnlocked = {11: true, 12: true, 13: true, 14: false, 15: false, 16: false};
-	for (let i = 0; i < REBIRTH_PARTNER_ORDER.length; i++) {
-		let id = REBIRTH_PARTNER_ORDER[i];
-		if (player.P.partnerLevels[id] === undefined) player.P.partnerLevels[id] = 1;
-		if (player.P.partnerUnlocked[id] === undefined) player.P.partnerUnlocked[id] = REBIRTH_INITIAL_PARTNERS.includes(id);
-	}
-	if (player.P.selectedPartner === undefined || !isFinite(Number(player.P.selectedPartner))) player.P.selectedPartner = 11;
-	else player.P.selectedPartner = Number(player.P.selectedPartner);
-	if (player.P.steps === undefined) player.P.steps = new OmegaNum(0);
-	if (player.P.totalSteps === undefined) player.P.totalSteps = new OmegaNum(0);
-	if (player.P.rebirths === undefined) player.P.rebirths = new OmegaNum(0);
-	if (player.P.lastGain === undefined) player.P.lastGain = new OmegaNum(0);
+	if (!player.PE) player.PE = getStartLayerData("PE");
+	// 旧存档可能没有新的训练字段；fixData 通常已补齐，这里只兜底。
+	if (player.P.trainingRuns === undefined) player.P.trainingRuns = new OmegaNum(0);
+	if (player.PE.trainingRuns === undefined) player.PE.trainingRuns = new OmegaNum(0);
 }
 var displayThings = [
 	function() {
-		if (player.P && player.P.unlocked) return "当前残局:完成全部 SlowlyMilestone，抵达 Rebirth 的终点";
-		if (hasMilestone("E", 24)) return "当前残局:取得 200 分并完成 M 层 Phigros 重置，开启 Rebirth";
-		return "当前残局:中考最佳分数达到 200 分";
+		if (player.P && player.PE && player.P.bestScore && player.PE.bestScore &&
+			player.P.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
+			return "当前残局:Physics 与体育训练双科最佳达到 80 分";
+		}
+		if (player.E.bestPoints.gte(256)) return "当前残局:完成 Physics / 体育的训练挑战";
+		return "当前残局:中考最佳分数达到 256 分，解锁 Physics 与体育层";
 	},
 	function() {
-		if (player.P && player.P.unlocked) return "残片: " + format(player.P.points) + " · 搭档: " + rebirthSelectedPartnerName() + " · 累计步数: " + format(player.P.totalSteps);
+		if (player.E.bestPoints.gte(256)) {
+			return "物理能力: " + subjectNumber(player.P.points) + " · 体育能力: " + subjectNumber(player.PE.points);
+		}
 	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",
 	function(){return formatDay()},

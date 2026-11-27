@@ -1,5 +1,5 @@
 // Load mod files sequentially. The game's load() is delayed until all
-// files are ready, so layers.js is always defined before rebirth.js.
+// files are ready, so layers.js is always defined before subjects.js.
 let modFilesLoaded = false;
 let modFileIndex = 0;
 

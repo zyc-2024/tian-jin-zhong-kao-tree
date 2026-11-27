@@ -1,16 +1,17 @@
-# 天津中考树：Rebirth
+# 天津中考树：Physics & PE
 
-《天津中考树》的 Rebirth 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
+《天津中考树》的 Physics & PE 更新。游戏以天津中考为背景，用增量/模组树的方式重走初中三年：语文、英语、数学理论、中考分数、经验、自动化与排行榜层层嵌套。
 
-## v0.1.0 Rebirth
+## v0.2.0 Physics & PE
 
-- 完成旧版本毕业条件后，在 M 层 Phigros 页签进入 Rebirth。
-- 新增 P 层：转生获得「残片」，重置本轮进度，但保留最佳分数、E 层里程碑和搭档。
-- 新增搭档系统：Hikari、Tairitsu、Kou 初始可用；Saya、Lethe、Ilith 可在 Reward 中解锁。
-- 搭档拥有 FRAG / STEP / IGCE 三项属性，分别影响残片获取、研究步数和全科知识获取。
-- 新增 SlowlyMilestone 长期里程碑与 Reward 永久强化。
+- **P = Physics（物理）**，与 M（Math）无关，中考最佳分数达到 256 后解锁。
+- 新增 Physics 层：物理能力、力学/热学/光学/电学/实验评分，以及 30 秒物理量计算训练。
+- 新增独立的 **体育层**：中考 256 分解锁，复现身体数据表和 30 秒反应速度训练。
+- 体育 Minigame I：30 道整数计算题，答对 +3、答错 -1，结束后提升体育能力与反应速度。
+- 新增 Physics & PE 成就页签，并修复成就页报错。
+- 上一版 P=Phigros/Rebirth 的原型已移至 `Old Things/rebirth-prototype.js`，不再加载。
 
-更完整的推断过程与测试方法见 [REBIRTH.md](REBIRTH.md)。
+更完整的截图对照、规则说明和测试方法见 [PHYSICS.md](PHYSICS.md)。
 
 ## 原始引擎
 
