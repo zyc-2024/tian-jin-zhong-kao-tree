@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "subjects.js", "chemistry.js", "biology.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "chemistry.js", "biology.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "achievements_more.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,21 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.13.0.20230923",
-	name: "Links",
+	num: "Beta v0.14.0.20230930",
+	name: "300",
 }
 
 let changelog = `
+中考树v0.14.0.20230930：300<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 成就总数扩充到 300 个。<br>
+- 新增理科训练、文科训练、学科能力、考试进阶、进阶收集五个成就页。<br>
+- 为物理 / 化学 / 生物 / 体育 / 政治 / 历史 / 地理增加训练次数、最佳分数和能力阈值成就。<br>
+- 为中考总分、历史考试、地理考试增加分数成就。<br>
+- 为里程碑收集、成就数量、15 组联动满级和层内进度增加成就。<br>
+- 旧存档会自动结算已经满足条件的新成就。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.13.0.20230923：Links<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 训练收益接入跨学科联动：相关联动等级越高，训练获得的能力越多。<br>
