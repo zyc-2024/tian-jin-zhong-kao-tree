@@ -182,6 +182,7 @@ function subjectFinish(layer) {
 	p.trainingRuns = p.trainingRuns.add(1);
 	p.bestScore = p.bestScore.max(p.score);
 	let gain = new OmegaNum(Math.max(0, p.score)).mul(subjectLinkMult(layer)).mul(layerMilestoneBonus(layer)).mul(milestoneResonanceMult());
+	if (typeof achievementRewardMult === "function") gain = gain.mul(achievementRewardMult());
 	addPoints(layer, gain);
 
 	if (layer === "PE") {

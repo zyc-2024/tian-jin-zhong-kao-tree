@@ -64,6 +64,7 @@ function synergyRate() {
 	let rate = new OmegaNum(0.02).mul(synergyTotalLinkLevels()).add(synergyPairCountAtLeast(1) * 0.05);
 	if (hasMilestone("Syn", 0)) rate = rate.mul(1.05);
 	if (typeof layerMilestoneBonus === "function") rate = rate.mul(layerMilestoneBonus("Syn"));
+	if (typeof achievementRewardMult === "function") rate = rate.mul(achievementRewardMult());
 	return rate;
 }
 

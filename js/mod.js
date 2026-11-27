@@ -13,11 +13,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.16.0.20231014",
-	name: "Milestones+",
+	num: "Beta v0.17.0.20231021",
+	name: "Rewards",
 }
 
 let changelog = `
+中考树v0.17.0.20231021：Rewards<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 确认 300 个成就全部具备达成条件、奖励和提示文字。<br>
+- 每个成就奖励：成就进度 +1，永久全科加成 +0.5%。<br>
+- 成就加成接入学分、训练收益、语文阅读、英语 / 数学 / 中考 / 经验 / 排行榜 / 自动化产出和综合素质产出。<br>
+- 每个成就的悬浮提示同时显示条件、所属剧情章节、奖励和完成后的剧情片段。<br>
+- 旧存档按已完成成就数量自动计算成就奖励。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 中考树v0.16.0.20231014：Milestones+<br>
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 - 每个层级继续增加里程碑，总里程碑数扩展到 166 个。<br>
@@ -265,6 +274,7 @@ if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.
 if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
 if (typeof milestonePointMult === "function") gain = gain.mul(milestonePointMult())
 if (typeof milestoneResonanceMult === "function") gain = gain.mul(milestoneResonanceMult())
+if (typeof achievementRewardMult === "function") gain = gain.mul(achievementRewardMult())
 if (typeof synergyMult === "function") gain = gain.mul(synergyMult())
 	return gain
 }

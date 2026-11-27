@@ -156,13 +156,39 @@ for (let key in layers.A.achievements) {
 	let ach = layers.A.achievements[key];
 	let chapter = ACHIEVEMENT_CHAPTERS[achievementChapterForID(Number(key))];
 	if (!ach || !chapter) continue;
+	ach.reward = "成就进度 +1；永久全科加成 +0.5%。";
+	let rewardText = "<br><b>奖励</b>：" + ach.reward;
 	if (!ach.goalTooltip) {
-		ach.goalTooltip = "<b>成长目标</b><br>" + (ach.tooltip || "完成对应条件。") + "<br><i>成长档案：" + chapter.title + "</i>";
+		ach.goalTooltip = "<b>成长目标</b><br>" + (ach.tooltip || "完成对应条件。") + "<br><i>成长档案：" + chapter.title + "</i>" + rewardText;
 	}
 	if (!ach.doneTooltip) {
-		ach.doneTooltip = "<b>" + (ach.name || "成就") + "</b><br>" + chapter.line + "<br><i>—— " + chapter.title + "</i>";
+		ach.doneTooltip = "<b>" + (ach.name || "成就") + "</b><br>" + chapter.line + "<br><i>—— " + chapter.title + "</i>" + rewardText;
 	}
 }
+
+function achievementRewardMult() {
+	return new OmegaNum(1).add(player.A.Goals.mul(0.005));
+}
+
+function applyAchievementRewardBonuses() {
+	const ids = ["C", "E", "Eng", "M", "Nf", "Am", "Exp", "L"];
+	for (let i = 0; i < ids.length; i++) {
+		let id = ids[i];
+		if (layers[id] && typeof layers[id].gainMult === "function") {
+			let old = layers[id].gainMult;
+			layers[id].gainMult = function () {
+				return old.apply(this, arguments).mul(achievementRewardMult());
+			};
+		}
+	}
+	if (layers.C && typeof layers.C.perSecond === "function") {
+		let old = layers.C.perSecond;
+		layers.C.perSecond = function () {
+			return old.call(this).mul(achievementRewardMult());
+		};
+	}
+}
+applyAchievementRewardBonuses();
 
 function chapterHTML(chapter, index) {
 	let done = chapter.done();
@@ -185,7 +211,9 @@ layers.A.tabFormat["成长档案"] = {
 			let unlocked = 0;
 			for (let i = 0; i < ACHIEVEMENT_CHAPTERS.length; i++) if (ACHIEVEMENT_CHAPTERS[i].done()) unlocked++;
 			return "<h2 style='color:#FFD700'>成长档案</h2><br>已完成成就：<b style='color:#FF66FF'>" + player.A.Goals + "</b> / " + moreTotalAchievements() +
-				"<br>已解锁章节：<b style='color:#FFD700'>" + unlocked + "</b> / " + ACHIEVEMENT_CHAPTERS.length;
+				"<br>已解锁章节：<b style='color:#FFD700'>" + unlocked + "</b> / " + ACHIEVEMENT_CHAPTERS.length +
+				"<br><br>每个成就奖励：<b>成就进度 +1</b>，永久全科加成 <b>+0.5%</b>。" +
+				"<br>当前成就奖励：<b style='color:#FF66FF'>x" + format(achievementRewardMult()) + "</b>";
 		}],
 		"blank",
 		["display-text", function () {
