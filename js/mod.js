@@ -3,7 +3,7 @@ let modInfo = {
 	id: "Ignotus",
 	author: "Lixiaohan as a student from Tianjin Zili High School,Class3,Grade9",
 	pointsName: "学分",
-	modFiles: ["layers.js", "tree.js"],
+	modFiles: ["layers.js", "subjects.js", "chemistry.js", "biology.js", "politics.js", "history_geo.js", "milestones.js", "achievements_extra.js", "synergy.js", "achievements_more.js", "achievements_story.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,187 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "Beta v0.0.5.20230101",
-	name: "新年特辑",
+	num: "Beta v0.17.0.20231021",
+	name: "Rewards",
 }
 
 let changelog = `
+中考树v0.17.0.20231021：Rewards<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 确认 300 个成就全部具备达成条件、奖励和提示文字。<br>
+- 每个成就奖励：成就进度 +1，永久全科加成 +0.5%。<br>
+- 成就加成接入学分、训练收益、语文阅读、英语 / 数学 / 中考 / 经验 / 排行榜 / 自动化产出和综合素质产出。<br>
+- 每个成就的悬浮提示同时显示条件、所属剧情章节、奖励和完成后的剧情片段。<br>
+- 旧存档按已完成成就数量自动计算成就奖励。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.16.0.20231014：Milestones+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 每个层级继续增加里程碑，总里程碑数扩展到 166 个。<br>
+- 新增里程碑共鸣：每达成 1 个里程碑，全科知识获取 +0.5%。<br>
+- 每层里程碑还会提高本层产出或训练收益，每 1 个本层里程碑 +2%。<br>
+- 语文 / 英语 / 数学 / 中考 / 经验 / 排行榜 / 自动化等层级接入本层里程碑产出加成。<br>
+- 物理 / 化学 / 生物 / 体育 / 政治 / 历史 / 地理的训练收益接入本层里程碑加成。<br>
+- 综合素质产出接入综合素质里程碑加成。<br>
+- A 层里程碑页新增「里程碑总览」，显示每层已达成 / 总数和本层加成。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.15.0.20231007：Story<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增「成长档案」页签，用 12 个章节串联成就剧情。<br>
+- 章节根据成就数量、考试分数、学科训练和综合素质进度逐步解锁。<br>
+- 为全部 300 个成就补充目标提示和完成后的剧情提示。<br>
+- 成就不再只是数字，完成时会对应到成长档案中的章节。<br>
+- 旧存档加载后会根据已有进度自动解锁对应章节。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.14.0.20230930：300<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 成就总数扩充到 300 个。<br>
+- 新增理科训练、文科训练、学科能力、考试进阶、进阶收集五个成就页。<br>
+- 为物理 / 化学 / 生物 / 体育 / 政治 / 历史 / 地理增加训练次数、最佳分数和能力阈值成就。<br>
+- 为中考总分、历史考试、地理考试增加分数成就。<br>
+- 为里程碑收集、成就数量、15 组联动满级和层内进度增加成就。<br>
+- 旧存档会自动结算已经满足条件的新成就。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.13.0.20230923：Links<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 训练收益接入跨学科联动：相关联动等级越高，训练获得的能力越多。<br>
+- 每个训练层 Main 显示当前跨学科训练加成。<br>
+- 新增体生联动，综合素质联动扩展到 15 组。<br>
+- 增加双向跨层反馈：体育→生物人体、政治→历史事件、历史→语文阅读、地理→生物生态。<br>
+- 物理→化学实验、化学→生物实验、生物→地理综合评分继续生效。<br>
+- 各训练层说明框同步标注新的跨层效果。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.12.0.20230916：Biology<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增生物层（Bio），与物理 / 化学 / 体育并列放在中考层下方。<br>
+- 新增生物训练、生物题库、五项评分和生物里程碑。<br>
+- 新增生物成就页与 4 个生物成就：生物启程、生物最佳、生物五项、生化双全。<br>
+- 综合素质新增生化、生地联动，总联动数扩展到 14 组。<br>
+- 生物实验训练会给化学增加少量实验评分。<br>
+- 旧存档会自动补齐生物层数据，表格主题继续适用。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.11.0.20230909：Chemistry<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增化学层（Chem），与物理 / 体育并列放在中考层下方。<br>
+- 新增化学训练、化学题库、五项评分和化学里程碑。<br>
+- 新增化学成就页与 4 个化学成就：化学启程、化学最佳、化学五项、理化双全。<br>
+- 综合素质新增化理、化数联动，总联动数扩展到 12 组。<br>
+- 化学实验训练会给物理增加少量实验评分。<br>
+- 旧存档会自动补齐化学层数据，表格主题继续适用。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.10.0.20230902：Physics<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 重新加入物理层（P），与体育层并列放在中考层（E）下方。<br>
+- 恢复物理训练、物理题库、五项评分和物理里程碑。<br>
+- 恢复物理与地理、综合素质的联动：数理、体理重新生效。<br>
+- 物理 / 体育成就页重新合并，新增物理启程、物理最佳、物理五项和双科成就。<br>
+- 旧存档会自动补齐物理层数据，物理页签恢复可用。<br>
+- 表格主题继续适用于新的物理层。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.9.0.20230826：Table<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 参考 The-Modding-Table 的表格视觉，重做全局 UI 风格。<br>
+- 新增 css/table-theme.css：深色平面、等宽字体、直角边框、细滚动条。<br>
+- 树节点改为表格单元格样式，主科与侧栏都使用直角块。<br>
+- 标签页改为表头式按钮，并高亮当前页签。<br>
+- 成就、购买项、升级、里程碑、弹窗和提示框统一为平面表格风格。<br>
+- 保留原有树形结构、配色语义和所有交互逻辑。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.8.0.20230819：PE Focus<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 删除物理层（P），树上的物理训练与物理里程碑不再出现。<br>
+- 体育层移到中考层（E）正下方，作为唯一的训练挑战层。<br>
+- 语文 / 数学 / 英语 / 历史 / 地理 / 政治全部放在第一排。<br>
+- 地理联动改为数学理论；综合素质联动用「数英」「体政」替换「数理」「体理」。<br>
+- 物理 / 体育成就页改为体育成就页，原 5 个成就全部改为体育目标。<br>
+- 旧存档会自动清理物理层数据，体育层与成就数据保留。<br>
+- 旧版本记录中的物理层内容仅作历史保留。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.7.1.20230812：Clarity<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 统一学科称呼：树节点使用 H / G 等短标记，中文界面使用历史 / 地理 / 政治 / 体育 / 综合素质，英文全名只用于层名和代码。<br>
+- 层提示、说明框、成就名、里程碑描述、考试交卷、分数标题和成就页签全部同步。<br>
+- 修正“文史贯通”等与联动对象不符的文本，统一为“政史贯通”。<br>
+- “中考最佳分数”和“最佳中考分数”统一写法；训练计时改为中文。<br>
+- 内部层 ID 与存档字段保持不变，旧存档可以继续读取。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.7.0.20230805：Synergy<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增综合素质层：把各层里程碑做成 10 组跨学科联动。<br>
+- 联动包括语史、语政、语英、数理、数地、英地、史地、政史、体理、体地。<br>
+- 每一对联动等级由双方层的里程碑数量决定，提供全科知识倍率。<br>
+- 综合素质层可产出综合素质，购买跨学科整合、联合教研、全面发展等永久奖励。<br>
+- 综合素质层有 5 个联动里程碑和 5 个联动成就。<br>
+- 成就页新增综合素质页签。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.6.0.20230728：Achievements<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 为数学 / 计数法 / 自动化 / 经验 / 排行榜 / 语文 / 中考 / 英语的里程碑增加对应成就。<br>
+- 新增全局里程碑收集成就：10 / 30 / 50 个里程碑。<br>
+- 新增「成就达人」「成就狂人」等成就自身成就。<br>
+- 成就页新增数学 / 策略 / 自动化、经验 / 排行榜、语文 / 中考 / 英语、全局里程碑四个页签。<br>
+- 所有新成就都会增加 A 层 Goals，并与现有 A 层里程碑联动。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.5.0.20230725：Milestones<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 为语文 / 中考 / 英语增加后期里程碑。<br>
+- 为数学 / 计数法 / 成就 / 自动化 / 经验 / 排行榜增加里程碑。<br>
+- 为物理 / 体育 / 政治 / 历史 / 地理增加训练里程碑。<br>
+- 所有新增里程碑统一提供全科知识倍率，并在对应层级显示。<br>
+- 物理 / 体育 / 政治 / 历史 / 地理新增里程碑页签；数学 / 计数法 / 成就 / 自动化也补上里程碑页。<br>
+- 里程碑解锁时会弹出提示，效果会即时生效。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.4.0.20230720：历史 / 地理<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增历史层：最佳中考分数 103 后解锁，与政治 / 语文联动。<br>
+- 新增地理层：最佳中考分数 119 后解锁，与物理 / 数学联动。<br>
+- 历史 / 地理各有 Main、背诵专区和 Minigame I 速答。<br>
+- 历史训练会给政治增加时政敏感度；地理训练会给物理增加实验评分。<br>
+- 历史与地理互相提供全科倍率加成，史地不分家。<br>
+- 考试板块新增历史 / 地理试卷：单项选择题、材料解析题、综合题，题型参考天津中考。<br>
+- 历史 / 地理考试分数会计入中考总分，未完成两科不能查分。<br>
+- 新增历史 / 地理成就和成就页签。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.3.0.20230715：政治 / 物理 / 体育<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- 新增政治层（道德与法治）：最佳中考分数达到 84 分后解锁。<br>
+- 政治位于语文 / 数学 / 英语同排，是第四门主科；与物理互相独立。<br>
+- Main 显示政治能力与道德修养 / 法治意识 / 国情认知 / 时政敏感度 / 答题规范五项评分。<br>
+- 新增背诵专区：消耗政治能力背诵知识点，永久提升对应评分。<br>
+- 新增 Minigame I「时政速答」：30 秒政治选择题，答对 +3、答错 -1。<br>
+- 新增政治相关成就与成就页签。<br>
+- 政治五项评分总和会提高全科知识获取。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+中考树v0.2.0.20230712：Physics & PE<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
+- <b>物理层（P）确定为 Physics，与数学层（M）无关。</b><br>
+- 数学层占位页签由 Phigros 改名 Math，明确它是数学层、不是物理层。<br>
+- 物理层在最佳中考分数达到 256 分后解锁，位于中考层下方。<br>
+- 新增物理的 Main / Minigame I：30 秒物理量计算训练，答对 +3 分、答错 -1 分。<br>
+- 物理训练提升力学、热学、光学、电学、实验评分，并提高全科知识获取。<br>
+- 新增独立的体育层（最佳中考 256 分解锁）：Main 显示身体数据与五项评分，Minigame I 为 30 秒反应速度训练。<br>
+- 体育训练使用 30 道小学三四年级整数计算题，答对 +3 分、答错 -1 分，结束后提升体育能力与反应速度。<br>
+- 修复打开成就页时报错的问题，并新增物理 / 体育成就页签。<br>
+- 修复中文姓名/中文训练记录在存档后变成乱码的问题；旧格式存档仍可读取。<br>
+- 保留之前的修复：第五个 Uncommon 写作手法需要第 5 次挖掘；作文超时会自动交卷。<br>
+- 上一版把物理层误当成 Phigros/Rebirth 的原型已移至 Old Things，不再参与游戏。<br>
+<br>
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-<br>
 特殊成就12获得方法：将你的游戏内名字改成作者的名字，并且完成一次考试！与此同时，神奇的事情将会发生哦
 <br><br>
 中考树v0.0.5.20230101<br>
@@ -49,7 +225,7 @@ bilibili_萌子叶（非号主<br>
 `
 		
 
-let winText = `恭喜你！你取得了该版本的毕业成绩！新年快乐！<br>作者到达该版本毕业成绩的时间为2222年，你的成绩超越作者了吗？<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
+let winText = `恭喜你！你完成了物理、化学、生物与体育的四科训练挑战！<br>理科实验、体育和中考终于不再是互相拖后腿的科目。<br>感谢你陪作者做完这个迟到了很久的版本。<br>作者：Lixiaohan From Tianjin Zili High School(Grade9,Class3)`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -89,6 +265,17 @@ if(hasUpgrade("Eng",57)) gain = gain.mul(upgradeEffect("Eng",57))
 if(hasUpgrade("Eng",67)) gain = gain.mul(upgradeEffect("Eng",67))
 if(hasUpgrade("Eng",77)) gain = gain.mul(upgradeEffect("Eng",77))
 if(hasUpgrade("Eng",87)) gain = gain.mul(upgradeEffect("Eng",87))
+if (player.P && player.P.unlocked && tmp.P && tmp.P.effect) gain = gain.mul(tmp.P.effect)
+if (player.Chem && player.Chem.unlocked && tmp.Chem && tmp.Chem.effect) gain = gain.mul(tmp.Chem.effect)
+if (player.Bio && player.Bio.unlocked && tmp.Bio && tmp.Bio.effect) gain = gain.mul(tmp.Bio.effect)
+if (player.PE && player.PE.unlocked && tmp.PE && tmp.PE.effect) gain = gain.mul(tmp.PE.effect)
+if (player.Pol && player.Pol.unlocked && tmp.Pol && tmp.Pol.effect) gain = gain.mul(tmp.Pol.effect)
+if (player.His && player.His.unlocked && tmp.His && tmp.His.effect) gain = gain.mul(tmp.His.effect)
+if (player.Geo && player.Geo.unlocked && tmp.Geo && tmp.Geo.effect) gain = gain.mul(tmp.Geo.effect)
+if (typeof milestonePointMult === "function") gain = gain.mul(milestonePointMult())
+if (typeof milestoneResonanceMult === "function") gain = gain.mul(milestoneResonanceMult())
+if (typeof achievementRewardMult === "function") gain = gain.mul(achievementRewardMult())
+if (typeof synergyMult === "function") gain = gain.mul(synergyMult())
 	return gain
 }
 
@@ -101,7 +288,12 @@ function addedPlayerData() { return {
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.E.bestPoints.gte(200)&&player.Eng.power.gte("1e1444")&&new OmegaNum(player.Eng.upgrades.length).gte(56)&&player.C.points.gte("1e60000")
+	return !!(
+		player.P && player.Chem && player.Bio && player.PE &&
+		player.P.bestScore && player.Chem.bestScore && player.Bio.bestScore && player.PE.bestScore &&
+		player.P.bestScore.gte(80) && player.Chem.bestScore.gte(80) && player.Bio.bestScore.gte(80) && player.PE.bestScore.gte(80) &&
+		player.P.trainingRuns.gte(5) && player.Chem.trainingRuns.gte(5) && player.Bio.trainingRuns.gte(5) && player.PE.trainingRuns.gte(5)
+	)
 }
 
 function calculateDay() {
@@ -135,9 +327,52 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+	// 旧版物理 / 化学 / 生物层数据可能缺失；现在统一补齐。
+	if (player.P && player.P.partnerLevels) player.P = getStartLayerData("P");
+	if (player.Chem && player.Chem.partnerLevels) player.Chem = getStartLayerData("Chem");
+	if (player.Bio && player.Bio.partnerLevels) player.Bio = getStartLayerData("Bio");
+	if (player.PE && player.PE.partnerLevels) player.PE = getStartLayerData("PE");
+	if (!player.P) player.P = getStartLayerData("P");
+	if (!player.Chem) player.Chem = getStartLayerData("Chem");
+	if (!player.Bio) player.Bio = getStartLayerData("Bio");
+	if (!player.PE) player.PE = getStartLayerData("PE");
+	// 旧存档可能没有新的训练字段；fixData 通常已补齐，这里只兜底。
+	if (player.P.trainingRuns === undefined) player.P.trainingRuns = new OmegaNum(0);
+	if (player.Chem.trainingRuns === undefined) player.Chem.trainingRuns = new OmegaNum(0);
+	if (player.Bio.trainingRuns === undefined) player.Bio.trainingRuns = new OmegaNum(0);
+	if (player.PE.trainingRuns === undefined) player.PE.trainingRuns = new OmegaNum(0);
 }
 var displayThings = [
-	"当前残局:中考最佳分数达到119分",
+	function() {
+		if (player.P && player.Chem && player.Bio && player.PE &&
+			player.P.bestScore && player.Chem.bestScore && player.Bio.bestScore && player.PE.bestScore &&
+			player.P.bestScore.gte(80) && player.Chem.bestScore.gte(80) && player.Bio.bestScore.gte(80) && player.PE.bestScore.gte(80)) {
+			return "当前残局：物理、化学、生物与体育训练的四科最佳都达到 80 分";
+		}
+		if (player.E.bestPoints.gte(256)) return "当前残局：完成物理 / 化学 / 生物 / 体育的训练挑战";
+		if (player.E.bestPoints.gte(119)) return "当前残局：历史 / 地理已解锁，继续冲击 256 分以解锁物理、化学、生物与体育";
+		if (player.E.bestPoints.gte(103)) return "当前残局：历史已解锁，继续冲击 119 分以解锁地理";
+		if (player.E.bestPoints.gte(84)) return "当前残局：政治已解锁，继续冲击 103 分以解锁历史";
+		return "当前残局：84 分解锁政治；103 分解锁历史；119 分解锁地理；256 分解锁物理、化学、生物与体育";
+	},
+	function() {
+		if (player.E.bestPoints.gte(256)) {
+			return "物理能力：" + subjectNumber(player.P.points) + " · 化学能力：" + subjectNumber(player.Chem.points) + " · 生物能力：" + subjectNumber(player.Bio.points) + " · 体育能力：" + subjectNumber(player.PE.points);
+		}
+	},
+	function() {
+		if (player.E.bestPoints.gte(84) && player.Pol) {
+			return "政治能力：" + subjectNumber(player.Pol.points) + " · 政治最佳训练：" + subjectNumber(player.Pol.bestScore) + " 分";
+		}
+	},
+	function() {
+		if (player.E.bestPoints.gte(119) && player.His && player.Geo) {
+			return "历史知识：" + subjectNumber(player.His.points) + " · 地理知识：" + subjectNumber(player.Geo.points) + " · 史地最佳：" + subjectNumber(player.His.bestScore) + " / " + subjectNumber(player.Geo.bestScore);
+		}
+		if (player.E.bestPoints.gte(103) && player.His) {
+			return "历史知识：" + subjectNumber(player.His.points) + " · 历史最佳训练：" + subjectNumber(player.His.bestScore) + " 分";
+		}
+	},
 	"*目前游戏处于Beta版本，如遇到bug或者平衡问题可联系qq2119542935*",
 	function(){return formatDay()},
 	function() {if((player.points.gte(1444))&&(player.points.lt(8000))) return "如果你每个学分占据一个氢原子大小，那么它们足以制造"+format(player.points.div(new OmegaNum("1444"))) + "个葡萄糖分子。"},
